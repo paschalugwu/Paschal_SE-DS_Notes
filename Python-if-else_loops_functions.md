@@ -347,3 +347,5 @@ Arithmetic operators are essential tools for performing mathematical operations 
 
 Conclusion:
 This note aimed to provide a comprehensive understanding of Python programming, covering essential topics and concepts. By mastering these concepts, students will be equipped to write efficient and functional Python code. Remember, practice is key to becoming proficient in any programming language.
+
+© [2023] [Paschal Ugwu]
