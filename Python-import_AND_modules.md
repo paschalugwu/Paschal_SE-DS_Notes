@@ -157,3 +157,5 @@ In conclusion, Python modules are like super useful toolboxes that help us organ
 5. Access command line arguments: Command line arguments are like extra instructions we can give to our programs when running them from the command line. They allow us to personalize our programs and make them more interactive. 
  
 By mastering these concepts and techniques, we become more efficient and effective Python programmers. We can write clean, organized, and reusable code that solves problems and makes our lives easier. So keep exploring, practicing, and experimenting with Python modules, and you'll become a coding superstar!
+
+© [2023] [Paschal Ugwu]
