@@ -1895,8 +1895,8 @@ char *replaceVariables(char *command) {
 }
 ```
 
-19. Handling the $? Variable:
-In a shell, the $? variable holds the exit status of the last command executed. By handling this variable, you can provide users with the ability to access and use the exit status in subsequent commands or scripts.
+19. Handling the `$?` Variable:
+In a shell, the `$?` variable holds the exit status of the last command executed. By handling this variable, you can provide users with the ability to access and use the exit status in subsequent commands or scripts.
 
 Example code snippet:
 
