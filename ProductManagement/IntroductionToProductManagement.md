@@ -119,3 +119,6 @@ Continuous learning is the musician's journey towards mastery. Emphasizing the d
 ### Building a Career in Product Management:
 
 Building a career in product management is like composing a musical opus. Product managers provide insights into career paths, skills development, and resources for aspiring product managers. Just as musicians choose instruments and refine their craft, individuals can select a product management career path aligned with their skills and interests. As they gain experience, they unlock new levels and achievements in their product management journey.
+
+
+© [2023] [Paschal Ugwu]
