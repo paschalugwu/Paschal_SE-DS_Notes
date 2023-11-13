@@ -84,7 +84,7 @@ Imagine you have a magical map that shows you the way to all the hidden treasure
 By using these tools, you can explore the symbols in libraries, understand the dependencies of your program, and manage the locations of shared libraries. It's like having special tools and maps to navigate the world of programming and ensure everything works smoothly.
 
 ## Conclusion:
-This comprehensive note has provided an in-depth understanding of dynamic libraries, their creation, usage, and the differences between static and shared libraries. Additionally, you have learned about essential tools like nm, ldd, and ldconfig for library management. With this knowledge, you are now equipped to explain these concepts without external assistance. Happy coding!
+This comprehensive note has provided an in-depth understanding of dynamic libraries, their creation, usage, and the differences between static and shared libraries. Additionally, you have learned about essential tools like nm, ldd, and ldconfig for library management. Happy coding!
 
 
 © [2023] [Paschal Ugwu]
