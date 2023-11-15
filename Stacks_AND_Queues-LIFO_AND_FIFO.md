@@ -214,11 +214,13 @@ In summary, this code provides a basic implementation of a queue data structure 
 Let's explore the common ways to implement stacks and queues in a way that's easy to understand.
 
 - Common implementations of stacks:
+
    a. Array-based implementation: Imagine you have a stack of books on a table. Each book represents an element in the stack, and the top book represents the most recently added element. In an array-based implementation, the stack is like a fixed-size shelf where you can only add or remove books from the top. The size of the array determines the maximum number of books you can have on the shelf. When you add a book, you place it on top of the stack, and when you remove a book, you take it from the top. However, if you try to add more books than the shelf can hold, it will overflow, and if you try to remove a book from an empty shelf, it will underflow.
 
    b. Linked list-based implementation: Imagine you have a stack of plates, and each plate represents an element in the stack. The top plate represents the most recently added element. In a linked list-based implementation, the stack is like a stack of plates where you can add or remove plates from the top. Each plate has a reference to the plate below it, forming a chain. When you add a plate, you place it on top of the stack, and when you remove a plate, you take it from the top. This implementation allows for a dynamic number of elements, and you can add or remove plates without worrying about the size of the stack.
 
 - Common implementations of queues:
+
    a. Array-based implementation: Imagine you are waiting in line at a movie theater. Each person in the line represents an element in the queue. In an array-based implementation, the queue is like a fixed-size line where people join at the rear and leave from the front. When a new person arrives, they join the line at the rear, and when it's their turn, they leave from the front. However, if the line becomes full and you try to add more people, it will overflow, and if you try to remove a person from an empty line, it will underflow.
 
    b. Linked list-based implementation: Imagine you are waiting in line at a theme park, and each person represents an element in the queue. In a linked list-based implementation, the queue is like a line of people where they join at the rear and leave from the front. Each person has a reference to the person behind them, forming a chain. When a new person arrives, they join the line at the rear, and when it's their turn, they leave from the front. This implementation allows for a dynamic number of elements, and you can add or remove people without worrying about the size of the queue.
@@ -228,6 +230,7 @@ Let's explore the common ways to implement stacks and queues in a way that's eas
 Let's explore some real-life scenarios where stacks and queues are commonly used.
 
 - Most common use cases of stacks:
+
    a. Function call stack: Imagine you have a set of instructions to follow, and each instruction calls another set of instructions. The function call stack is like a stack of instruction sets. When you start executing a new set of instructions, you push it onto the stack. As you complete each set of instructions, you pop it from the stack and continue with the previous set. This helps in keeping track of where you are in the instructions and allows you to return to the previous set once you finish the current one.
 
    b. Expression evaluation: Imagine you have a complex mathematical expression to solve, like (2 + 3) * 4. To evaluate this expression correctly, you need to follow the order of operations and keep track of the numbers and operators. A stack can help with that. It's like having a stack of numbers and operators. As you encounter numbers and operators in the expression, you push them onto the stack. When you reach an operator with higher precedence, you pop the necessary elements from the stack, perform the operation, and push the result back onto the stack. This way, the stack helps maintain the correct order of operations.
@@ -237,6 +240,7 @@ Let's explore some real-life scenarios where stacks and queues are commonly used
    d. Backtracking algorithms: Imagine you are exploring a maze or solving a puzzle. Backtracking algorithms, like depth-first search (DFS), use a stack to keep track of different paths. As you explore one path, you push the states or positions you encounter onto the stack. If you reach a dead-end, you backtrack by popping from the stack and trying a different path. This way, the stack helps you remember the different options you have explored and allows you to backtrack when needed.
 
 - Most common use cases of queues:
+
    a. Process scheduling: Imagine you have multiple processes or tasks waiting to be executed on your computer. The process scheduling is like a queue of tasks. Each task joins the queue based on when it arrives, and they are executed in the order they joined the queue. It's like people waiting in line to use a computer, and the next person in line gets their turn to use the computer.
 
    b. Print spooling: Imagine you are in a school computer lab, and multiple students send print requests to a printer. The print spooling is like a queue of print jobs. Each print job joins the queue based on when it was requested, and they are printed in the order they joined the queue. It's like a line of documents waiting to be printed, and the printer processes them one by one.
