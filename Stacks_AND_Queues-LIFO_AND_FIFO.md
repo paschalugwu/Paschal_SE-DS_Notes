@@ -41,7 +41,7 @@ int pop(Stack* stack) {
     return item;
 }
 ```
-```
+
 This code defines a stack data structure in C programming. The stack is implemented using an array called  `data`  and a variable called  `top`  that keeps track of the index of the top element in the stack. The maximum size of the stack is defined as  `MAX_SIZE` , which is set to 100.
 
 The  `push`  function is used to add an item to the stack. It takes a pointer to a  `Stack`  structure and an item as parameters. First, it checks if the stack is already full by comparing the  `top`  value to  `MAX_SIZE - 1` . If the stack is full, it prints an error message indicating a "stack overflow" and returns. Otherwise, it increments the  `top`  value and assigns the item to the  `data`  array at the updated  `top`  index.
@@ -49,7 +49,7 @@ The  `push`  function is used to add an item to the stack. It takes a pointer to
 The  `pop`  function is used to remove and return the topmost item from the stack. It also takes a pointer to a  `Stack`  structure as a parameter. First, it checks if the stack is empty by comparing the  `top`  value to -1. If the stack is empty, it prints an error message indicating a "stack underflow" and returns an appropriate error value (e.g., -1). Otherwise, it retrieves the item from the  `data`  array at the current  `top`  index, decrements the  `top`  value, and returns the item.
 
 Overall, this code provides a basic implementation of a stack data structure with functions to push items onto the stack and pop items from the stack, while also handling overflow and underflow conditions.
-```
+
 
 2. FIFO (First-In, First-Out):
 FIFO stands for "First-In, First-Out." Imagine you're waiting in a queue at a movie theater. The person who arrives first gets to enter the theater first. Similarly, in a queue, the first item that is added is the first one to be removed.
@@ -86,7 +86,7 @@ int dequeue(Queue* queue) {
     return item;
 }
 ```
-```
+
 This code defines a queue data structure in C programming. The queue is implemented using an array called  `data`  and two variables called  `front`  and  `rear`  to keep track of the indices of the front and rear elements of the queue, respectively. The maximum size of the queue is defined as  `MAX_SIZE` , which is set to 100.
 
 The  `enqueue`  function is used to add an item to the queue. It takes a pointer to a  `Queue`  structure and an item as parameters. First, it checks if the rear index is equal to  `MAX_SIZE - 1` , indicating that the queue is already full. If the queue is full, it prints an error message indicating a "queue overflow" and returns. Otherwise, it increments the rear index and assigns the item to the  `data`  array at the updated rear index.
@@ -94,7 +94,7 @@ The  `enqueue`  function is used to add an item to the queue. It takes a pointer
 The  `dequeue`  function is used to remove and return the frontmost item from the queue. It also takes a pointer to a  `Queue`  structure as a parameter. First, it checks if the front index is greater than the rear index, indicating that the queue is empty. If the queue is empty, it prints an error message indicating a "queue underflow" and returns an appropriate error value (e.g., -1). Otherwise, it retrieves the item from the  `data`  array at the current front index, increments the front index, and returns the item.
 
 In summary, this code provides a basic implementation of a queue data structure with functions to enqueue items into the queue and dequeue items from the queue, while also handling overflow and underflow conditions.
-```
+
 
 ## 2. What is a stack, and when to use it?
 
@@ -141,7 +141,7 @@ int pop(Stack* stack) {
     return item;
 }
 ```
-```
+
 This code defines a stack data structure in the C programming language. The stack is implemented using an array called  `data`  and a variable called  `top`  that keeps track of the index of the top element in the stack. The maximum size of the stack is defined as  `MAX_SIZE` , which is set to 100.
 
 The  `push`  function is used to add an item to the stack. It takes a pointer to a  `Stack`  structure and an item as parameters. First, it checks if the stack is already full by comparing the  `top`  value to  `MAX_SIZE - 1` . If the stack is full, it prints an error message indicating a "stack overflow" and returns. Otherwise, it increments the  `top`  value and assigns the item to the  `data`  array at the updated  `top`  index.
@@ -149,7 +149,7 @@ The  `push`  function is used to add an item to the stack. It takes a pointer to
 The  `pop`  function is used to remove and return the topmost item from the stack. It also takes a pointer to a  `Stack`  structure as a parameter. First, it checks if the stack is empty by comparing the  `top`  value to -1. If the stack is empty, it prints an error message indicating a "stack underflow" and returns an appropriate error value (e.g., -1). Otherwise, it retrieves the item from the  `data`  array at the current  `top`  index, decrements the  `top`  value, and returns the item.
 
 Overall, this code provides a basic implementation of a stack data structure with functions to push items onto the stack and pop items from the stack, while also handling overflow and underflow conditions.
-```
+
 
 ## 3. What is a queue, and when to use it?
 
@@ -199,7 +199,7 @@ int dequeue(Queue* queue) {
     return item;
 }
 ```
-```
+
 This code defines a queue data structure in C programming. The queue is implemented using an array called  `data`  and two variables called  `front`  and  `rear`  to keep track of the indices of the front and rear elements of the queue, respectively. The maximum size of the queue is defined as  `MAX_SIZE` , which is set to 100.
 
 The  `enqueue`  function is used to add an item to the queue. It takes a pointer to a  `Queue`  structure and an item as parameters. First, it checks if the rear index is equal to  `MAX_SIZE - 1` , indicating that the queue is already full. If the queue is full, it prints an error message indicating a "queue overflow" and returns. Otherwise, it increments the rear index and assigns the item to the  `data`  array at the updated rear index.
@@ -207,7 +207,7 @@ The  `enqueue`  function is used to add an item to the queue. It takes a pointer
 The  `dequeue`  function is used to remove and return the frontmost item from the queue. It also takes a pointer to a  `Queue`  structure as a parameter. First, it checks if the front index is greater than the rear index, indicating that the queue is empty. If the queue is empty, it prints an error message indicating a "queue underflow" and returns an appropriate error value (e.g., -1). Otherwise, it retrieves the item from the  `data`  array at the current front index, increments the front index, and returns the item.
 
 In summary, this code provides a basic implementation of a queue data structure with functions to enqueue items into the queue and dequeue items from the queue, while also handling overflow and underflow conditions.
-```
+
 
 ## 4. What are the common implementations of stacks and queues?
 
