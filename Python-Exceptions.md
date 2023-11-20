@@ -3,7 +3,7 @@
 ## Introduction
 Imagine you're baking a cake and following a recipe step by step. Errors could be like using the wrong ingredient or forgetting a crucial step, leading to a cake disaster. In Python programming, errors are similar disruptions that happen when your code is running. Let's explore the differences between errors and exceptions, understand how to handle them, and discover the importance of clean-up actions.
 
-## 1. What’s the difference between errors and exceptions
+## 1. What’s the difference between errors and exceptions?
 
 **Errors**
 
@@ -118,7 +118,7 @@ except ZeroDivisionError:
   print("Cannot divide by zero.")
 ```
 
-## 4. How to correctly handle an exception
+## 4. How to correctly handle an exception.
 
 Exceptions are used to handle errors in Python code. They are raised when an error occurs, and they can be caught and handled by the program. Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
 
@@ -141,7 +141,7 @@ except ZeroDivisionError:
   print("Cannot divide by zero.")
 ```
 
-## 5. What’s the purpose of catching exceptions
+## 5. What’s the purpose of catching exceptions?
 
 Exceptions are used to handle errors in Python code. They are raised when an error occurs, and they can be caught and handled by the program. Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
 
@@ -164,7 +164,7 @@ except ZeroDivisionError:
   print("Cannot divide by zero.")
 ```
 
-## 6. How to raise a built-in exception
+## 6. How to raise a built-in exception.
 
 In Python, you can raise a built-in exception using the  `raise`  statement. The  `raise`  statement is used to explicitly raise an exception in your code. This can be useful when you want to handle specific error conditions or create custom error messages.
 
