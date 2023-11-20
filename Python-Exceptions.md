@@ -54,117 +54,9 @@ finally:
   print("Thank you for using my program.")
 ```
 
-Errors and exceptions are important concepts to understand in Python programming. By being able to distinguish between errors and exceptions, you can identify the root cause of problems and implement appropriate strategies to handle them.
+Errors and exceptions are important concepts to understand in Python programming. By being able to distinguish between errors and exceptions, you can identify the root cause of problems and implement appropriate strategies to handle them. Exceptions are an important part of Python programming. They allow you to handle errors in your code and prevent your program from crashing.
 
-## 2. What are exceptions and how to use them?
-
-Exceptions are events that occur during the execution of a program that disrupt the normal flow of the program. They are usually caused by errors in the code, such as trying to divide a number by zero. When an exception occurs, the program will stop running and an error message will be displayed.
-
-Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
-
-```python
-try:
-  # This code may cause an exception
-  number = int(input("Enter a number: "))
-except ValueError:
-  # This code will be executed if an exception occurs
-  print("You did not enter a valid number.")
-```
-
-The  `except`  statement can also be used to catch specific types of exceptions. For example, the following code will catch a  `ZeroDivisionError`  exception:
-
-```python
-try:
-  number = int(input("Enter a number: "))
-  result = number / 0
-except ZeroDivisionError:
-  print("Cannot divide by zero.")
-```
-
-Exceptions can also be raised using the  `raise`  statement. The  `raise`  statement can be used to raise any type of exception, including custom exceptions. For example, the following code raises a  `ValueError`  exception:
-
-```python
-raise ValueError("The number you entered is not valid.")
-```
-
-Exceptions are an important part of Python programming. They allow you to handle errors in your code and prevent your program from crashing.
-
-## 3. When do we need to use exceptions?
-
-Exceptions are used to handle errors in Python code. They are raised when an error occurs, and they can be caught and handled by the program. Exceptions can be raised for a variety of reasons, such as:
-
-* **Syntax errors:** These are errors that occur when the code is not written correctly. For example, if you forget to put a semicolon at the end of a line of code, you will get a syntax error.
-* **Runtime errors:** These are errors that occur when the code is running. For example, if you try to divide a number by zero, you will get a runtime error.
-* **Logic errors:** These are errors that occur when the code is written correctly, but it does not do what it is supposed to do. For example, if you have a function that is supposed to add two numbers, but it actually subtracts them, you will get a logic error.
-
-Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
-
-```python
-try:
-  # This code may cause an error
-  number = int(input("Enter a number: "))
-except ValueError:
-  # This code will be executed if an exception occurs
-  print("You did not enter a valid number.")
-```
-
-The  `except`  statement can also be used to catch specific types of exceptions. For example, the following code will catch a  `ZeroDivisionError`  exception:
-
-```python
-try:
-  number = int(input("Enter a number: "))
-  result = number / 0
-except ZeroDivisionError:
-  print("Cannot divide by zero.")
-```
-
-## 4. How to correctly handle an exception.
-
-Exceptions are used to handle errors in Python code. They are raised when an error occurs, and they can be caught and handled by the program. Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
-
-```python
-try:
-  # This code may cause an error
-  number = int(input("Enter a number: "))
-except ValueError:
-  # This code will be executed if an exception occurs
-  print("You did not enter a valid number.")
-```
-
-The  `except`  statement can also be used to catch specific types of exceptions. For example, the following code will catch a  `ZeroDivisionError`  exception:
-
-```python
-try:
-  number = int(input("Enter a number: "))
-  result = number / 0
-except ZeroDivisionError:
-  print("Cannot divide by zero.")
-```
-
-## 5. What’s the purpose of catching exceptions?
-
-Exceptions are used to handle errors in Python code. They are raised when an error occurs, and they can be caught and handled by the program. Exceptions can be handled using the  `try`  and  `except`  statements. The  `try`  statement tells the program to try to run a block of code. If an exception occurs, the  `except`  statement will be executed. For example:
-
-```python
-try:
-  # This code may cause an error
-  number = int(input("Enter a number: "))
-except ValueError:
-  # This code will be executed if an exception occurs
-  print("You did not enter a valid number.")
-```
-
-The  `except`  statement can also be used to catch specific types of exceptions. For example, the following code will catch a  `ZeroDivisionError`  exception:
-
-```python
-try:
-  number = int(input("Enter a number: "))
-  result = number / 0
-except ZeroDivisionError:
-  print("Cannot divide by zero.")
-```
-
-## 6. How to raise a built-in exception.
+## 2. How do we raise a built-in exception?
 
 In Python, you can raise a built-in exception using the  `raise`  statement. The  `raise`  statement is used to explicitly raise an exception in your code. This can be useful when you want to handle specific error conditions or create custom error messages.
 
@@ -180,7 +72,7 @@ You can also raise other built-in exceptions such as  `TypeError` ,  `NameError`
 
 Raising a built-in exception allows you to control the flow of your program and handle error conditions in a structured manner. It is important to provide meaningful error messages with the raised exceptions to help with debugging and troubleshooting.
 
-## 7. When do we need to implement a clean-up action after an exception?
+## 3. When do we need to implement a clean-up action after an exception?
 
 In Python, there are situations where it is necessary to implement a clean-up action after an exception occurs. This is important to ensure that resources are properly released and any necessary cleanup operations are performed, regardless of whether an exception occurred or not.
 
