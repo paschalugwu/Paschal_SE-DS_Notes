@@ -1,4 +1,4 @@
-# <p style="text-align: center;">Paschal Ugwu</p>
+# Paschal Ugwu
 
 - **Email:** ugwupaschal@gmail.com | **Phone:** +2348166207095
 - **LinkedIn:** [www.linkedin.com/in/paschal-ugwu-52abb6229]
