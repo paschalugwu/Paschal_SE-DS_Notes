@@ -1,5 +1,3 @@
----
-
 **Paschal Ugwu**
 
 - **Email:** ugwupaschal@gmail.com | **Phone:** +2348166207095
