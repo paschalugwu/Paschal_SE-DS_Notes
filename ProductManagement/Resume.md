@@ -1,11 +1,11 @@
-**Paschal Ugwu**
+# **Paschal Ugwu**
 
 - **Email:** ugwupaschal@gmail.com | **Phone:** +2348166207095
 - **LinkedIn:** [www.linkedin.com/in/paschal-ugwu-52abb6229]
 
 ---
 
-**Summary:**
+# **Summary:**
 
 - **Data Science and Bioinformatics Expert:** Highly skilled in data science, software engineering, and statistical analysis with a strong passion for revolutionizing healthcare research.
 - **Innovative Problem Solver:** Dedicated to merging cutting-edge analytical methods with high-quality research to advance disease management strategies.
@@ -13,7 +13,7 @@
 
 ---
 
-**Experience:**
+# **Experience:**
 
 **ALX AFRICA - Data Science Student**
 *(May 2023 - Present)*
@@ -29,7 +29,7 @@
 
 ---
 
-**Education:**
+# **Education:**
 
 **Udacity - Nanodegree, AI Programming with Python**
 *(May 2023 - August 2023)*
