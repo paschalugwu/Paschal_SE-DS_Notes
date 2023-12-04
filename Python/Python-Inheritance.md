@@ -626,67 +626,67 @@ Consider the concept of inheritance in the context of vehicles. Imagine a class 
 - The `isinstance` function checks whether an **object** is an instance of a specific **class** (or a tuple of classes).
 - It returns `True` if the object is an instance of the specified class, otherwise `False`.
 - Example:
-    ```python
-    class Animal:
-        pass
+```python
+class Animal:
+    pass
 
-    class Dog(Animal):
-        pass
+class Dog(Animal):
+    pass
 
-    my_dog = Dog()
-    print(isinstance(my_dog, Dog))  # Output: True
-    print(isinstance(my_dog, Animal))  # Output: True
-    ```
+my_dog = Dog()
+print(isinstance(my_dog, Dog))  # Output: True
+print(isinstance(my_dog, Animal))  # Output: True
+```
 
 ### 2. `issubclass(class, classinfo)`
 - The `issubclass` function determines whether one class is a **subclass** of another class (or other classes).
 - It returns `True` if the first class is a subclass of the second class, otherwise `False`.
 - Example:
-    ```python
-    class Animal:
-        pass
+```python
+class Animal:
+    pass
 
-    class Dog(Animal):
-        pass
+class Dog(Animal):
+    pass
 
-    print(issubclass(Dog, Animal))  # Output: True
-    ```
+print(issubclass(Dog, Animal))  # Output: True
+```
 
 ### 3. `type(object)`
 - The `type` function returns the **type** of an object.
 - It can be used to check the type of an object or create new classes dynamically.
 - Example:
-    ```python
-    x = 5
-    print(type(x))  # Output: <class 'int'>
+```python
+x = 5
+print(type(x))  # Output: <class 'int'>
 
-    class MyClass:
-        pass
+class MyClass:
+    pass
 
-    obj = MyClass()
-    print(type(obj))  # Output: <class '__main__.MyClass'>
-    ```
+obj = MyClass()
+print(type(obj))  # Output: <class '__main__.MyClass'>
+```
 
 ### 4. `super()`
 - The `super` function provides a way to call methods from a **parent class** within a subclass.
 - It is commonly used in **inheritance** to invoke methods from the superclass.
 - Example:
-    ```python
-    class Animal:
-        def speak(self):
-            print("Animal speaks")
+```python
+class Animal:
+    def speak(self):
+        print("Animal speaks")
 
-    class Dog(Animal):
-        def speak(self):
-            super().speak()  # Call the parent class method
-            print("Dog barks")
+class Dog(Animal):
+    def speak(self):
+        super().speak()  # Call the parent class method
+        print("Dog barks")
 
-    my_dog = Dog()
-    my_dog.speak()
-    # Output:
-    # Animal speaks
-    # Dog barks
-    ```
+my_dog = Dog()
+my_dog.speak()
+# Output:
+# Animal speaks
+# Dog barks
+```
 
 ## Conclusion
 
