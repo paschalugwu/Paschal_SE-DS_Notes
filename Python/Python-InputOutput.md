@@ -237,7 +237,7 @@ file.close()
 
 ## 5. How to move the cursor in a file?
 
-Remember how we explored files line by line and even jumped around with `seek()`? Today, we'll delve deeper into file navigation by learning how to move the cursor precisely, like a skilled pilot maneuvering through the sky.
+Remember how we explored files line by line and even jumped around with `seek()`? Now, we'll delve deeper into file navigation by learning how to move the cursor precisely, like a skilled pilot maneuvering through the sky.
 
 **1. The Magical `tell()`:**
 
@@ -375,7 +375,7 @@ print("All files are locked and your data is safe!")
 
 ## 7. What is and how to use the with statement?
 
-Remember how we talked about closing files properly to keep our data safe and resources free? Today, we'll meet a powerful friend who helps us with that: the `with` statement! Think of it as a helpful robot that opens and closes doors for you, ensuring everything is done smoothly and securely.
+Remember how we talked about closing files properly to keep our data safe and resources free? Now, we'll meet a powerful friend who helps us with that: the `with` statement! Think of it as a helpful robot that opens and closes doors for you, ensuring everything is done smoothly and securely.
 
 **1. `with`: Your Automatic Doorman for Files:**
 
@@ -446,7 +446,7 @@ print("All files handled with ease!")
 
 ## 8. What is JSON?
 
-Remember how we talked about files and how Python helps us store and read information? Today, we'll meet a special type of data called JSON that's like a secret code for sharing information between different programs, websites, and even your own Python code!
+Remember how we talked about files and how Python helps us store and read information? Now, we'll meet a special type of data called JSON that's like a secret code for sharing information between different programs, websites, and even your own Python code!
 
 **1. JSON: The Language of Data Ninjas:**
 
@@ -506,7 +506,7 @@ With JSON, you're no longer limited to one program or language. You can share yo
 
 ## 9. What is serialization?
 
-Remember how we talked about files and JSON? Today, we'll explore a superpower called **serialization** that lets you pack your data for exciting adventures beyond your Python program! Imagine it as a magic shrink ray that turns your complex data into a tiny, portable package ready to travel anywhere.
+Remember how we talked about files and JSON? Now, we'll explore a superpower called **serialization** that lets you pack your data for exciting adventures beyond your Python program! Imagine it as a magic shrink ray that turns your complex data into a tiny, portable package ready to travel anywhere.
 
 **1. Why Serialize? The Power of Portability:**
 
@@ -555,7 +555,7 @@ With serialization, your data is no longer stuck in one place. It's ready to emb
 
 ## 10. What is deserialization?
 
-Remember how we talked about packing your data for exciting journeys with serialization? Today, we'll learn the amazing trick of bringing it all back with **deserialization**! Think of it as the magical unwrapping process, revealing the delicious data hidden inside its travel package.
+Remember how we talked about packing your data for exciting journeys with serialization? Now, we'll learn the amazing trick of bringing it all back with **deserialization**! Think of it as the magical unwrapping process, revealing the delicious data hidden inside its travel package.
 
 **1. Why Deserializing? The Joy of Reusing Data:**
 
@@ -612,7 +612,7 @@ Deserialization is like having a personal chef who takes your travel-ready data 
 
 ## 11. How to convert a Python data structure to a JSON string?
 
-Remember how we talked about JSON, the secret language for sharing data? And how we packed our data for travel using serialization? Today, we'll learn the magic trick of turning your Python data structures into shiny JSON strings, ready to be shared and understood by anyone!
+Remember how we talked about JSON, the secret language for sharing data? And how we packed our data for travel using serialization? Now, we'll learn the magic trick of turning your Python data structures into shiny JSON strings, ready to be shared and understood by anyone!
 
 **1. Why Stringify? Sharing Your Data with the World:**
 
@@ -668,7 +668,7 @@ Not all gems are created equal. Be careful with:
 
 ## 12. How to convert a JSON string to a Python data structure?
 
-Remember how we turned our Python data into sparkling JSON gems using `json.dumps()`? Today, we'll learn the reverse magic trick: transforming those gems back into Python treasures! We'll use `json.loads()` to decode the secret language of JSON and reveal the valuable data hidden within.
+Remember how we turned our Python data into sparkling JSON gems using `json.dumps()`? Now, we'll learn the reverse magic trick: transforming those gems back into Python treasures! We'll use `json.loads()` to decode the secret language of JSON and reveal the valuable data hidden within.
 
 **1. Why Decode? Bringing Your Gems Back Home:**
 
