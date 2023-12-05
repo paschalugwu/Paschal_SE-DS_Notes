@@ -38,9 +38,7 @@ Just like you wouldn't leave a treasure chest open, remember to close the file w
 file.close()
 ```
 
-**Bonus Tip:** You can open files in different ways, like specifying the encoding or telling Python to handle errors. Explore these options as you become a file-opening pro!
-
-Congratulations, you've unlocked the secrets of opening files in Python! Now go forth and explore the world of data, one file at a time!
+**Bonus Tip:** You can open files in different ways, like specifying the encoding or telling Python to handle errors.
 
 **Remember:**
 
@@ -96,9 +94,7 @@ file.close()
 
 Remember to close the file after writing, just like saving your notebook. This ensures everything gets written properly and the file is ready for its next adventure!
 
-**Bonus Tip:** Python can write more than just text! You can use special characters like `\n` for new lines or even numbers. Experiment and see what you can create!
-
-So now you're a master of both reading and writing in Python files! Go forth and fill the digital world with your stories, poems, or even secret codes!
+**Bonus Tip:** Python can write more than just text! You can use special characters like `\n` for new lines or even numbers.
 
 **Remember:**
 
@@ -108,7 +104,7 @@ So now you're a master of both reading and writing in Python files! Go forth and
 
 ## 3. How to read the full content of a file?
 
-Remember that magical `file.read()` we used to peek inside files? Today, we're diving deeper! We'll learn how to read the entire contents of a file, like a detective uncovering a hidden message.
+Remember that magical `file.read()` we used to peek inside files? Now, we're diving deeper! We'll learn how to read the entire contents of a file, like a detective uncovering a hidden message.
 
 **1. One `read()` to Rule Them All:**
 
@@ -159,9 +155,7 @@ file.close()
 # Now you have the entire big data in your grasp!
 ```
 
-**Bonus Tip:** You can also use `readlines()` to read the file line by line as a list. This is like tearing out pages and reading them separately. Experiment and see which method suits your detective needs!
-
-Congratulations! You've mastered the art of reading entire files in Python. Now, go forth and uncover the secrets hidden within!
+**Bonus Tip:** You can also use `readlines()` to read the file line by line as a list. This is like tearing out pages and reading them separately. 
 
 **Remember:**
 
@@ -232,8 +226,6 @@ file.close()
 ```
 
 **Bonus Tip:** You can also use `for line in file:` as a shortcut to loop through lines automatically. It's like having the book turn the pages for you!
-
-Congratulations! You're now a master of line-by-line reading in Python. Go forth and explore the stories, code, and secrets hidden within your files!
 
 **Remember:**
 
@@ -311,8 +303,6 @@ file.close()
 
 **Bonus Tip:** Remember to close the file after your navigational adventures! Also, experiment with different `seek` modes and offsets to discover hidden treasures within your files.
 
-Congratulations! You've mastered the art of moving the cursor in Python files. Now, go forth and chart your own course through the data oceans, line by byte!
-
 **Remember:**
 
 * Use `tell()` to find your current position.
@@ -375,8 +365,6 @@ print("All files are locked and your data is safe!")
 ```
 
 **Bonus Tip:** Always close files inside loops or functions to avoid leaving them open accidentally. Think of it like closing the door after each visit to your treasure chest.
-
-Congratulations! You're now a file-closing pro! Go forth and conquer your data adventures, knowing your information is always locked away securely.
 
 **Remember:**
 
@@ -449,8 +437,6 @@ print("All files handled with ease!")
 
 **Bonus Tip:** Remember to use `with` whenever you open files, even if it's just for reading. It's a small step that makes a big difference for your code and data!
 
-Congratulations! You've now met your new Python friend, the `with` statement! Go forth and use it to conquer your data adventures with safety and ease.
-
 **Remember:**
 
 * `with` automatically opens and closes files.
@@ -511,8 +497,6 @@ With JSON, you're no longer limited to one program or language. You can share yo
 
 **Bonus Tip:** Experiment with different JSON data structures and explore online tools to visualize and edit JSON data. The more you practice, the more fluent you'll become in this data ninja language!
 
-Congratulations! You've unlocked the secrets of JSON! Go forth and share your data with the world, one JSON message at a time!
-
 **Remember:**
 
 * JSON is a simple language for data everyone understands.
@@ -561,8 +545,6 @@ Just like unwrapping your sandwich, you can use the same tools to unpack your se
 With serialization, your data is no longer stuck in one place. It's ready to embark on exciting adventures, connect with different programs, and be used in endless ways. Think of it as giving your data wings to fly!
 
 **Bonus Tip:** Experiment with different serialization methods and see how they work with your data. Remember, the right wrapping depends on what you're carrying!
-
-Congratulations! You've unlocked the secrets of serialization! Go forth and pack your data for incredible journeys beyond your Python program.
 
 **Remember:**
 
@@ -621,8 +603,6 @@ Deserialization is like having a personal chef who takes your travel-ready data 
 
 **Bonus Tip:** Remember, deserialization can only work if you packed your data with the same method. Be mindful of how you wrap your data for a smooth unwrapping experience!
 
-Congratulations! You're now a master deserializer, ready to unwrap and savor the data treasures that await! Go forth and explore the possibilities!
-
 **Remember:**
 
 * Deserialization unpacks your data for you to use again.
@@ -677,8 +657,6 @@ Not all gems are created equal. Be careful with:
 * Practice stringifying different data structures to master the art of data sharing.
 
 **Bonus Tip:** Remember, stringification is just the first step. You can use deserialization to bring your JSON gems back into Python whenever you need them!
-
-Congratulations! You've learned to turn your Python data into sparkling JSON strings, ready to be shared and admired by the world! Go forth and spread your data magic!
 
 **Remember:**
 
@@ -735,8 +713,6 @@ Remember, decoding can be tricky if the gems are damaged or the code is wrong. W
 * Practice decoding different JSON strings to master the art of bringing your data back home.
 
 **Bonus Tip:** Remember, decoding is just the first step. You can use serialization to turn your Python treasures back into JSON gems for sharing whenever needed!
-
-Congratulations! You've unlocked the secrets of decoding JSON strings back into Python data structures! Go forth and collect data treasures from all corners of the internet!
 
 **Remember:**
 
