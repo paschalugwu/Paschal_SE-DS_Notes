@@ -275,7 +275,7 @@ Consider two algorithms to search for a specific element in a list:
 * Choose algorithms with better Big O complexity for efficient programs.
 * Understanding Big O notation helps you write better and faster C programs.
 
-### A. Understanding O(nlog(n)): The Speed of Divide and Conquer
+### A. Understanding linearithmic time complexity O(nlog(n)): The Speed of Divide and Conquer
 
 Imagine you have a stack of books to organize. Brute-forcing it by checking each book against all others would take forever! O(nlog(n)) algorithms, like the **divide-and-conquer** strategy, offer a much faster solution.
 
@@ -312,7 +312,7 @@ Think of a giant tree. To find a specific leaf, you would repeatedly divide the 
 * Examples include Merge Sort, Binary Search, and Quick Sort.
 * They are crucial for many real-world applications.
 
-### B. Understanding the Efficiency of Algorithms: All About O(log(n))
+### B. Understanding the Efficiency of Algorithms: All About logarithmic time complexity O(log(n))
 
 Imagine searching for a specific book in a massive library. You wouldn't look through each book one by one, right? Instead, you would use the library's organization system, like alphabetized sections, to quickly narrow down your search.
 
