@@ -4,7 +4,7 @@
 
 In the vast realm of computer science, sorting algorithms play a pivotal role in transforming chaotic datasets into orderly structures. Just as a conductor guides an orchestra to produce harmonious melodies, sorting algorithms orchestrate the arrangement of elements with efficiency and precision.
 
-This note embarks on a journey through diverse sorting techniques, each presenting a unique approach to the intricate task of ordering data. From the smart strategies of Shell Sort, the shaking movements of Cocktail Shaker Sort, the numerical precision of Radix Sort, to the organized ascent of Heap Sort, the rhythmic waves of Bitonic Sort, and the flipping fun of Pancake Sorting—each algorithm contributes its own distinct rhythm to the symphony of sorting.
+This note embarks on a journey through diverse sorting techniques, each presenting a unique approach to the intricate task of ordering data. From the smart strategies of Shell Sort, the shaking movements of Cocktail Shaker Sort, the numerical precision of Radix Sort, to the organized ascent of Heap Sort, and the rhythmic waves of Bitonic Sort—each algorithm contributes its own distinct rhythm to the symphony of sorting.
 
 As we delve into the essence of these sorting methods, consider the nuances of their designs, the scenarios where they shine, and the efficiency they offer. Whether you're a seasoned coder seeking optimization or a curious learner exploring the world of algorithms, this compilation aims to be your guide through the intricate and fascinating landscape of sorting algorithms. Join the exploration and uncover the melodies that transform disorder into order.
 
@@ -499,7 +499,7 @@ int partition(int arr[], int low, int high) {
 
 ## In Conclusion: A Symphony of Sorting Algorithms
 
-Sorting algorithms, akin to musical compositions, offer unique melodies to organize data. Whether it's the harmonious efficiency of Shell Sort, the rhythmic movements of Cocktail Shaker Sort, the numerical precision of Radix Sort, the organized ascent of Heap Sort, the bitonic waves of Bitonic Sort, or the flipping fun of Pancake Sorting—each algorithm brings its own flavor to the symphony of sorting. As you explore these algorithms, consider the specific needs of your data set, the computational resources at your disposal, and the captivating journey each algorithm undertakes to transform disorder into order.
+Sorting algorithms, akin to musical compositions, offer unique melodies to organize data. Whether it's the harmonious efficiency of Shell Sort, the rhythmic movements of Cocktail Shaker Sort, the numerical precision of Radix Sort, the organized ascent of Heap Sort, or the bitonic waves of Bitonic Sort—each algorithm brings its own flavor to the symphony of sorting. As you explore these algorithms, consider the specific needs of your data set, the computational resources at your disposal, and the captivating journey each algorithm undertakes to transform disorder into order.
 
 
 © [2023] [Paschal Ugwu]
