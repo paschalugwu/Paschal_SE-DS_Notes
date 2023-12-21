@@ -359,7 +359,7 @@ When writing scripts for system administration tasks, conditional statements are
 
 Conditional statements are frequently used to check the existence of files or directories before performing operations on them.
 
-**Conclusion** - Understanding how to use `if`, `else`, `elif`, and `case` statements is essential for writing flexible and responsive Bash/Shell scripts. These constructs enable high school students to create powerful scripts for various real-world applications, from simple automation tasks to system administration.
+**Conclusion** - Understanding how to use `if`, `else`, `elif`, and `case` statements is essential for writing flexible and responsive Bash/Shell scripts. These constructs enable engineers to create powerful scripts for various real-world applications, from simple automation tasks to system administration.
 
 ## 5. Introduction to the `cut` Command in Bash/Shell
 
