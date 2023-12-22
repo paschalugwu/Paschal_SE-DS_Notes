@@ -517,7 +517,7 @@ In this example:
 
 ## 8. Understanding Apache Web Server
 
-In the realm of web development and server management, Apache holds a crucial role. Apache, often referred to as Apache HTTP Server, is a widely-used open-source web server software. This section aims to provide high school students with a fundamental understanding of what Apache is, its significance, and how it functions.
+In the realm of web development and server management, Apache holds a crucial role. Apache, often referred to as Apache HTTP Server, is a widely-used open-source web server software. This section aims to provide a fundamental understanding of what Apache is, its significance, and how it functions.
 
 ### What is Apache?
 
