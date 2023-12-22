@@ -5,7 +5,7 @@ In the dynamic realm of Bash/Shell scripting, a profound understanding of Proces
 
 ## 1. Understanding Process IDs (PID)
 
-In the world of Bash/Shell scripting, understanding Process IDs (PIDs) is crucial. A Process ID is a unique numerical identifier assigned to each running process in a Unix-like operating system. This note aims to explain what a PID is, its significance, and how it can be utilized in real-world projects.
+In the world of Bash/Shell scripting, understanding Process IDs (PIDs) is crucial. A Process ID is a unique numerical identifier assigned to each running process in a Unix-like operating system. This section aims to explain what a PID is, its significance, and how it can be utilized in real-world projects.
 
 ### What is a PID?
 
@@ -69,7 +69,7 @@ In this example, the script checks for the existence of a lock file. If the lock
 
 ## 2. Understanding Processes
 
-In the realm of Bash/Shell scripting, a fundamental concept to grasp is the notion of a process. This note aims to demystify the concept of processes, elucidate their significance, and showcase practical applications in real-world projects.
+In the realm of Bash/Shell scripting, a fundamental concept to grasp is the notion of a process. This section aims to demystify the concept of processes, elucidate their significance, and showcase practical applications in real-world projects.
 
 ### What is a Process?
 
@@ -130,7 +130,7 @@ In this example, the script checks if the Nginx web server process is running. I
 
 ## 3. Finding a Process' PID
 
-In Bash/Shell scripting, understanding how to find the Process ID (PID) of a running process is crucial. This note aims to explain the importance of PIDs, how to find them, and practical applications in real-world projects.
+In Bash/Shell scripting, understanding how to find the Process ID (PID) of a running process is crucial. This section aims to explain the importance of PIDs, how to find them, and practical applications in real-world projects.
 
 ### Why Find a Process' PID?
 
@@ -219,7 +219,7 @@ In this example, if Nginx is not running, the script starts it. If it's already 
 
 ## 4. Terminating Processes
 
-In the realm of Bash/Shell scripting, understanding how to terminate or kill a process is a crucial skill. This note aims to explain the significance of terminating processes, various methods to achieve this, and practical applications in real-world projects.
+In the realm of Bash/Shell scripting, understanding how to terminate or kill a process is a crucial skill. This section aims to explain the significance of terminating processes, various methods to achieve this, and practical applications in real-world projects.
 
 ### Why Kill a Process?
 
@@ -318,7 +318,7 @@ In this example, the script stops the Apache service, makes configuration change
 
 ## 5. Understanding Signals
 
-In the realm of Bash/Shell scripting, understanding signals is crucial for managing processes effectively. This note aims to demystify the concept of signals, explain their significance, and demonstrate practical applications in real-world projects.
+In the realm of Bash/Shell scripting, understanding signals is crucial for managing processes effectively. This section aims to demystify the concept of signals, explain their significance, and demonstrate practical applications in real-world projects.
 
 ### What is a Signal?
 
@@ -408,7 +408,7 @@ In this example, the script checks if Nginx is running. If it is, it sends the S
 
 ## 6. Unignorable Signals
 
-In Bash/Shell scripting, some signals cannot be ignored by a process, and understanding them is crucial for robust signal handling. This note aims to identify and explain the significance of two signals that cannot be ignored, shedding light on their applications in real-world projects.
+In Bash/Shell scripting, some signals cannot be ignored by a process, and understanding them is crucial for robust signal handling. This section aims to identify and explain the significance of two signals that cannot be ignored, shedding light on their applications in real-world projects.
 
 ### The Two Unignorable Signals:
 
@@ -464,7 +464,7 @@ In this example, the script checks if the misbehaving process is running and, if
 
 ## 7. Understanding Nginx
 
-In the world of Bash/Shell scripting, having a fundamental understanding of essential server software is crucial. This note focuses on Nginx, a widely-used web server, and aims to explain what Nginx is, how it works, and practical applications in real-world projects.
+In the world of Bash/Shell scripting, having a fundamental understanding of essential server software is crucial. This section focuses on Nginx, a widely-used web server, and aims to explain what Nginx is, how it works, and practical applications in real-world projects.
 
 ### What is Nginx?
 
@@ -517,7 +517,7 @@ In this example:
 
 ## 8. Understanding Apache Web Server
 
-In the realm of web development and server management, Apache holds a crucial role. Apache, often referred to as Apache HTTP Server, is a widely-used open-source web server software. This note aims to provide high school students with a fundamental understanding of what Apache is, its significance, and how it functions.
+In the realm of web development and server management, Apache holds a crucial role. Apache, often referred to as Apache HTTP Server, is a widely-used open-source web server software. This section aims to provide high school students with a fundamental understanding of what Apache is, its significance, and how it functions.
 
 ### What is Apache?
 
