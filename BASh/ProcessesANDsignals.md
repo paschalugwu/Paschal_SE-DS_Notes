@@ -462,6 +462,144 @@ In this example, the script checks if the misbehaving process is running and, if
 
 **Conclusion** - Understanding unignorable signals, particularly SIGKILL and SIGSTOP, is essential for effective process management in Bash/Shell scripting. While SIGKILL forcefully terminates a process, SIGSTOP suspends its execution, providing valuable tools for system administrators and script developers when handling misbehaving or resource-intensive processes.
 
+## 7. Understanding Nginx
+
+In the world of Bash/Shell scripting, having a fundamental understanding of essential server software is crucial. This note focuses on Nginx, a widely-used web server, and aims to explain what Nginx is, how it works, and practical applications in real-world projects.
+
+### What is Nginx?
+
+Nginx (pronounced "engine x") is a powerful open-source web server and reverse proxy server. Originally created to address the C10k problem (handling 10,000+ simultaneous connections), Nginx has evolved to become a versatile solution for serving web content, handling traffic, and acting as a load balancer.
+
+### How Does Nginx Work?
+
+Nginx operates based on an event-driven, asynchronous architecture, allowing it to efficiently handle a large number of simultaneous connections with low resource consumption. The key components of how Nginx works include:
+
+1. **Event-Driven Model:**
+   - Nginx uses an event-driven approach where a single master process manages multiple worker processes. This allows it to handle many connections simultaneously without creating a separate thread or process for each.
+
+2. **Configuration File:**
+   - Nginx's behavior is configured using a plaintext configuration file (often located at `/etc/nginx/nginx.conf`). This file defines settings such as server blocks, location blocks, and various directives that determine how Nginx processes requests.
+
+3. **Server Blocks:**
+   - Nginx uses server blocks to define virtual hosts. Each server block can be configured to respond to specific domain names or IP addresses. This enables hosting multiple websites on a single server.
+
+4. **Location Blocks:**
+   - Within server blocks, location blocks define how Nginx should process different types of requests. They can specify proxying to other servers, serving static files, or handling dynamic content through FastCGI or other modules.
+
+### Real-world Application:
+
+Consider a scenario where you want to deploy a website using Nginx. Below is a simplified example of an Nginx configuration file:
+
+```nginx
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+
+    location /api {
+        proxy_pass http://api_server;
+        # Additional proxy settings can be configured here
+    }
+}
+```
+
+In this example:
+
+- The server listens on port 80 for requests from `example.com` and `www.example.com`.
+- Requests to the root path `/` serve static files from the directory `/var/www/html`.
+- Requests to the path `/api` are proxied to another server (`http://api_server`), allowing Nginx to act as a reverse proxy.
+
+**Conclusion** - Understanding Nginx is essential for anyone involved in web development or server management. Its efficient event-driven architecture and versatile configuration options make it a popular choice for serving web content, handling reverse proxying, and managing web applications. Knowledge of Nginx empowers developers and administrators to optimize web server performance and enhance the reliability of web applications.
+
+## 8. Understanding Apache Web Server
+
+In the realm of web development and server management, Apache holds a crucial role. Apache, often referred to as Apache HTTP Server, is a widely-used open-source web server software. This note aims to provide high school students with a fundamental understanding of what Apache is, its significance, and how it functions.
+
+### What is Apache?
+
+**Definition:**
+
+- **Apache HTTP Server:**
+  - Apache is an open-source web server software that plays a central role in delivering web content to users' browsers. It is one of the most popular and reliable web servers globally.
+
+### How Does Apache Work?
+
+**Basic Operation:**
+
+1. **Client Request:**
+   - When a user types a website URL or clicks on a link, a request is sent to the web server.
+
+2. **Apache Processing:**
+   - Apache receives the request and processes it. It determines which files or resources need to be served based on the request.
+
+3. **Fetching Content:**
+   - Apache fetches the requested content from the server's file system. This can include HTML files, images, stylesheets, and more.
+
+4. **Response to Client:**
+   - The fetched content is then sent back as a response to the client's browser.
+
+5. **Rendering:**
+   - The client's browser renders the received content, displaying the web page to the user.
+
+### Real-world Application:
+
+**Scenario: Hosting a Website with Apache**
+
+Consider a scenario where you want to host a simple website using Apache. Here's a basic example:
+
+1. **Install Apache:**
+   - Use the package manager to install Apache on a Linux system.
+
+   ```bash
+   sudo apt-get update
+   sudo apt-get install apache2
+   ```
+
+2. **Create a Simple HTML Page:**
+   - Create a basic HTML file for your website content, for example, `index.html`.
+
+   ```html
+   <!-- index.html -->
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>My Website</title>
+   </head>
+   <body>
+       <h1>Welcome to My Website!</h1>
+   </body>
+   </html>
+   ```
+
+3. **Place HTML File in Web Root:**
+   - Move the HTML file to the default web root directory.
+
+   ```bash
+   sudo mv index.html /var/www/html/
+   ```
+
+4. **Start Apache:**
+   - Start the Apache service.
+
+   ```bash
+   sudo service apache2 start
+   ```
+
+5. **Access Website:**
+   - Open a web browser and navigate to `http://localhost` or your server's IP address. You should see your website's content.
+
+**Explanation:**
+- Apache serves as the web server, handling incoming requests and delivering the HTML content to users.
+
+**Conclusion:** - Understanding Apache and its role as a web server is fundamental for anyone venturing into web development or server administration. This knowledge empowers individuals to host websites, manage online content, and lays the groundwork for more advanced server configurations.
+
 ## Conclusion
 Comprehending Process IDs (PIDs) is a cornerstone for robust Bash/Shell scripting, offering unparalleled control and efficiency in process management. From differentiating concurrent processes to enabling interprocess communication and resource management, PIDs are instrumental. The real-world applications showcased, from creating lock files to restarting services, underscore the practical utility of PID mastery. Aspiring script developers armed with this knowledge can craft resilient and efficient scripts for diverse applications, ensuring effective automation and system management.
 
