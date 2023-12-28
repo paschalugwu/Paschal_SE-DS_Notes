@@ -345,3 +345,5 @@ cp -r project_files/ backup_folder/  # Copies the "project_files" directory and 
 ## Conclusion:
 
 As you embark on this journey of Unix mastery, remember that practice is the key to perfection. By understanding the layout of the Unix library, mastering basic navigation commands, exploring real-world applications, and honing your file management skills, you transform from a novice into a confident information explorer. Whether you're organizing files, automating tasks, developing websites, or troubleshooting system issues, these Unix skills are invaluable. So, navigate, explore, and unleash the power of Unix in your digital endeavors. And always remember: with great knowledge comes great control over your digital universe!
+
+© [2023] [Paschal Ugwu]
