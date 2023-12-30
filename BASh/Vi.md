@@ -37,18 +37,6 @@ Ah, Bill Joy! While primarily known for his technical contributions, Bill Joy's 
     * **Concerns about technology's dark side:** Joy later expressed strong concerns about the potential dangers of advanced technologies like nanotechnology and genetic engineering. His 2000 essay "Why The Future Doesn't Need Us" sparked global debate about technological responsibility.
     * **Relevance to everyday life:** This discussion remains relevant in fields like artificial intelligence, where ethical considerations around bias and autonomy are crucial.
 
-**Here's how you can connect Bill Joy to your students' lives:**
-
-* **Show them examples of vi in action:** Open a terminal on your computer and demonstrate basic editing commands in vi. Explain how programmers use it to code real-world applications.
-* **Discuss the ethical implications of technology:** Ask them to brainstorm potential dangers of emerging technologies like AI or robotics. Encourage them to think critically about how technology should be developed and used responsibly.
-* **Challenge them to be future Joyes:** Remind them that as future programmers and tech users, they have a role to play in shaping the ethical landscape of technology.
-
-By showing your students both the technical and human sides of Bill Joy, you can inspire them to be not just skilled coders, but thoughtful and responsible users of technology in the years to come.
-
-**Remember, the key is to make it relevant and engaging for them!**
-
-**Bonus Tip:** If you have access to a projector, you could show a clip from the documentary "The Age of Living Machines" (2013) featuring Bill Joy discussing his views on technology.
-
 ## 3. Starting and Exiting Vi: Your Gateway to Text Editing
 
 **Ready to unlock the power of Vi? Let's dive into how to start and exit this essential tool!**
