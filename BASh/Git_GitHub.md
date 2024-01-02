@@ -382,7 +382,7 @@ git checkout main
 - Switch branches often to work on different parts of your project.
 - Merge branches when you're ready to combine your changes.
 
- **## 11. Merging Branches: Bringing Ideas Together Like a River**
+## 11. Merging Branches: Bringing Ideas Together Like a River
 
 **Imagine this:** You and your friends are working on a group project, each focusing on different parts. How do you combine everyone's work without losing track of who did what? 
 
