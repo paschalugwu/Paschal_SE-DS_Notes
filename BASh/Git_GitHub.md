@@ -516,4 +516,4 @@ node_modules/
 
 In conclusion, mastering source code management is not just a skill; it's a necessity in the dynamic landscape of software development. Git and GitHub offer a robust framework for version control, collaboration, and project organization. As you've navigated through creating repositories, committing changes, branching, merging, and understanding collaboration workflows, you've equipped yourself with essential tools for success. Remember, version control is not just about tracking changes; it's about fostering collaboration, ensuring project stability, and enabling innovation. Now, armed with the knowledge from this guide, go forth and streamline your development process. Happy coding!
 
-© [2023] [Paschal Ugwu]
+© [2024] [Paschal Ugwu]
