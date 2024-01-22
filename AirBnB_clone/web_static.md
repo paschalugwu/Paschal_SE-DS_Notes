@@ -2139,9 +2139,7 @@ By incorporating media queries and flexible grid layouts, we ensure that the Air
 - **Meaning:** Modifying the design of a website to make it responsive, ensuring an optimal user experience across different screen sizes.
 
 **Terminology: `.places-section { flex-direction: column; }`**
-- **Mean
-
-ing:** In a media query, it changes the flex direction to stack Place articles vertically on smaller screens.
+- **Meaning:** In a media query, it changes the flex direction to stack Place articles vertically on smaller screens.
 
 **Terminology: `.search-bar { width: 100%; }`**
 - **Meaning:** Adjusts the width of the search bar to take the full width of the screen, ensuring responsiveness.
