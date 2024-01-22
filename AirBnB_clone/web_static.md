@@ -6,6 +6,24 @@ Welcome to the comprehensive guide for the AirBnB Clone (Web static) HTML/CSS pr
 
 ## 1. HTML Basics:
 
+**Terminology: HTML (Hypertext Markup Language)**
+- **Meaning:** HTML is a standard language for creating and designing web documents. It uses tags to structure content on web pages.
+
+**Terminology: HTML Page Structure**
+- **Meaning:** An HTML page follows a structure that includes a document type declaration, HTML root element, head section, and body section.
+
+**Terminology: Markup Language**
+- **Meaning:** A markup language is a system for annotating text to indicate the structure of a document. HTML uses tags to define elements within a document.
+
+**Terminology: DOM (Document Object Model)**
+- **Meaning:** The DOM is a programming interface representing the structure of a web document as a tree of objects. It allows interaction with a page's structure, style, and content.
+
+**Terminology: Element/Tag**
+- **Meaning:** In HTML, an element or tag represents different types of content. For example, `<p>` represents a paragraph. Tags are used to structure and format content.
+
+**Terminology: Attribute**
+- **Meaning:** Attributes provide additional information about HTML elements and are included in the opening tag. For instance, in `<img src="image.jpg" alt="Description">`, `src` and `alt` are attributes.
+
 ### 1.1 What is HTML?
 HTML (Hypertext Markup Language) is the standard language used to create and design documents on the web. It provides the structure for web pages, using a system of elements represented by tags.
 
@@ -41,6 +59,26 @@ Attributes provide additional information about HTML elements and are always inc
 These HTML basics lay the foundation for creating structured and meaningful web pages, which will be essential in building our AirBnB clone project.
 
 ## 2. CSS Basics:
+
+# CSS Basics:
+
+**Terminology: CSS (Cascading Style Sheets)**
+- **Meaning:** CSS is a style sheet language for describing the look and formatting of an HTML document. It enables the separation of content and presentation.
+
+**Terminology: Styling**
+- **Meaning:** Adding style to an HTML element involves using CSS. Styles can include properties like `font-size` or `background-color`.
+
+**Terminology: Class**
+- **Meaning:** A class is a way to apply a set of styles to multiple HTML elements. It allows you to group and style elements consistently.
+
+**Terminology: Selector**
+- **Meaning:** A selector is a pattern used to select and style HTML elements based on type, class, ID, or other attributes.
+
+**Terminology: Specificity**
+- **Meaning:** Specificity determines which style is applied to an element. It is calculated based on the type of selector, with higher specificity values taking precedence.
+
+**Terminology: Box Properties**
+- **Meaning:** Box properties define the layout and dimensions of an element. They include `width`, `height`, `margin`, `padding`, `border`, etc.
 
 ### 2.1 What is CSS?
 CSS (Cascading Style Sheets) is a style sheet language used for describing the look and formatting of a document written in HTML. It enables the separation of document content from its presentation, allowing for consistent and visually appealing designs.
@@ -120,6 +158,20 @@ Box properties define the layout and dimensions of an element. Common box proper
 Understanding CSS basics is crucial for styling our AirBnB clone project, ensuring a visually appealing and consistent user interface.
 
 ## 3. HTML and CSS Integration:
+
+# HTML and CSS Integration:
+
+**Terminology: Linking Stylesheet**
+- **Meaning:** Linking an external stylesheet involves using the `<link>` element in HTML. It connects the HTML document to an external CSS file.
+
+**Terminology: Inline Styling**
+- **Meaning:** Inline styling means applying styles directly within the HTML tag, using the `style` attribute.
+
+**Terminology: Document Structure**
+- **Meaning:** The basic structure of an HTML document includes a doctype declaration, HTML root element, head section, and body section.
+
+**Terminology: Header, Footer, HTML Tags**
+- **Meaning:** Using `<header>` and `<footer>` tags helps create structured and visually appealing header and footer sections in a web page.
 
 ### 3.1 How Do You Link an External Stylesheet to an HTML Document?
 Linking an external stylesheet to an HTML document is essential for maintaining clean and organized code. Use the `<link>` element within the HTML document's `<head>` section. Here's an example:
@@ -204,6 +256,15 @@ Using these HTML tags helps structure your page, making it visually appealing an
 
 ## 4. Header Styling:
 
+**Terminology: Color Code**
+- **Meaning:** A color code is a hexadecimal representation of colors in CSS. For example, `#FF0000` represents the color red.
+
+**Terminology: Height Property**
+- **Meaning:** The `height` property in CSS sets the height of an element, specifying the vertical space it occupies.
+
+**Terminology: Width Property**
+- **Meaning:** The `width` property in CSS controls the horizontal space an element occupies. Setting it to `100%` ensures it spans the entire width.
+
 ### 4.1 What is the Color Code for Red (#FF0000)?
 In CSS, the color code for red is #FF0000. You can apply this color to various elements, including the header, using the `color` property:
 
@@ -236,6 +297,18 @@ header {
 Including these styles in your CSS file ensures a red-colored header, with a specified height, that spans the entire width of the page. Adjust the values based on your design requirements.
 
 ## 5. Footer Styling:
+
+**Terminology: Color Code**
+- **Meaning:** Similar to the color code for red, `#00FF00` represents the color green in CSS.
+
+**Terminology: Height Property**
+- **Meaning:** Similar to the header, the `height` property in CSS sets the vertical space occupied by the footer.
+
+**Terminology: Centering Text, Flexbox**
+- **Meaning:** Using Flexbox (`display: flex`), you can center text vertically (`align-items: center`) and horizontally (`justify-content: center`) inside the footer.
+
+**Terminology: Fixed Position**
+- **Meaning:** Setting `position: fixed; bottom: 0;` in CSS keeps the footer fixed at the bottom of the viewport, regardless of content.
 
 ### 5.1 What is the Color Code for Green (#00FF00)?
 In CSS, the color code for green is #00FF00. You can apply this color to various elements, including the footer, using the `background-color` property:
@@ -285,6 +358,9 @@ This ensures the footer stays fixed at the bottom of the viewport, regardless of
 
 ## 6. Body Styling:
 
+**Terminology: Margin and Padding**
+- **Meaning:** Margin is the space outside an element, and padding is the space inside an element. Removing them (`margin: 0; padding: 0;`) ensures there's no extra space around the content inside the `<body>` element.
+
 ### 6.1 How Do You Remove Margin and Padding from the Body?
 
 To remove default margin and padding from the body, you can use the following CSS styles:
@@ -299,6 +375,15 @@ body {
 This ensures there is no extra space surrounding the content within the `<body>` element. Adjusting these values to zero provides a clean starting point for your page layout.
 
 ## 7. Restrictions:
+
+**Terminology: Importing Files**
+- **Meaning:** Importing files means bringing external resources into your project. It's restricted here to keep things simple and organized. All needed styles and resources should be kept within the project itself for easy sharing.
+
+**Terminology: Style Tag**
+- **Meaning:** The `<style>` tag allows adding styles directly in the HTML file. It's restricted to promote a cleaner separation of concerns. External stylesheets are preferred for better organization and reusability.
+
+**Terminology: Inline Styles**
+- **Meaning:** Inline styles involve styling directly within HTML tags. They are discouraged to maintain a consistent and modular approach to styling. Centralizing styles in external CSS files makes the code more organized and easier to manage.
 
 ### 7.1 Why Are You Not Allowed to Import Any Files?
 
@@ -315,6 +400,12 @@ Inline styles are discouraged to promote a consistent and modular approach to st
 These restrictions contribute to creating a structured and efficient codebase for the AirBnB clone - Web static project.
 
 ## 8. Directory and File Structure:
+
+**Terminology: Directory and File Structure**
+- **Meaning:** It's like organizing your digital workspace. In this project, files are grouped into folders like `styles` for CSS files. The `index.html` file is the main entry point. A clear structure makes it easier for everyone to understand and work on the project.
+
+**Terminology: HTML File Name**
+- **Meaning:** Naming conventions matter. The main HTML file is named `index.html`. It's a standard practice to name it this way to indicate it's the starting point of the website.
 
 ### 8.1 Required Directory and File Structure:
 
@@ -339,6 +430,15 @@ The main HTML file should be named `index.html`. This is a standard convention f
 By adhering to this structure, you enhance project clarity and make it easier for collaborators to navigate and understand the codebase.
 
 ## 9. CSS File Structure:
+
+**Terminology: CSS File Structure**
+- **Meaning:** Structuring CSS files is like organizing your closet. Different sections hold styles for different parts of the webpage. It makes the code neat and easy to expand as the project grows.
+
+**Terminology: Purpose of CSS Files**
+- **Meaning:** Each CSS file has a specific job. `common.css` has styles for the whole page, `header.css` is for the header, and `footer.css` is for the footer. This separation makes it clear where to find specific styles.
+
+**Terminology: Order of Precedence**
+- **Meaning:** When styles conflict, this defines which one wins. Inline styles are the strongest, followed by internal styles (within `<style>` tags), and then external styles (linked CSS files). It helps in deciding which style should be applied.
 
 ### 9.1 Structuring a CSS File:
 
@@ -386,6 +486,15 @@ The order of precedence in styling is crucial. When styles are defined in differ
 By structuring CSS files purposefully, you maintain a clear separation of concerns, making it easier to manage and extend your styles as the project evolves.
 
 ## 10. Global Styling (Common):
+
+**Terminology: Global Styles**
+- **Meaning:** Styles that apply to the entire page. `common.css` holds these styles, ensuring a consistent look and feel across the whole webpage.
+
+**Terminology: Font Color, Size, Family**
+- **Meaning:** These are like picking the appearance of your text. Font color (`color`) is set to a shade of dark gray for readability. Font size (`font-size`) is the standard text size, and font family (`font-family`) ensures the text looks the same on different devices.
+
+**Terminology: Browser Tab Icon**
+- **Meaning:** It's the small icon you see in your browser tab. Adding it (`<link rel="icon">`) is like giving your webpage a little symbol. It's often your logo or something that represents your site.
 
 ### 10.1 Applying Global Styles:
 
@@ -443,6 +552,48 @@ To add an icon to the browser tab, include the code within the `<head>` section 
 Replace `"images/favicon.ico"` with the correct path to your favicon file. Ensure the favicon file is in the correct location within your project structure.
 
 ## 11. Header Styling (continued):
+
+**Terminology: Background Color**
+- **Meaning:** The background color is like the paint behind the text or images. In `header.css`, `background-color: #FF0000;` sets a red color for the header.
+
+**Terminology: Height**
+- **Meaning:** Height determines how tall an element is. In `header.css`, `height: 60px;` sets the height of the header to 60 pixels.
+
+**Terminology: Width**
+- **Meaning:** Width specifies how wide an element is. In `header.css`, `width: 100%;` makes sure the header spans the entire width of the page.
+
+**Terminology: Flexbox**
+- **Meaning:** Flexbox is a layout model that helps in organizing items within a container. In `header.css`, `display: flex;` enables flexbox for the header.
+
+**Terminology: Justify-content**
+- **Meaning:** Justify-content aligns items on the main axis (horizontally in this case). In `header.css`, `justify-content: space-between;` puts space between items.
+
+**Terminology: Align-items**
+- **Meaning:** Align-items aligns items on the cross-axis (vertically here). In `header.css`, `align-items: center;` centers items vertically.
+
+**Terminology: Padding**
+- **Meaning:** Padding is like the cushion inside an element. In `header.css`, `padding: 0 20px;` adds padding around the header content.
+
+**Terminology: Class**
+- **Meaning:** A class is a way to group HTML elements and style them together. In `header.css`, `.header-text` and `.header-link` are classes for styling specific parts.
+
+**Terminology: Color and Font-size**
+- **Meaning:** These set the text color and size. In `header.css`, `color: #FFF;` makes text white, and `font-size: 20px;` sets the font size.
+
+**Terminology: Text-decoration**
+- **Meaning:** Text-decoration adds or removes decorations like underlines. In `header.css`, `text-decoration: none;` removes underlines from links.
+
+**Terminology: Hover Effect**
+- **Meaning:** Hover effect changes appearance when you hover over an element. In `header.css`, `.header-link:hover` changes the style of links on hover.
+
+**Terminology: Linking Styles**
+- **Meaning:** Linking styles connects the HTML file to the CSS file. In `index.html`, `<link rel="stylesheet" href="styles/header.css">` links the header styles.
+
+**Terminology: Anchor (a) Tag**
+- **Meaning:** The `<a>` tag creates links. In `index.html`, `<a href="#" class="header-text">AirBnB Clone</a>` is a link with the class `header-text`.
+
+**Terminology: Adjusting Styles**
+- **Meaning:** Styles can be adjusted based on the project. In `header.css`, values can be changed for colors, sizes, and other properties.
 
 ### 11.1 Applying Header Styles:
 
@@ -514,6 +665,15 @@ Adjust the styles and structure according to your project requirements. The `hea
 
 ## 12. Footer Styling (continued):
 
+**Terminology: Border-radius**
+- **Meaning:** Border-radius makes corners rounded. In `footer.css`, `border-radius: 8px;` gives a slightly rounded look to the footer.
+
+**Terminology: Class and Additional Styles**
+- **Meaning:** In `footer.css`, `.footer-text` is a class for styling. Additional styles can be added for links or other content.
+
+**Terminology: P Tag**
+- **Meaning:** The `<p>` tag represents a paragraph. In `index.html`, `<p class="footer-text">© 2024 Your Company Name. All rights reserved.</p>` is a paragraph with the class `footer-text`.
+
 ### 12.1 Applying Footer Styles:
 
 For footer-specific styles, utilize the `footer.css` file. This file will contain all the styles related to the footer section of your AirBnB clone.
@@ -572,6 +732,15 @@ Adjust the styles and structure according to your project requirements. The `foo
 
 ## 13. Container Styling:
 
+**Terminology: Max-width and Margin**
+- **Meaning:** Max-width sets the maximum width, and margin adds space around the container. In `container.css`, `max-width: 1200px;` and `margin: 0 auto;` center the container.
+
+**Terminology: Additional Styles**
+- **Meaning:** Additional styles specific to the container can be added. In `container.css`, the class `.container` holds these styles.
+
+**Terminology: Div Tag**
+- **Meaning:** The `<div>` tag creates a container. In `index.html`, `<div class="container">` defines a container with the class `container`.
+
 ### 13.1 Applying Container Styles:
 
 To style the container, you'll use a separate CSS file, let's call it `container.css`. This file will house the styles specifically related to the main content container.
@@ -621,6 +790,12 @@ In your `index.html` file, link the `container.css` file within the `<head>` sec
 Now, any styles specific to the main container should be defined in the `container.css` file. Adjust the class name, max-width, and margin values based on your project requirements.
 
 ## 14. Filter Section Styling:
+
+**Terminology: Border and Border-radius**
+- **Meaning:** Border adds a line around an element, and border-radius makes corners rounded. In `filter.css`, `border: 1px solid #ddd;` and `border-radius: 8px;` add a border with rounded corners.
+
+**Terminology: Adding Styles to a Section**
+- **Meaning:** In `index.html`, the filter section is a `<div>` with the class `filter-section`. Styles for this section are defined in `filter.css`.
 
 ### 14.1 Applying Filter Section Styles:
 
@@ -680,6 +855,18 @@ In your `index.html` file, link the `filter.css` file within the `<head>` sectio
 Adjust the class name, colors, height, width, border, and border-radius values based on your project's design requirements. The `filter.css` file will contain styles specific to the filter section, keeping your project well-organized.
 
 ## 15. Search Button Styling:
+
+**Terminology: Display, Padding, Font-size, etc.**
+- **Meaning:** These properties define the appearance of the search button. In `search-button.css`, styles like `display: inline-block;` and `padding: 10px 20px;` are applied.
+
+**Terminology: Hover Effect**
+- **Meaning:** Opacity changes when hovering over the button. In `search-button.css`, `.search-button:hover` adds an opacity effect on hover.
+
+**Terminology: Button Tag**
+- **Meaning:** The `<button>` tag creates a button. In `index.html`, `<button class="search-button">Search</button>` is a button with the class `search-button`.
+
+**Terminology: Modular Structure**
+- **Meaning:** Styles for the search button are kept in a separate file (`search-button.css`). It promotes a modular approach, making it easier to manage.
 
 ### 15.1 Applying Search Button Styles:
 
@@ -745,6 +932,12 @@ In your `index.html` file, link the `search-button.css` file within the `<head>`
 This example assumes that the search button will be represented by a `<button>` element. Adjust the class name, styles, and positioning properties based on your project's design requirements. The `search-button.css` file will contain styles specific to the search button, promoting a modular and organized structure.
 
 ## 16. Button Interaction:
+
+**Terminology: Opacity**
+- **Meaning:** Opacity refers to how transparent or see-through an element is. In `search-button.css`, `opacity: 0.8;` makes the button slightly transparent.
+
+**Terminology: Transition**
+- **Meaning:** Transition adds a smooth effect when a property changes. In `search-button.css`, `transition: opacity 0.3s ease;` creates a smooth transition for the opacity change.
 
 ### 16.1 Changing Opacity on Hover:
 
@@ -813,6 +1006,18 @@ Ensure that your `index.html` file includes the `<button>` element with the `sea
 This example demonstrates how to enhance user experience by providing a subtle visual change when interacting with the search button. Adjust the styles and transition properties based on your project's design preferences.
 
 ## 17. Image Usage:
+
+**Terminology: `<img>` Tag**
+- **Meaning:** The `<img>` tag is used to display images in HTML. In this project, there's a restriction on using it directly.
+
+**Terminology: Directory Structure**
+- **Meaning:** A directory structure organizes files into folders. In `images/`, images are stored separately for better organization.
+
+**Terminology: Background Image**
+- **Meaning:** Background image sets an image as the background for an element. In `main.css`, `background-image: url('../images/background.jpg');` sets a background image.
+
+**Terminology: Section and Image Element**
+- **Meaning:** In `index.html`, `<section class="background-section">` defines a section, and `<img src="images/place1.jpg" alt="Place 1">` embeds an image.
 
 ### 17.1 Restriction on img Tag:
 
@@ -891,6 +1096,21 @@ In this example, we've set a background image for the `.container` class using t
 This approach allows you to incorporate images into your design without directly using the `<img>` tag, complying with the project's constraints.
 
 ## 18. Places Section Styling:
+
+**Terminology: Section**
+- **Meaning:** A section is a part of the webpage. In `main.css`, `.section-places` styles the Places section.
+
+**Terminology: Flexbox**
+- **Meaning:** Flexbox is a layout model. In `.places-cards`, `display: flex;` is used for flexible card positioning.
+
+**Terminology: Border Radius**
+- **Meaning:** Border radius makes corners rounded. In `.place-card`, `border-radius: 8px;` creates rounded corners.
+
+**Terminology: Box Shadow**
+- **Meaning:** Box shadow adds a shadow effect. In `.place-card`, `box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);` adds a subtle shadow.
+
+**Terminology: Object Fit**
+- **Meaning:** Object fit defines how an image fits its container. In `.place-card img`, `object-fit: cover;` maintains the image aspect ratio.
 
 ### 18.1 Styles for Places Section (section):
 
@@ -1009,6 +1229,12 @@ We adjust the styles based on our design preferences and project requirements. T
 
 ## 19. Title Styling:
 
+**Terminology: Text Color and Font Size**
+- **Meaning:** In `.section-places h1`, `color: #333;` sets the text color, and `font-size: 2.5em;` sets the font size.
+
+**Terminology: Margin and Text Alignment**
+- **Meaning:** `margin-bottom: 20px;` adds space below the title. `text-align: center;` centers the text. 
+
 ### 19.1 Styles for Title (h1) inside the Places Section:
 
 To style the title (`h1`) within the Places section of your AirBnB clone project, you will continue working in your main CSS file (`main.css`). Let's define the styles for the title:
@@ -1057,6 +1283,18 @@ To style the title (`h1`) within the Places section of your AirBnB clone project
 These styles enhance the visual appeal of the title, ensuring it stands out within the Places section of your AirBnB clone. Feel free to adjust the values based on your design preferences.
 
 ## 20. Article Styling:
+
+**Terminology: Width and Max Width**
+- **Meaning:** `width: 100%;` makes the article span the full width. `max-width: 300px;` sets the maximum width.
+
+**Terminology: Padding and Margin**
+- **Meaning:** Padding creates space inside the article, and margin creates space around it.
+
+**Terminology: Border and Border Radius**
+- **Meaning:** Border adds a line around the article, and border-radius rounds the corners.
+
+**Terminology: Box Sizing**
+- **Meaning:** `box-sizing: border-box;` ensures the defined width includes padding and border.
 
 ### 20.1 Styles for Articles (article) inside the Places Section:
 
@@ -1119,6 +1357,15 @@ These styles create a consistent and visually appealing layout for individual pl
 
 ## 21. Place Name Styling:
 
+**Terminology: Font Size**
+- **Meaning:** Font size determines how big or small text appears. In `main.css`, `font-size: 1.5em;` sets the size of place names.
+
+**Terminology: Text Alignment**
+- **Meaning:** Text alignment defines how text is positioned. In `main.css`, `text-align: center;` centers the place names.
+
+**Terminology: Margin Bottom**
+- **Meaning:** Margin bottom adds space below an element. In `main.css`, `margin-bottom: 10px;` creates space below place names.
+
 ### 21.1 Styles for Place Names (h2) Inside Each Article:
 
 To style the place names inside each article of the Places section, you will continue working in your main CSS file (`main.css`). Let's define the styles for the place names:
@@ -1177,6 +1424,21 @@ To style the place names inside each article of the Places section, you will con
 These styles enhance the presentation of place names, making them visually appealing and consistent across your AirBnB clone project. Adjust values as needed for your design preferences.
 
 ## 22. Enhancing Place Article:
+
+**Terminology: `<img>` Tag**
+- **Meaning:** The `<img>` tag is used to embed images. In HTML, `<img src="..." alt="...">` includes an image in the article.
+
+**Terminology: `<div>` Element**
+- **Meaning:** The `<div>` element is a container that helps organize and structure content. In the example, `<div class="place-details">` contains additional place information.
+
+**Terminology: Description (`<p>` Tag)**
+- **Meaning:** The `<p>` tag is used for paragraphs. In the article, `<p>This stunning beach house...</p>` describes the place.
+
+**Terminology: Unordered List (`<ul>` Tag)**
+- **Meaning:** The `<ul>` tag creates an unordered list. In the example, `<ul class="amenities">` lists amenities.
+
+**Terminology: Button (`<button>` Tag)**
+- **Meaning:** The `<button>` tag creates a clickable button. In the example, `<button class="book-now-btn">` is a booking button.
 
 ### 22.1 Enhancing Article Structure:
 
@@ -1259,6 +1521,18 @@ To create a more detailed and structured Place article, you can add additional s
 Enhancing the structure of the Place article creates a more informative and visually appealing presentation. Customize the details and styles according to your project's requirements.
 
 ## 23. Amenities Section Styling:
+
+**Terminology: Container**
+- **Meaning:** A container holds and organizes content. In `main.css`, `.amenities-section` is a container for amenities.
+
+**Terminology: Title (h2)**
+- **Meaning:** The `h2` tag represents a heading. In `main.css`, `.amenities-title` styles the heading for amenities.
+
+**Terminology: List (ul/li)**
+- **Meaning:** The `<ul>` and `<li>` tags create lists. In the example, `.amenities-list` is an unordered list.
+
+**Terminology: Individual Item (`<li>` Tag)**
+- **Meaning:** `<li>` represents a list item. In styling, `.amenities-list li` refers to each amenity in the list.
 
 ### 23.1 Styling Amenities Section:
 
@@ -1351,6 +1625,24 @@ To enhance the visual appeal of the Amenities section, apply appropriate styles 
 Customize the styles according to your project's design preferences. These examples aim to create a well-designed and visually appealing Amenities section within each Place article.
 
 ## 24. Reviews Section Styling:
+
+**Terminology: Container**
+- **Meaning:** A container holds and organizes content. In `main.css`, `.reviews-section` is a container for reviews.
+
+**Terminology: Title (h2)**
+- **Meaning:** The `h2` tag represents a heading. In `main.css`, `.reviews-title` styles the heading for reviews.
+
+**Terminology: List (ul/li)**
+- **Meaning:** The `<ul>` and `<li>` tags create lists. In the example, `.reviews-list` is an unordered list.
+
+**Terminology: Individual Item (`<li>` Tag)**
+- **Meaning:** `<li>` represents a list item. In styling, `.review-item` is an individual review in the list.
+
+**Terminology: User/Date Description (h3)**
+- **Meaning:** The `h3` tag represents a subheading. In `main.css`, `.user-info` styles the user/date description in a review.
+
+**Terminology: Review Text (p)**
+- **Meaning:** The `<p>` tag is used for paragraphs. In styling, `.review-text` is the text of each review.
 
 ### 24.1 Styling Reviews Section:
 
@@ -1474,6 +1766,42 @@ Customize the styles according to your project's design preferences. These examp
 
 ## 25. Flexbox Understanding:
 
+**Terminology: Flexbox**
+- **Meaning:** Flexbox is a layout model in CSS for creating flexible and responsive designs.
+
+**Terminology: Flex Container**
+- **Meaning:** The container where flex items are placed. Applied using `display: flex;`.
+
+**Terminology: Flex Item**
+- **Meaning:** An item inside a flex container.
+
+**Terminology: Flex Direction**
+- **Meaning:** Defines the main axis direction in a flex container.
+
+**Terminology: Justify Content**
+- **Meaning:** Aligns items along the main axis.
+
+**Terminology: Align Items**
+- **Meaning:** Aligns items along the cross axis.
+
+**Terminology: Align Content**
+- **Meaning:** Aligns multiple lines of items when there is extra space on the cross axis.
+
+**Terminology: Flex**
+- **Meaning:** A shorthand property for `flex-grow`, `flex-shrink`, and `flex-basis`.
+
+**Terminology: Example**
+- **Meaning:** A demonstration or sample of how to use Flexbox properties.
+
+**Terminology: Flex Factor**
+- **Meaning:** Determines how a flex item grows or shrinks relative to other items.
+
+**Terminology: Align Self**
+- **Meaning:** Overrides the default alignment for a specific flex item.
+
+**Terminology: HTML Structure**
+- **Meaning:** The arrangement of HTML elements in a document.
+
 ### 25.1 What is Flexbox?
 
 Flexbox, or the Flexible Box Layout, is a layout model in CSS designed to provide an efficient way to structure and distribute space among items within a container, even when their size is unknown or dynamic. It enables the creation of complex layouts with a more efficient and predictable structure.
@@ -1556,6 +1884,27 @@ Understanding Flexbox is crucial for creating adaptive and visually appealing de
 
 ## 26. Flexbox Implementation:
 
+**Terminology: Flex Container**
+- **Meaning:** A flex container is a box where you use Flexbox properties to control the layout of its children. In this case, the `.places-container` is set as a flex container.
+
+**Terminology: `display: flex;`**
+- **Meaning:** This CSS property turns an element into a flex container, enabling the use of Flexbox properties for layout. In `.places-container`, `display: flex;` is applied to create a flexible container.
+
+**Terminology: `flex-wrap: wrap;`**
+- **Meaning:** This property allows flex items to wrap to the next line if there isn't enough space. In `.places-container`, `flex-wrap: wrap;` ensures a responsive layout by allowing items to wrap.
+
+**Terminology: `justify-content: space-around;`**
+- **Meaning:** This property aligns flex items along the main axis with space distributed around them. In `.places-container`, `justify-content: space-around;` evenly spaces the Place articles.
+
+**Terminology: Flex Item**
+- **Meaning:** Each Place article within the flex container is a flex item. Flex items can be controlled using Flexbox properties like `flex`.
+
+**Terminology: `flex: 0 0 calc(33.333% - 20px);`**
+- **Meaning:** The `flex` property is a shorthand for `flex-grow`, `flex-shrink`, and `flex-basis`. In `.place-article`, it sets the flex factor, preventing items from growing or shrinking and specifying their initial size.
+
+**Terminology: `margin: 10px;`**
+- **Meaning:** Margin adds space around an element. In `.place-article`, `margin: 10px;` creates space between Place articles for better visual presentation.
+
 ### 26.1 Using Flexbox to Style the Places Section:
 
 The Places section in the AirBnB clone can benefit from Flexbox to create a visually appealing and responsive layout. Here's how you can apply Flexbox properties to the container and individual Place articles:
@@ -1625,6 +1974,21 @@ By implementing Flexbox in the Places section, the project achieves a flexible a
 
 ## 27. Flexbox Froggy:
 
+**Terminology: Flexbox Froggy**
+- **Meaning:** Flexbox Froggy is an interactive game that teaches Flexbox concepts in a fun and engaging way. It uses a gamified approach to help users learn how to use Flexbox properties.
+
+**Terminology: Flex Container**
+- **Meaning:** A container where Flexbox properties are applied to control the layout of its children (frogs and lily pads).
+
+**Terminology: `justify-content`**
+- **Meaning:** This property aligns items along the main axis. In Flexbox Froggy, it's used to align frogs on their corresponding lily pads.
+
+**Terminology: `align-items`**
+- **Meaning:** This property aligns items along the cross axis. In Flexbox Froggy, it's used to align frogs vertically.
+
+**Terminology: `flex-direction`**
+- **Meaning:** This property defines the direction of the main axis. In Flexbox Froggy, it's used to control the arrangement of frogs and lily pads.
+
 ### 27.1 What is Flexbox Froggy?
 
 Flexbox Froggy is an interactive game designed to teach and reinforce the concepts of Flexbox, a layout model in CSS. The game presents various levels, each requiring you to use Flexbox properties to help frogs reach their lily pads. It provides a hands-on and engaging way to learn Flexbox.
@@ -1671,6 +2035,36 @@ In this example, the frogs within the container will be evenly spaced horizontal
 By using Flexbox Froggy, students can reinforce their understanding of Flexbox properties and gain confidence in applying them to real-world projects, such as the AirBnB clone - Web static.
 
 ## 28. Responsive Design:
+
+**Terminology: Responsive Design**
+- **Meaning:** Responsive design is an approach to web design that ensures a website adapts to different screen sizes and devices. It aims to provide an optimal user experience across various platforms.
+
+**Terminology: Screen Size**
+- **Meaning:** The physical dimensions of a device's screen, such as width and height. Responsive design adjusts the layout based on screen size.
+
+**Terminology: User Experience**
+- **Meaning:** The overall experience a user has while interacting with a website. Responsive design enhances user experience by providing consistent and well-adapted layouts.
+
+**Terminology: Search Engine Optimization (SEO)**
+- **Meaning:** SEO involves optimizing a website to improve its visibility in search engine results. Responsive design positively impacts SEO by providing a unified and easily indexable site structure.
+
+**Terminology: Media Queries**
+- **Meaning:** Media queries are CSS techniques that apply styles based on characteristics like screen width. They are used in responsive design to adapt layouts to different devices.
+
+**Terminology: `@media only screen and (max-width: 600px)`**
+- **Meaning:** This media query targets screens with a maximum width of 600 pixels. It allows designers to apply specific styles for smaller screens.
+
+**Terminology: `body { font-size: 14px; }`**
+- **Meaning:** Within the media query, it adjusts the font size of the entire page to 14 pixels on screens with a width of 600 pixels or less.
+
+**Terminology: Flexible Grid Layout**
+- **Meaning:** A grid layout that adjusts its structure based on available space. In the AirBnB Clone, a flexible grid layout is created using Flexbox to accommodate different screen sizes.
+
+**Terminology: `.container { display: flex; flex-wrap: wrap; }`**
+- **Meaning:** This CSS rule turns the container into a flexible box and allows items to wrap to the next line if there's not enough space.
+
+**Terminology: `.place { flex: 1 1 30%; margin: 10px; }`**
+- **Meaning:** For each Place article, it sets the flex factor to allow growth and shrinkage, specifies the initial size, and adds margin for spacing.
 
 ### 28.1 What is Responsive Design?
 
@@ -1741,6 +2135,20 @@ By incorporating media queries and flexible grid layouts, we ensure that the Air
 
 ## 29. Responsive Redesign:
 
+**Terminology: Responsive Redesign**
+- **Meaning:** Modifying the design of a website to make it responsive, ensuring an optimal user experience across different screen sizes.
+
+**Terminology: `.places-section { flex-direction: column; }`**
+- **Mean
+
+ing:** In a media query, it changes the flex direction to stack Place articles vertically on smaller screens.
+
+**Terminology: `.search-bar { width: 100%; }`**
+- **Meaning:** Adjusts the width of the search bar to take the full width of the screen, ensuring responsiveness.
+
+**Terminology: `.search-input { width: 70%; }`**
+- **Meaning:** Within a media query, it sets the input width to 70% of the search bar on smaller screens.
+
 ### 29.1 Key Elements for Responsive Redesign:
 
 In responsive design, certain elements require special attention to ensure a seamless user experience across different screen sizes. For the AirBnB Clone - Web Static project, focus on redesigning the following key elements:
@@ -1808,6 +2216,33 @@ By implementing these responsive redesign strategies, the AirBnB Clone - Web Sta
 
 ## 30. Media Queries:
 
+**Terminology: Media Queries**
+- **Meaning:** CSS techniques that apply styles based on characteristics like screen width, enabling responsive design.
+
+**Terminology: Screen Width**
+- **Meaning:** The width of a device's screen, a key factor in determining how styles are applied using media queries.
+
+**Terminology: `@media only screen and (max-width: 768px)`**
+- **Meaning:** A media query targeting screens with a maximum width of 768 pixels.
+
+**Terminology: `{ font-size: 14px; }`**
+- **Meaning:** Styles within the media query that adjust the font size of the entire page for screens with a width of 768 pixels or less.
+
+**Terminology: Font Size**
+- **Meaning:** The size of the text on a webpage. Font size is adjusted in a media query to enhance readability on smaller screens.
+
+**Terminology: `.header { flex-direction: column; }`**
+- **Meaning:** In a media query, it changes the flex direction of header items to stack them vertically on smaller screens.
+
+**Terminology: `.search-button { margin-top: 10px; }`**
+- **Meaning:** Adds spacing below the search input on smaller screens for better visual presentation.
+
+**Terminology: Responsive Web Designs**
+- **Meaning:** Designs that adapt to different devices and screen sizes, enhancing user experience.
+
+**Terminology: Consistent Layout**
+- **Meaning:** Ensures that the layout of a website remains visually appealing and functional across various platforms.
+
 ### 30.1 Introduction to Media Queries:
 
 Media queries are a crucial aspect of implementing responsive design in web development. They allow you to apply specific styles based on characteristics such as screen width, height, device orientation, and more. Media queries enable you to create a seamless user experience by adjusting the layout and styling according to the device or screen size.
@@ -1861,6 +2296,30 @@ Media queries are a powerful tool for creating responsive web designs. By using 
 
 ## 31. Accessibility Understanding:
 
+**Terminology: Accessibility**
+- **Meaning:** Making websites usable for everyone, including those with disabilities.
+
+**Terminology: Inclusive User Experience**
+- **Meaning:** Ensuring that everyone, regardless of abilities, can easily use and enjoy a website.
+
+**Terminology: Legal and Ethical Considerations**
+- **Meaning:** Following rules and guidelines (like WCAG) to make websites accessible is not only a legal requirement but also the right thing to do.
+
+**Terminology: Broader Audience Reach**
+- **Meaning:** Making a website accessible allows more people to use it, including those who use assistive technologies.
+
+**Terminology: Alt Text**
+- **Meaning:** Descriptive text for images, helping those who can't see them understand the content.
+
+**Terminology: Keyboard Navigation**
+- **Meaning:** Making sure people can navigate a website using only the keyboard, useful for those who can't use a mouse.
+
+**Terminology: Color Contrast**
+- **Meaning:** Ensuring there's enough difference between text and background colors for better readability.
+
+**Terminology: Accessibility Principles**
+- **Meaning:** Following guidelines to create a website that everyone can use, contributing to a fair online experience.
+
 ### 31.1 Introduction to Accessibility:
 
 Accessibility in web development refers to the practice of designing and developing websites and applications that can be used by people of all abilities and disabilities. It aims to provide a seamless and inclusive user experience, ensuring that individuals with disabilities can perceive, understand, navigate, and interact with web content effectively.
@@ -1913,6 +2372,21 @@ Prioritizing accessibility in your AirBnB Clone - Web Static project is essentia
 
 ## 32. Color Contrast:
 
+**Terminology: Color Contrast Guidelines**
+- **Meaning:** Following rules (like WCAG) to make sure text is easy to read against its background.
+
+**Terminology: CSS for Color Contrast**
+- **Meaning:** Writing code to set text and background colors with good contrast.
+
+**Terminology: Contrast Ratio Calculators**
+- **Meaning:** Online tools to check if the contrast between colors meets accessibility standards.
+
+**Terminology: Browser Developer Tools**
+- **Meaning:** Built-in tools in browsers to check and fix color contrast issues.
+
+**Terminology: Visual Inclusion**
+- **Meaning:** Making sure everyone, regardless of visual abilities, can enjoy and understand a website.
+
 ### 32.1 Ensuring Sufficient Color Contrast:
 
 Color contrast is crucial for ensuring that text and background elements are distinguishable, especially for users with visual impairments. To achieve sufficient color contrast, consider the following:
@@ -1951,6 +2425,18 @@ Most modern browsers provide built-in developer tools that allow you to inspect 
 Ensuring proper color contrast is a fundamental aspect of web accessibility. By following guidelines and using available tools, you can create a visually inclusive AirBnB Clone - Web Static project, providing a positive experience for users with diverse visual abilities.
 
 ## 33. Header Tags Accessibility:
+
+**Terminology: Semantic Meaning**
+- **Meaning:** Using header tags (h1, h2, etc.) in a logical order to help screen readers and search engines understand the content.
+
+**Terminology: Screen Reader Navigation**
+- **Meaning:** Helping users of screen readers understand and navigate content in a meaningful order.
+
+**Terminology: SEO Benefits**
+- **Meaning:** Helping search engines understand and rank a website better.
+
+**Terminology: Accessibility Structure**
+- **Meaning:** Organizing content in a way that benefits both people using assistive technologies and search engines.
 
 ### 33.1 Optimizing Accessibility for Header Tags:
 
@@ -2017,6 +2503,18 @@ Optimizing header tags for accessibility involves using them in a logical and hi
 
 ## 34. ARIA Roles and Attributes:
 
+**Terminology: ARIA Roles and Attributes**
+- **Meaning:** Adding extra information to make websites more understandable for assistive technologies.
+
+**Terminology: ARIA for Dynamic Content**
+- **Meaning:** Using ARIA when content changes dynamically to help screen readers announce the updates.
+
+**Terminology: ARIA for Dynamic Updates**
+- **Meaning:** Using ARIA to inform users when content changes without requiring them to actively check.
+
+**Terminology: Assistive Technology Enhancement**
+- **Meaning:** Making sure websites work well with tools that assist people with disabilities.
+
 ### 34.1 Utilizing ARIA for Accessibility Enhancement:
 
 Accessible Rich Internet Applications (ARIA) roles and attributes play a crucial role in enhancing accessibility. They provide additional information to assistive technologies, making web content more understandable and navigable.
@@ -2067,6 +2565,24 @@ In the AirBnB Clone - Web Static project, utilizing ARIA roles and attributes is
 
 ## 35. Accessibility Testing:
 
+**Terminology: Manual Testing**
+- **Meaning:** Actively checking and using a website to ensure it's accessible, especially with tools like screen readers.
+
+**Terminology: Automated Testing**
+- **Meaning:** Using online tools to automatically check if a website follows accessibility guidelines.
+
+**Terminology: Lighthouse in Chrome DevTools**
+- **Meaning:** A tool in the Chrome browser to check a website's performance, SEO, and accessibility.
+
+**Terminology: Keyboard Navigation Testing**
+- **Meaning:** Checking if a website is easily navigable using only the keyboard.
+
+**Terminology: Color Contrast Tools**
+- **Meaning:** Online tools to check if there's enough contrast between text and background colors.
+
+**Terminology: Regular Testing for Accessibility**
+- **Meaning:** Consistently checking and fixing any accessibility issues on a website.
+
 Ensuring that the AirBnB Clone project is accessible is a critical aspect of web development. Accessibility testing involves evaluating the project to identify and address issues that might hinder users with disabilities. Below are key aspects of accessibility testing:
 
 ### 35.1 Testing the Accessibility of the Page:
@@ -2112,6 +2628,21 @@ Lighthouse is an integrated tool in Chrome DevTools that provides comprehensive 
 By combining manual testing practices with automated tools, developers can effectively ensure the accessibility of the AirBnB Clone project. Regular testing and addressing identified issues contribute to creating a web application that is inclusive and user-friendly for everyone.
 
 ## 36. Promotion:
+
+**Terminology: Blog Posts**
+- **Meaning:** Writing articles to share information and updates about a project.
+
+**Terminology: Social Media**
+- **Meaning:** Platforms like Facebook and Twitter where you can share short updates and engage with a wider audience.
+
+**Terminology: GitHub Repository**
+- **Meaning:** An online space where developers collaborate and store the code for a project.
+
+**Terminology: Tech Communities**
+- **Meaning:** Online groups or forums where people discuss and share information about technology.
+
+**Terminology: Project Visibility**
+- **Meaning:** Making sure others know about and appreciate the improvements made to a project.
 
 After successfully enhancing the accessibility of the AirBnB Clone project, it's essential to share this achievement with the world. Promoting the improved accessibility involves communication and outreach. Here are ways to share the milestone:
 
@@ -2173,6 +2704,21 @@ Engage with tech communities and forums to share insights about the accessibilit
 By effectively promoting the enhanced accessibility of the AirBnB Clone, the project gains visibility, recognition, and contributes to the broader goal of creating inclusive web applications.
 
 ## 37. Final Considerations:
+
+**Terminology: Inline Styles**
+- **Meaning:** Putting style information directly into HTML tags, which can make code harder to manage.
+
+**Terminology: Restricted HTML Tags or Features**
+- **Meaning:** Avoiding certain HTML elements or practices that can cause issues or are no longer recommended.
+
+**Terminology: Best Practices**
+- **Meaning:** Following established methods that ensure clean, maintainable, and efficient code.
+
+**Terminology: Project Guidelines**
+- **Meaning:** Following rules set by a development team to maintain consistency and quality in a project.
+
+**Terminology: Code Sustainability**
+- **Meaning:** Writing code in a way that allows it to grow and adapt over time.
 
 As you wrap up the AirBnB Clone - Web static project, it's crucial to understand certain considerations regarding coding practices and project constraints.
 
