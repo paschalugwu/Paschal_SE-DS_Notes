@@ -1,862 +1,493 @@
-## AirBnB clone (MySQL) - Using Environment Variables
+# AirBnB clone (MySQL) - Bug Free!
 
-In your AirBnB clone project, you can utilize environment variables to dynamically configure its behavior, including setting up MySQL connection parameters and determining the type of storage to use. Environment variables are variables that are part of the environment in which a process runs, and they can be accessed by the application to retrieve configuration settings.
+## Introduction
 
-### Setting up Environment Variables
+In this section, we will focus on ensuring that our AirBnB clone project is free from bugs. The key to achieving this is through the use of the `unittest` module. `unittest` is a Python testing framework that allows us to write and execute test cases for our code. In our project, we aim to cover various functionalities with test cases to ensure the overall stability and correctness of the codebase.
 
-You can set environment variables in your project by exporting them in your shell or by using a `.env` file. Here's how you can do it:
+### Running Tests
 
-#### Exporting Environment Variables in the Shell
-
-```bash
-export HBNB_MYSQL_USER='your_mysql_user'
-export HBNB_MYSQL_PWD='your_mysql_password'
-export HBNB_MYSQL_HOST='localhost'
-export HBNB_MYSQL_DB='your_mysql_database'
-export HBNB_TYPE_STORAGE='db'
-```
-
-#### Using a `.env` File
-
-Create a file named `.env` in the root directory of your project and add the following lines:
-
-```plaintext
-HBNB_MYSQL_USER=your_mysql_user
-HBNB_MYSQL_PWD=your_mysql_password
-HBNB_MYSQL_HOST=localhost
-HBNB_MYSQL_DB=your_mysql_database
-HBNB_TYPE_STORAGE=db
-```
-
-### Accessing Environment Variables in Python
-
-In your Python code, you can access environment variables using the `os` module. Here's how you can use environment variables to configure MySQL connection parameters and determine the type of storage to use in your AirBnB clone project:
-
-```python
-import os
-
-# MySQL connection parameters
-mysql_user = os.environ.get('HBNB_MYSQL_USER')
-mysql_pwd = os.environ.get('HBNB_MYSQL_PWD')
-mysql_host = os.environ.get('HBNB_MYSQL_HOST')
-mysql_db = os.environ.get('HBNB_MYSQL_DB')
-
-# Determine type of storage
-storage_type = os.environ.get('HBNB_TYPE_STORAGE')
-
-# Use the configuration in your project
-# For example, connect to MySQL database using the retrieved parameters
-```
-
-### Benefits of Using Environment Variables
-
-- **Security**: Environment variables can contain sensitive information like passwords, and using them ensures that this information is not hard-coded into your source code.
-- **Flexibility**: By using environment variables, you can easily change configuration settings without modifying your code. This makes your application more adaptable to different environments.
-- **Separation of Concerns**: Configuration details are kept separate from the code, making it easier to manage and maintain.
-
-By using environment variables in your AirBnB clone project, you can effectively manage its configuration and ensure that it behaves dynamically based on the environment in which it runs.
-
-## AirBnB clone (MySQL) - Unit Testing and MySQL Functionality Testing
-
-### Ensuring Unit Tests Pass and Adhere to PEP8 Standards
-
-1. Install `unittest` and `pep8` if you haven't already:
+Before we dive into writing tests, let's understand how to run them. Open your terminal and use the following commands:
 
 ```bash
-pip install unittest pep8
+# Run all tests
+guillaume@ubuntu:~/AirBnB_v2$ python3 -m unittest discover tests 2>&1 /dev/null | tail -n 1
+OK
+guillaume@ubuntu:~/AirBnB_v2$
 ```
 
-2. Write unit tests for your AirBnB clone project. Ensure each test case is appropriately named and covers specific functionality.
+This command discovers and runs all the tests in the `tests` directory. The "OK" message indicates that all the tests passed successfully.
 
-3. Run the unit tests using the following command:
+### Database Setup
+
+For testing with MySQL, we need to create a specific database for it. Ensure you have the necessary credentials for MySQL (user, password, host, and database name). You can set the environment variables accordingly:
 
 ```bash
-python -m unittest discover tests
+export HBNB_ENV=test
+export HBNB_MYSQL_USER=hbnb_test
+export HBNB_MYSQL_PWD=hbnb_test_pwd
+export HBNB_MYSQL_HOST=localhost
+export HBNB_MYSQL_DB=hbnb_test_db
+export HBNB_TYPE_STORAGE=db
 ```
 
-This command will automatically discover and run all unit tests in the `tests` directory.
+### Writing Tests
 
-4. To check if the code adheres to PEP8 standards, use the following command:
+Now, let's write tests to ensure that our code works as expected. Each test should follow the principle of "Assert a current state, perform an action, and validate the change in state."
 
-```bash
-pep8 .
-```
+For example, let's say we want to test the `create` command for creating a State named "California" in the console. Here are the steps for our unittest:
 
-This command will check all Python files in the current directory for PEP8 compliance.
-
-### Skipping Irrelevant Tests Based on Storage Engine
-
-To skip tests based on the storage engine being used, you can use conditional statements within your test cases. For example:
-
-```python
-import unittest
-from models import storage
-
-class TestSomeFunctionality(unittest.TestCase):
-    @unittest.skipIf(storage.__class__.__name__ != 'DBStorage', "Skip if not using DBStorage")
-    def test_some_functionality_with_mysql(self):
-        # Test functionality specific to MySQL
-        pass
-
-    @unittest.skipIf(storage.__class__.__name__ != 'FileStorage', "Skip if not using FileStorage")
-    def test_some_functionality_with_file_storage(self):
-        # Test functionality specific to FileStorage
-        pass
-```
-
-### Testing Functionality with MySQL
-
-1. Install MySQL if you haven't already and ensure it's running.
-
-2. Create a separate MySQL database for testing purposes.
-
-3. Write test cases that interact with the MySQL database. For example, you can insert data into the database, perform operations, and assert changes in the database state before and after executing commands.
-
-4. Use assertions to check the database state. For example:
+1. Get the number of current records in the `states` table using MySQLdb.
+2. Execute the console command to create a new State.
+3. Get the number of records in the `states` table again.
+4. Check if the difference is +1; if yes, the test has passed.
 
 ```python
 import unittest
 import MySQLdb
 from models import storage
 
-class TestMySQLFunctionality(unittest.TestCase):
-    def setUp(self):
+class TestCreateState(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
         # Connect to the MySQL database
-        self.db = MySQLdb.connect(host="localhost", user="your_username", passwd="your_password", db="your_test_db")
-        self.cursor = self.db.cursor()
+        cls.db = MySQLdb.connect(
+            host=storage._DBStorage__engine._host,
+            user=storage._DBStorage__engine._user,
+            passwd=storage._DBStorage__engine._pwd,
+            db=storage._DBStorage__engine._db
+        )
+        # Create a cursor
+        cls.cursor = cls.db.cursor()
 
-    def test_insert_data_into_database(self):
-        # Insert data into the database
-        self.cursor.execute("INSERT INTO your_table_name (column1, column2) VALUES (%s, %s)", ("value1", "value2"))
-        self.db.commit()
+    @classmethod
+    def tearDownClass(cls):
+        # Close the database connection
+        cls.db.close()
 
-        # Query the database to assert changes
-        self.cursor.execute("SELECT * FROM your_table_name WHERE column1 = %s", ("value1",))
-        result = self.cursor.fetchone()
-        self.assertIsNotNone(result)  # Assert that data was inserted successfully
+    def test_create_state(self):
+        # Get the initial count of states
+        initial_count = self.get_states_count()
 
-    def tearDown(self):
-        # Clean up after the test
-        self.cursor.close()
-        self.db.close()
+        # Execute the console command to create a State
+        # Note: Replace this with the actual console command
+        # e.g., storage.create('State', name='California')
 
-if __name__ == '__main__':
-    unittest.main()
-```
+        # Get the count of states after execution
+        updated_count = self.get_states_count()
 
-Replace `"your_username"`, `"your_password"`, `"your_test_db"`, `"your_table_name"`, etc., with appropriate values based on your MySQL setup.
+        # Check if the count increased by 1
+        self.assertEqual(updated_count, initial_count + 1)
 
-By following these steps, you can ensure that all unit tests pass without errors, adhere to PEP8 standards, appropriately skip irrelevant tests based on the storage engine being used, and test functionality with MySQL by asserting changes in the database state before and after executing commands.
-
-## AirBnB clone (MySQL) - Modifying `do_create` Function in console.py
-
-To modify the `do_create` function in `console.py` to allow for object creation with given parameters while ensuring unrecognized or incorrectly formatted parameters are skipped, follow these steps:
-
-1. Open `console.py` in your code editor.
-
-2. Locate the `do_create` function, which is responsible for creating objects based on user input.
-
-3. Modify the function to parse the user input and extract the object type and its parameters. Ensure that you handle unrecognized or incorrectly formatted parameters gracefully by skipping them.
-
-Here's an example implementation:
-
-```python
-def do_create(self, arg):
-    """
-    Creates a new instance of a specified class, saves it to the JSON file,
-    and prints the ID of the newly created instance.
-    Usage: create <class_name> <param1> <param2> <param3>...
-    """
-    args = arg.split()
-    if not args:
-        print("** class name missing **")
-        return
-    class_name = args[0]
-    if class_name not in classes:
-        print("** class doesn't exist **")
-        return
-    kwargs = {}
-    for pair in args[1:]:
-        try:
-            key, value = pair.split("=")
-            kwargs[key] = value
-        except ValueError:
-            print("** invalid parameter format: {} **".format(pair))
-    obj = classes[class_name](**kwargs)
-    obj.save()
-    print(obj.id)
-```
-
-4. Save the changes to `console.py`.
-
-### Testing the Modified `do_create` Function
-
-To validate the new feature and ensure it works as expected, you'll need to create corresponding tests, focusing on the FileStorage engine. Follow these steps:
-
-1. Create a new test file, such as `test_console.py`, in the `tests` directory if it doesn't already exist.
-
-2. Write test cases to cover different scenarios of object creation using the `do_create` function. Ensure you test both valid and invalid inputs, including unrecognized or incorrectly formatted parameters.
-
-3. Use the `mock` library to simulate user input and capture the output. You can mock the `sys.stdout` object to capture printed output.
-
-Here's an example test case:
-
-```python
-import unittest
-from unittest.mock import patch
-from console import HBNBCommand
-
-class TestConsoleCreate(unittest.TestCase):
-    @patch('sys.stdout', new_callable=io.StringIO)
-    def test_create_object_with_valid_params(self, mock_stdout):
-        cmd = HBNBCommand()
-        cmd.onecmd("create User email='test@example.com' password='password'")
-        output = mock_stdout.getvalue().strip()
-        self.assertTrue(output.startswith("[User]"))
-        self.assertIn("email='test@example.com'", output)
-        self.assertIn("password='password'", output)
-
-    @patch('sys.stdout', new_callable=io.StringIO)
-    def test_create_object_with_invalid_params(self, mock_stdout):
-        cmd = HBNBCommand()
-        cmd.onecmd("create User invalid_param")
-        output = mock_stdout.getvalue().strip()
-        self.assertEqual(output, "** invalid parameter format: invalid_param **")
+    def get_states_count(self):
+        # Query to get the count of states
+        query = "SELECT COUNT(*) FROM states"
+        self.cursor.execute(query)
+        count = self.cursor.fetchone()[0]
+        return count
 
 if __name__ == '__main__':
     unittest.main()
 ```
 
-4. Run the tests using the following command:
+This test class sets up a connection to the MySQL database, defines a test case for creating a State, and checks if the count of states increases after the execution of the console command.
+
+Remember to replace the console command with the actual command you want to test. Also, ensure that your test cases cover various functionalities, and the number of tests increases over time.
+
+Now you can run the tests using the following command:
 
 ```bash
-python -m unittest discover tests
+guillaume@ubuntu:~/AirBnB_v2$ HBNB_ENV=test HBNB_MYSQL_USER=hbnb_test HBNB_MYSQL_PWD=hbnb_test_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db python3 -m unittest discover tests 2>&1 /dev/null | tail -n 1
+OK
+guillaume@ubuntu:~/AirBnB_v2$
 ```
 
-Ensure that all tests pass without errors.
+This ensures that all your unittests pass without any errors, confirming the bug-free nature of your AirBnB clone project.
 
-By following these steps, you can modify the `do_create` function in `console.py` to allow for object creation with given parameters while handling unrecognized or incorrectly formatted parameters, and create corresponding tests to validate this new feature, focusing on the FileStorage engine.
+Remember, maintaining bug-free code and adhering to PEP8 standards are crucial for a successful project. Always run tests with each storage engine and write new tests when needed.
 
-## AirBnB clone (MySQL) - Writing setup_mysql_dev.sql Script
+# AirBnB clone (MySQL) - MySQL Setup Development
 
-To automate the setup of a MySQL server for the AirBnB clone project, including creating a database, a new user with specific privileges, and ensuring that the script does not fail if the database or user already exists, follow these steps:
+## Overview
 
-1. Create a new SQL script file named `setup_mysql_dev.sql` in your project directory.
+In this section, we will create a script that prepares a MySQL server for the AirBnB clone project. The script will perform the following tasks:
 
-2. Open the `setup_mysql_dev.sql` file in a text editor.
+1. Create a database named `hbnb_dev_db`.
+2. Create a new user named `hbnb_dev` on localhost.
+3. Set the password of `hbnb_dev` to `hbnb_dev_pwd`.
+4. Grant `hbnb_dev` all privileges on the `hbnb_dev_db` database (and only this database).
+5. Grant `hbnb_dev` SELECT privilege on the `performance_schema` database (and only this database).
+6. Ensure that if the database `hbnb_dev_db` or the user `hbnb_dev` already exists, the script should not fail.
 
-3. Write SQL commands to perform the following tasks:
+## MySQL Setup Script
 
-   - Create a database named `hbnb_dev_db` if it does not already exist.
-   - Create a new user named `hbnb_dev` with a specified password (`hbnb_dev_pwd`) and grant all privileges on the `hbnb_dev_db` database.
-   - Ensure that the script does not fail if the database or user already exists.
-
-Here's an example implementation of the `setup_mysql_dev.sql` script:
+Create a file named `setup_mysql_dev.sql` with the following content:
 
 ```sql
--- Create database if it doesn't exist
+-- Check if the hbnb_dev_db database already exists
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 
--- Create user and grant privileges
+-- Create or update the user hbnb_dev
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
+
+-- Grant privileges to the user on the specified databases
 GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
+GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
+
+-- Display the list of databases to verify the setup
+SHOW DATABASES;
+```
+
+## Running the Setup Script
+
+Execute the script using the following command:
+
+```bash
+cat setup_mysql_dev.sql | mysql -hlocalhost -uroot -p
+```
+
+You will be prompted to enter the password for the root user.
+
+## Verification
+
+After running the script, you can verify the setup by checking the created database and user privileges. Use the following commands:
+
+```bash
+echo "SHOW DATABASES;" | mysql -uhbnb_dev -p | grep hbnb_dev_db
+echo "SHOW GRANTS FOR 'hbnb_dev'@'localhost';" | mysql -uroot -p
+```
+
+You should see the `hbnb_dev_db` in the list of databases and the granted privileges for the user `hbnb_dev`.
+
+## Conclusion
+
+This script ensures the proper setup of a MySQL server for the AirBnB clone project. It creates the necessary database, user, and grants the required privileges. Running this script will help in establishing a MySQL environment tailored for the development needs of the project.
+
+# AirBnB clone (MySQL) - MySQL Setup Test
+
+In this section, we will focus on setting up the MySQL server for the testing environment of our AirBnB clone project. This script is crucial for ensuring that the necessary databases and users are in place for testing purposes.
+
+## Script Overview
+
+Let's break down the script step by step:
+
+```sql
+-- create project testing database with the name `hbnb_test_db`
+CREATE DATABASE IF NOT EXISTS hbnb_test_db;
+
+-- creating a new user named `hbnb_test` with all privileges on the db hbnb_test_db
+-- with the password `hbnb_test_pwd` if it doesn't exist
+CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
+
+-- granting the SELECT privilege for the test user hbnb_test on the db performance_schema
+GRANT SELECT ON performance_schema.* TO 'hbnb_test'@'localhost';
+
+-- granting all privileges to the new user hbnb_test_db
+GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
+
+-- flush privileges to apply the changes
 FLUSH PRIVILEGES;
 ```
 
-4. Save the changes to the `setup_mysql_dev.sql` file.
+## Explanation
 
-### Executing the Script
-
-To execute the `setup_mysql_dev.sql` script and set up the MySQL server for the AirBnB clone project, follow these steps:
-
-1. Open a terminal or command prompt.
-
-2. Log in to the MySQL server using the MySQL command-line client:
-
-   ```bash
-   mysql -u root -p
-   ```
-
-   Enter the root password when prompted.
-
-3. Once logged in, navigate to the directory containing the `setup_mysql_dev.sql` file.
-
-4. Run the following command to execute the script:
-
+1. **Create Database:**
    ```sql
-   source setup_mysql_dev.sql;
+   CREATE DATABASE IF NOT EXISTS hbnb_test_db;
    ```
+   - This statement creates the testing database `hbnb_test_db` if it doesn't already exist.
 
-   This will execute the SQL commands in the `setup_mysql_dev.sql` script, creating the database and user as specified.
-
-5. Verify that the database and user were created successfully by running the following commands:
-
+2. **Create User:**
    ```sql
-   SHOW DATABASES;
+   CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
    ```
+   - This creates a new user named `hbnb_test` with the password `hbnb_test_pwd` if the user doesn't exist.
 
+3. **Grant SELECT Privilege:**
    ```sql
-   SELECT User, Host FROM mysql.user;
+   GRANT SELECT ON performance_schema.* TO 'hbnb_test'@'localhost';
    ```
+   - Grants the SELECT privilege to the user `hbnb_test` on the `performance_schema` database.
 
-   Ensure that `hbnb_dev_db` appears in the list of databases and `hbnb_dev` appears in the list of users with the correct privileges.
+4. **Grant All Privileges:**
+   ```sql
+   GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
+   ```
+   - Provides all privileges to the user `hbnb_test` specifically on the `hbnb_test_db`.
 
-By following these steps, you can write a script (`setup_mysql_dev.sql`) that automates the setup of a MySQL server for the AirBnB clone project, including creating a database, a new user with specific privileges, and ensuring that the script does not fail if the database or user already exists.
+5. **Flush Privileges:**
+   ```sql
+   FLUSH PRIVILEGES;
+   ```
+   - This command reloads the privileges, applying the changes made in the script.
 
-## AirBnB clone (MySQL) - Implementing New Methods in FileStorage Class
+## Running the Script
 
-To implement new methods in the `FileStorage` class located in `models/engine/file_storage.py` for the AirBnB clone project, follow these steps:
+To execute this script, use the following command in your MySQL shell:
 
-### 1. Implementing the `delete` Method
-
-Add a new public instance method named `delete` to the `FileStorage` class. This method will delete an object from the `__objects` dictionary if it exists.
-
-```python
-def delete(self, obj=None):
-    """
-    Deletes obj from __objects if it exists
-    """
-    if obj:
-        key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        if key in self.__objects:
-            del self.__objects[key]
-            self.save()
+```bash
+cat setup_mysql_test.sql | mysql -hlocalhost -uroot -p
 ```
 
-### 2. Updating the `all` Method Prototype
+This will prompt you for the MySQL root password.
 
-Update the prototype of the `all` method to accept an optional argument `cls`. This will allow the method to return a list of objects of a specific class if `cls` is provided, or return all objects if `cls` is `None`.
+## Verification
 
-```python
-def all(self, cls=None):
-    """
-    Returns the list of objects of a specific class or all objects
-    """
-    if cls:
-        return [obj for obj in self.__objects.values() if isinstance(obj, cls)]
-    else:
-        return self.__objects.values()
+After running the script, you can verify its success by checking if the database and user were created and if the necessary privileges were granted. Use the following commands:
+
+```bash
+echo "SHOW DATABASES;" | mysql -uhbnb_test -p | grep hbnb_test_db
+echo "SHOW GRANTS FOR 'hbnb_test'@'localhost';" | mysql -uroot -p
 ```
 
-### Example Usage:
+These commands should display the `hbnb_test_db` in the list of databases and show the granted privileges for the `hbnb_test` user.
 
-After implementing these changes, you can use the `delete` method to delete objects from the `FileStorage` instance and the updated `all` method to retrieve objects of a specific class or all objects.
+This script ensures that the MySQL server is properly configured for testing the AirBnB clone project, allowing seamless interaction with the database during the testing phase.
 
-```python
-from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
+# AirBnB clone (MySQL) - DBStorage: States and Cities
 
-# Create a FileStorage instance
-storage = FileStorage()
+In this section, we will integrate SQLAlchemy into our AirBnB clone project, focusing on the transition from FileStorage to DBStorage. This change involves updating the BaseModel, City, and State classes, as well as creating a new DBStorage engine.
 
-# Load data into the FileStorage instance
-storage.reload()
-
-# Delete an object from the FileStorage instance
-obj_to_delete = ...  # Retrieve object to delete
-storage.delete(obj_to_delete)
-
-# Retrieve all objects of a specific class
-all_users = storage.all(User)
-
-# Retrieve all objects
-all_objects = storage.all()
-```
-
-By following these steps, you can implement the `delete` method to delete objects from the `FileStorage` class and update the prototype of the `all` method to return a list of objects of a specific class or all objects in the AirBnB clone project.
-
-## AirBnB clone (MySQL) - Transitioning from FileStorage to DBStorage
-
-To transition from `FileStorage` to `DBStorage` in the AirBnB clone project and ensure proper storage and retrieval of objects in the MySQL database, follow these steps:
-
-### 1. Update BaseModel
-
-Make necessary changes to the `BaseModel` class to implement SQLAlchemy attributes and methods for proper database storage. This includes defining the `id`, `created_at`, and `updated_at` attributes as `Column` objects with appropriate data types and constraints.
+## Update BaseModel: (models/base_model.py)
 
 ```python
-import models
-from sqlalchemy import Column, String, DateTime
+# Import SQLAlchemy's declarative_base
 from sqlalchemy.ext.declarative import declarative_base
-import uuid
-import datetime
 
+# Create Base as declarative_base
 Base = declarative_base()
 
+# Update BaseModel class
 class BaseModel:
-    """
-    Base class for all models
-    """
+    # Existing code...
+
+    # Add class attributes
     id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
-    def __init__(self, *args, **kwargs):
-        """
-        Initializes a new BaseModel instance
-        """
-        self.id = str(uuid.uuid4())
-        self.created_at = self.updated_at = datetime.datetime.now()
-
+    # Move models.storage.new(self) to def save(self) and call it before models.storage.save()
     def save(self):
-        """
-        Saves the current instance to the database
-        """
         models.storage.new(self)
         models.storage.save()
 
-    def delete(self):
-        """
-        Deletes the current instance from the database
-        """
-        models.storage.delete(self)
+    # Update __init__ to manage kwargs and create instance attributes
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, value)
+            if 'id' not in kwargs:
+                self.id = str(uuid.uuid4())
+            if 'created_at' not in kwargs:
+                self.created_at = self.updated_at = datetime.utcnow()
 
-    def __str__(self):
-        """
-        Returns a string representation of the instance
-        """
-        return "[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__)
-
+    # Update to_dict method to remove '_sa_instance_state'
     def to_dict(self):
-        """
-        Returns a dictionary representation of the instance
-        """
-        data = self.__dict__.copy()
-        data.pop('_sa_instance_state', None)
-        return data
+        new_dict = self.__dict__.copy()
+        if '_sa_instance_state' in new_dict:
+            del new_dict['_sa_instance_state']
+        return new_dict
+
+    # Add delete method to delete the current instance from storage
+    def delete(self):
+        models.storage.delete(self)
 ```
 
-### 2. Implement SQLAlchemy Models for City, State, etc.
+This section includes several updates to the `BaseModel` class, integrating SQLAlchemy. Here are the key points:
 
-Define SQLAlchemy models for `City`, `State`, and other classes similar to `BaseModel`. Each class should inherit from `Base` and define the necessary attributes and relationships according to the project requirements.
+- **Import declarative_base:** SQLAlchemy's `declarative_base` is imported to create the base class for our models.
+
+- **Class attributes for BaseModel:**
+  - `id`, `created_at`, and `updated_at` are now defined as class attributes using SQLAlchemy's `Column`.
+  - `id` is the primary key, a unique string with a maximum length of 60 characters.
+  - `created_at` and `updated_at` are datetime columns with default values set to the current UTC time.
+
+- **Move `models.storage.new(self)` to `def save(self):`**
+  - The `save` method now includes the creation of a new instance before saving it to storage.
+
+- **Update `__init__`:**
+  - The `__init__` method now handles keyword arguments to create instance attributes based on the dictionary.
+  - If the 'id' is not present in the arguments, a new UUID is generated.
+  - `created_at` and `updated_at` are set to the current time if not provided.
+
+- **Update `to_dict`:**
+  - Removed the '_sa_instance_state' key from the dictionary returned by `to_dict`.
+
+- **Add `delete` method:**
+  - A new public instance method `delete(self)` is introduced to delete the current instance from storage.
+
+## Update City: (models/city.py)
 
 ```python
-from sqlalchemy import ForeignKey
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-class State(BaseModel, Base):
-    """
-    Represents a state
-    """
-    __tablename__ = 'states'
-    name = Column(String(128), nullable=False)
-    cities = relationship('City', cascade='all, delete', backref='state')
-
+# Update City class
 class City(BaseModel, Base):
-    """
-    Represents a city
-    """
     __tablename__ = 'cities'
-    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+
+    # Existing code...
+
     name = Column(String(128), nullable=False)
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
 ```
 
-### 3. Update DBStorage
+This section focuses on updating the `City` class to work with SQLAlchemy:
 
-Modify the `DBStorage` class in `models/engine/db_storage.py` to initialize the SQLAlchemy session and implement methods for storing and retrieving objects from the database.
+- **Import necessary modules:** Import required modules such as `BaseModel` and `Base` from `models.base_model`, and SQLAlchemy's `Column` and `ForeignKey`.
+
+- **Class attributes for City:**
+  - `__tablename__`: Specifies the table name as 'cities'.
+  - `name` and `state_id` are columns for city name and the foreign key to the 'states' table, respectively.
+
+## Update State: (models/state.py)
 
 ```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+
+# Update State class
+class State(BaseModel, Base):
+    __tablename__ = 'states'
+
+    # Existing code...
+
+    name = Column(String(128), nullable=False)
+
+    # For DBStorage, add cities attribute to represent the relationship
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        cities = relationship('City', cascade='all, delete', backref='state')
+```
+
+This section updates the `State` class to accommodate SQLAlchemy:
+
+- **Import necessary modules:** Similar to the City class, import required modules.
+
+- **Class attributes for State:**
+  - `__tablename__`: Specifies the table name as 'states'.
+  - `name` is a column for the state name.
+  - For `DBStorage`, a relationship `cities` is added, representing the connection with the `City` class. Cascade is set to 'all, delete' to ensure deleting a state deletes associated cities.
+
+## New engine DBStorage: (models/engine/db_storage.py)
+
+```python
+# Import necessary modules
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from os import getenv
+from models.base_model import Base
 
+# Define DBStorage class
 class DBStorage:
-    """
-    Database storage engine
-    """
     __engine = None
     __session = None
 
     def __init__(self):
-        """
-        Initializes the DBStorage instance
-        """
+        # Create the engine
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
-                                      .format(os.environ['HBNB_MYSQL_USER'],
-                                              os.environ['HBNB_MYSQL_PWD'],
-                                              os.environ['HBNB_MYSQL_HOST'],
-                                              os.environ['HBNB_MYSQL_DB']),
+                                      .format(getenv('HBNB_MYSQL_USER'),
+                                              getenv('HBNB_MYSQL_PWD'),
+                                              getenv('HBNB_MYSQL_HOST'),
+                                              getenv('HBNB_MYSQL_DB')),
                                       pool_pre_ping=True)
-        if os.environ.get('HBNB_ENV') == 'test':
+
+        # Drop all tables if HBNB_ENV is 'test'
+        if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """
-        Returns a dictionary of all objects of a specific class
-        """
-        session = self.__session
-        objs = {}
-        if cls:
-            for obj in session.query(cls).all():
-                objs[obj.__class__.__name__ + '.' + obj.id] = obj
-        else:
-            for clazz in Base.__subclasses__():
-                for obj in session.query(clazz).all():
-                    objs[obj.__class__.__name__ + '.' + obj.id] = obj
-        return objs
+        # Existing code...
 
     def new(self, obj):
-        """
-        Adds a new object to the current database session
-        """
-        if obj:
-            self.__session.add(obj)
+        # Existing code...
 
     def save(self):
-        """
-        Commits all changes to the current database session
-        """
-        self.__session.commit()
+        # Existing code...
 
     def delete(self, obj=None):
-        """
-        Deletes obj from the current database session
-        """
-        if obj:
-            self.__session.delete(obj)
+        # Existing code...
 
     def reload(self):
-        """
-        Reloads objects from the database
-        """
-        Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = Session()
-
-    def close(self):
-        """
-        Closes the session
-        """
-        self.__session.close()
+        # Existing code...
 ```
 
-### 4. Update init.py
+This section introduces the `DBStorage` class, representing the database storage engine:
 
-Update the `__init__.py` file in the `models` package to use `DBStorage` as the default storage engine when the environment is set to `db`.
+- **Private class attributes:**
+  - `__engine` and `__session` are set to `None`.
+
+- **Public instance methods:**
+  - `__init__(self)`: Initializes the engine, linking it to the MySQL database. It uses environment variables for configuration. Tables are dropped if the environment is 'test'.
+  - `all(self, cls=None)`: Queries objects from the current database session based on the class name.
+  - `new(self, obj)`: Adds the object to the current database session.
+  - `save(self)`: Commits all changes of the current database session.
+  - `delete(self, obj=None)`: Deletes the object from the current database session.
+  - `reload(self)`: Creates all tables in the database and creates the current database session.
+
+## Update __init__.py: (models/__init__.py)
 
 ```python
+# Import necessary modules
 from os import getenv
 
+# Existing code...
+
+# Add a conditional to switch between DBStorage and FileStorage
 if getenv('HBNB_TYPE_STORAGE') == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
+
+# Reload the storage instance
 storage.reload()
 ```
 
-By following these steps, you can transition from `FileStorage` to `DBStorage` in the AirBnB clone project, ensuring proper storage and retrieval of objects in the MySQL database.
+This section updates the initialization of the storage instance based on the value of `HBNB_TYPE_STORAGE`:
 
-## AirBnB clone (MySQL) - Updating the User Class
+- **Conditional import:**
+  - If `HBNB_TYPE_STORAGE` is 'db', import `DBStorage` and create an instance. If not, import `FileStorage`.
+  - The storage instance is reloaded after instantiation.
 
-To update the `User` class in the `models/user.py` file to inherit from `BaseModel` and `Base`, add the necessary class attributes (`__tablename__`, `email`, `password`, `first_name`, `last_name`), and ensure proper creation and retrieval of `User` objects in the MySQL database using SQLAlchemy, follow these steps:
-
-### 1. Update User Class
-
-Modify the `User` class in the `models/user.py` file to inherit from `BaseModel` and `Base`, and define the required class attributes.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-
-class User(BaseModel, Base):
-    """
-    Represents a user
-    """
-    __tablename__ = 'users'
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=True)
-    last_name = Column(String(128), nullable=True)
-```
-
-### 2. Ensure Proper Database Configuration
-
-Ensure that the database connection parameters are correctly configured in the environment variables (`HBNB_MYSQL_USER`, `HBNB_MYSQL_PWD`, `HBNB_MYSQL_HOST`, `HBNB_MYSQL_DB`) to allow SQLAlchemy to connect to the MySQL database.
+## State Creation:
 
 ```bash
-export HBNB_MYSQL_USER=hbnb_user
-export HBNB_MYSQL_PWD=hbnb_password
-export HBNB_MYSQL_HOST=localhost
-export HBNB_MYSQL_DB=hbnb_db
+echo 'create State name="California"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
-### 3. Update DBStorage
+## City Creation:
 
-If you are transitioning from `FileStorage` to `DBStorage`, ensure that the `DBStorage` class is properly implemented to handle storage and retrieval of `User` objects in the MySQL database.
-
-```python
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-
-class DBStorage:
-    """
-    Database storage engine
-    """
-    __engine = None
-    __session = None
-
-    def __init__(self):
-        """
-        Initializes the DBStorage instance
-        """
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'
-                                      .format(os.environ['HBNB_MYSQL_USER'],
-                                              os.environ['HBNB_MYSQL_PWD'],
-                                              os.environ['HBNB_MYSQL_HOST'],
-                                              os.environ['HBNB_MYSQL_DB']),
-                                      pool_pre_ping=True)
-        if os.environ.get('HBNB_ENV') == 'test':
-            Base.metadata.drop_all(self.__engine)
-
-    def all(self, cls=None):
-        """
-        Returns a dictionary of all objects of a specific class
-        """
-        session = self.__session
-        objs = {}
-        if cls:
-            for obj in session.query(cls).all():
-                objs[obj.__class__.__name__ + '.' + obj.id] = obj
-        else:
-            for clazz in Base.__subclasses__():
-                for obj in session.query(clazz).all():
-                    objs[obj.__class__.__name__ + '.' + obj.id] = obj
-        return objs
-
-    # Implement other methods such as new, save, delete, reload
-
-    def close(self):
-        """
-        Closes the session
-        """
-        self.__session.close()
+```bash
+echo 'create City state_id="95a5abab-aa65-4861-9bc6-1da4a36069aa" name="San_Francisco"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
-By following these steps, you can update the `User` class in the AirBnB clone project to ensure proper creation and retrieval of `User` objects in the MySQL database using SQLAlchemy.
-
-## AirBnB clone (MySQL) - Updating Place, User, and City Classes
-
-To update the `Place`, `User`, and `City` classes in their respective files to include the required class attributes and relationships for SQLAlchemy to properly map them to the database tables, and ensure that the relationships between these classes are correctly defined, follow these steps:
-
-### 1. Update Place Class
-
-Modify the `Place` class in the `models/place.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship
-
-class Place(BaseModel, Base):
-    """
-    Represents a place
-    """
-    __tablename__ = 'places'
-    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    name = Column(String(128), nullable=False)
-    description = Column(String(1024), nullable=True)
-
-    # Define relationships
-    reviews = relationship('Review', backref='place')
-    amenities = relationship('Amenity', secondary='place_amenity',
-                             viewonly=False, backref='place')
+```bash
+echo 'create City state_id="95a5abab-aa65-4861-9bc6-1da4a36069aa" name="San_Jose"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
-### 2. Update User Class
+The final part demonstrates how to create states and cities using the new database storage engine. Commands for creating instances and verifying entries in the database are provided.
 
-Modify the `User` class in the `models/user.py` file to define the required class attributes and relationships.
+## Verification:
 
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class User(BaseModel, Base):
-    """
-    Represents a user
-    """
-    __tablename__ = 'users'
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=True)
-    last_name = Column(String(128), nullable=True)
-
-    # Define relationships
-    places = relationship('Place', backref='user')
-    reviews = relationship('Review', backref='user')
+```bash
+echo 'all State' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
-### 3. Update City Class
-
-Modify the `City` class in the `models/city.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class City(BaseModel, Base):
-    """
-    Represents a city
-    """
-    __tablename__ = 'cities'
-    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
-    name = Column(String(128), nullable=False)
-
-    # Define relationships
-    places = relationship('Place', backref='city')
+```bash
+echo 'all City' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
 ```
 
-By following these steps, you can update the `Place`, `User`, and `City` classes in the AirBnB clone project to ensure that the required class attributes and relationships are defined for SQLAlchemy to properly map them to the database tables, and that the relationships between these classes are correctly defined.
-
-## AirBnB clone (MySQL) - Updating Review, User, and Place Classes
-
-To update the `Review`, `User`, and `Place` classes in their respective files to include the required class attributes and relationships for SQLAlchemy to properly map them to the database tables, and ensure that the relationships between these classes are correctly defined, follow these steps:
-
-### 1. Update Review Class
-
-Modify the `Review` class in the `models/review.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship
-
-class Review(BaseModel, Base):
-    """
-    Represents a review
-    """
-    __tablename__ = 'reviews'
-    text = Column(String(1024), nullable=False)
-    place_id = Column(String(60), ForeignKey('places.id'), nullable=False)
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-
-    # Define relationships
-    user = relationship('User', backref='reviews')
-    place = relationship('Place', backref='reviews')
+```bash
+echo 'SELECT * FROM states\G' | mysql -uhbnb_dev -p hbnb_dev_db
 ```
 
-### 2. Update User Class
-
-Modify the `User` class in the `models/user.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class User(BaseModel, Base):
-    """
-    Represents a user
-    """
-    __tablename__ = 'users'
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=True)
-    last_name = Column(String(128), nullable=True)
-
-    # Define relationships
-    places = relationship('Place', backref='user')
-    reviews = relationship('Review', backref='user')
+```bash
+echo 'SELECT * FROM cities\G' | mysql -uhbnb_dev -p hbnb_dev_db
 ```
 
-### 3. Update Place Class
-
-Modify the `Place` class in the `models/place.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class Place(BaseModel, Base):
-    """
-    Represents a place
-    """
-    __tablename__ = 'places'
-    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    name = Column(String(128), nullable=False)
-    description = Column(String(1024), nullable=True)
-
-    # Define relationships
-    reviews = relationship('Review', backref='place')
-    amenities = relationship('Amenity', secondary='place_amenity',
-                             viewonly=False, backref='place')
-```
-
-By following these steps, you can update the `Review`, `User`, and `Place` classes in the AirBnB clone project to ensure that the required class attributes and relationships are defined for SQLAlchemy to properly map them to the database tables, and that the relationships between these classes are correctly defined.
-
-## AirBnB clone (MySQL) - Implementing Many-To-Many Relationship
-
-To update the `Amenity` and `Place` classes in their respective files to implement a Many-To-Many relationship between `Place` and `Amenity` using SQLAlchemy, follow these steps:
-
-### 1. Update Amenity Class
-
-Modify the `Amenity` class in the `models/amenity.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class Amenity(BaseModel, Base):
-    """
-    Represents an amenity
-    """
-    __tablename__ = 'amenities'
-    name = Column(String(128), nullable=False)
-
-    # Define the Many-To-Many relationship with Place
-    places = relationship('Place', secondary='place_amenity',
-                          backref='amenities')
-```
-
-### 2. Update Place Class
-
-Modify the `Place` class in the `models/place.py` file to define the required class attributes and relationships.
-
-```python
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-
-class Place(BaseModel, Base):
-    """
-    Represents a place
-    """
-    __tablename__ = 'places'
-    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
-    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    name = Column(String(128), nullable=False)
-    description = Column(String(1024), nullable=True)
-
-    # Define the Many-To-Many relationship with Amenity
-    amenities = relationship('Amenity', secondary='place_amenity',
-                             backref='places')
-```
-
-### 3. Define Association Table
-
-You also need to define an association table named `place_amenity` to establish the Many-To-Many relationship between `Place` and `Amenity`. This table will hold the foreign keys for both `Place` and `Amenity`.
-
-```python
-from sqlalchemy import Table, Column, ForeignKey
-from sqlalchemy.orm import relationship
-from models.base_model import Base
-
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60),
-                             ForeignKey('places.id'),
-                             primary_key=True,
-                             nullable=False),
-                      Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'),
-                             primary_key=True,
-                             nullable=False))
-```
-
-By following these steps, you can implement a Many-To-Many relationship between `Place` and `Amenity` using SQLAlchemy in the AirBnB clone project, ensuring that the relationship is properly defined and mapped to the database tables.
-
-© [2024] [Paschal Ugwu]
+These changes incorporate SQLAlchemy into our AirBnB clone project, providing a smooth transition from FileStorage to DBStorage. It introduces the necessary attributes and relationships for States and Cities, ensuring proper database management. The creation and verification steps demonstrate the functionality of the new storage engine.
