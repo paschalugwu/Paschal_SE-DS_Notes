@@ -491,3 +491,327 @@ echo 'SELECT * FROM cities\G' | mysql -uhbnb_dev -p hbnb_dev_db
 ```
 
 These changes incorporate SQLAlchemy into our AirBnB clone project, providing a smooth transition from FileStorage to DBStorage. It introduces the necessary attributes and relationships for States and Cities, ensuring proper database management. The creation and verification steps demonstrate the functionality of the new storage engine.
+
+# AirBnB clone (MySQL) - DBStorage: User
+
+In this section, we will incorporate user-related functionalities into our AirBnB clone project, specifically focusing on the User model. Follow the steps below to update the `User` class and explore the integration of these changes.
+
+## Update User: (models/user.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+
+# Update User class
+class User(BaseModel, Base):
+    __tablename__ = 'users'
+
+    # Existing code...
+
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
+```
+
+### Example Usage:
+
+1. Create a new User:
+
+```bash
+echo 'create User email="gui@hbtn.io" password="guipwd" first_name="Guillaume" last_name="Snow"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+2. View all Users:
+
+```bash
+echo 'all User' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+3. Verify in the Database:
+
+```bash
+echo 'SELECT * FROM users\G' | mysql -uhbnb_dev -p hbnb_dev_db
+```
+
+These updates ensure the User model aligns with the DBStorage changes, including the addition of attributes such as email, password, first_name, and last_name. Apply these modifications to enhance the user-related functionalities in your AirBnB clone project.
+
+# AirBnB clone (MySQL) - DBStorage: Place, User, City
+
+In this section, we will extend our AirBnB clone project to handle Places, Users, and Cities more effectively with the integration of DBStorage. Follow the steps below to update the respective classes and understand the changes made.
+
+## Update Place: (models/place.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+
+# Update Place class
+class Place(BaseModel, Base):
+    __tablename__ = 'places'
+
+    # Existing code...
+
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    name = Column(String(128), nullable=False)
+    description = Column(String(1024), nullable=True)
+    number_rooms = Column(Integer, nullable=False, default=0)
+    number_bathrooms = Column(Integer, nullable=False, default=0)
+    max_guest = Column(Integer, nullable=False, default=0)
+    price_by_night = Column(Integer, nullable=False, default=0)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
+```
+
+## Update User: (models/user.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+
+# Update User class
+class User(BaseModel, Base):
+    __tablename__ = 'users'
+
+    # Existing code...
+
+    places = relationship('Place', cascade='all, delete', backref='user')
+```
+
+## Update City: (models/city.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+
+# Update City class
+class City(BaseModel, Base):
+    __tablename__ = 'cities'
+
+    # Existing code...
+
+    places = relationship('Place', cascade='all, delete', backref='city')
+```
+
+### Example Usage:
+
+1. Create a new Place:
+
+```bash
+echo 'create Place city_id="4b457e66-c7c8-4f63-910f-fd91c3b7140b" user_id="4f3f4b42-a4c3-4c20-a492-efff10d00c0b" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+2. View all Places:
+
+```bash
+echo 'all Place' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+3. Verify in the Database:
+
+```bash
+echo 'SELECT * FROM places\G' | mysql -uhbnb_dev -p hbnb_dev_db
+```
+
+These updates enhance the relationships between Places, Users, and Cities in your AirBnB clone project. The changes include foreign key connections, relationships, and cascading deletions to ensure data integrity.
+
+# AirBnB clone (MySQL) - DBStorage: Review, User, Place
+
+In this section, we will enhance our AirBnB clone project by introducing Reviews and managing relationships between Reviews, Users, and Places using DBStorage. Follow the steps below to apply these changes effectively.
+
+## Update Review: (models/review.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey
+
+# Update Review class
+class Review(BaseModel, Base):
+    __tablename__ = 'reviews'
+
+    # Existing code...
+
+    text = Column(String(1024), nullable=False)
+    place_id = Column(String(60), ForeignKey('places.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+```
+
+## Update User: (models/user.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+
+# Update User class
+class User(BaseModel, Base):
+    __tablename__ = 'users'
+
+    # Existing code...
+
+    reviews = relationship('Review', cascade='all, delete', backref='user')
+```
+
+## Update Place: (models/place.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+
+# Update Place class
+class Place(BaseModel, Base):
+    __tablename__ = 'places'
+
+    # Existing code...
+
+    reviews = relationship('Review', cascade='all, delete', backref='place')
+```
+
+### Example Usage:
+
+1. Create a new User and Review:
+
+```bash
+echo 'create User email="bob@hbtn.io" password="bobpwd" first_name="Bob" last_name="Dylan"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+```bash
+echo 'create Review place_id="ed72aa02-3286-4891-acbc-9d9fc80a1103" user_id="d93638d9-8233-4124-8f4e-17786592908b" text="Amazing_place,_huge_kitchen"' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+2. View all Reviews:
+
+```bash
+echo 'all Review' | HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+3. Verify in the Database:
+
+```bash
+echo 'SELECT * FROM reviews\G' | mysql -uhbnb_dev -p hbnb_dev_db
+```
+
+These updates introduce Reviews to your AirBnB clone project and establish relationships with Users and Places. The changes include foreign key connections, relationships, and cascading deletions for data integrity.
+
+# AirBnB clone (MySQL) - DBStorage: Amenity... and BOOM!
+
+In this section, we will enhance our AirBnB clone project by introducing Amenities and creating a Many-to-Many relationship between Places and Amenities using DBStorage. Follow the steps below to apply these changes effectively.
+
+## Update Amenity: (models/amenity.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+
+# Update Amenity class
+class Amenity(BaseModel, Base):
+    __tablename__ = 'amenities'
+
+    # Existing code...
+
+    name = Column(String(128), nullable=False)
+```
+
+## Update Place: (models/place.py)
+
+```python
+# Import necessary modules
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey, Table
+from sqlalchemy.orm import relationship
+
+# Define place_amenity Table
+place_amenity = Table(
+    'place_amenity',
+    Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
+)
+
+# Update Place class
+class Place(BaseModel, Base):
+    __tablename__ = 'places'
+
+    # Existing code...
+
+    amenities = relationship('Amenity', secondary='place_amenity', viewonly=False)
+```
+
+### Example Usage:
+
+Create a Python script (e.g., main_place_amenities.py) to test the Many-to-Many relationship:
+
+```python
+#!/usr/bin/python3
+""" Test link Many-To-Many Place <> Amenity
+"""
+from models import *
+
+# creation of a State
+state = State(name="California")
+state.save()
+
+# creation of a City
+city = City(state_id=state.id, name="San Francisco")
+city.save()
+
+# creation of a User
+user = User(email="john@snow.com", password="johnpwd")
+user.save()
+
+# creation of 2 Places
+place_1 = Place(user_id=user.id, city_id=city.id, name="House 1")
+place_1.save()
+place_2 = Place(user_id=user.id, city_id=city.id, name="House 2")
+place_2.save()
+
+# creation of 3 various Amenity
+amenity_1 = Amenity(name="Wifi")
+amenity_1.save()
+amenity_2 = Amenity(name="Cable")
+amenity_2.save()
+amenity_3 = Amenity(name="Oven")
+amenity_3.save()
+
+# link place_1 with 2 amenities
+place_1.amenities.append(amenity_1)
+place_1.amenities.append(amenity_2)
+
+# link place_2 with 3 amenities
+place_2.amenities.append(amenity_1)
+place_2.amenities.append(amenity_2)
+place_2.amenities.append(amenity_3)
+
+storage.save()
+
+print("OK")
+```
+
+Run the script:
+
+```bash
+HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./main_place_amenities.py
+```
+
+Verify the data in the database:
+
+```bash
+echo 'SELECT * FROM amenities\G' | mysql -uhbnb_dev -p hbnb_dev_db
+echo 'SELECT * FROM places\G' | mysql -uhbnb_dev -p hbnb_dev_db
+echo 'SELECT * FROM place_amenity\G' | mysql -uhbnb_dev -p hbnb_dev_db
+```
+
+These updates introduce Amenities to your AirBnB clone project and establish a Many-to-Many relationship with Places using a linking table (place_amenity). The example script demonstrates how to create, link, and save data with these new features.
