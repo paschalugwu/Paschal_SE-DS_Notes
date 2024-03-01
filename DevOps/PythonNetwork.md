@@ -200,4 +200,241 @@ cURL provides extensive options for customizing requests, including specifying r
 
 Understanding advanced HTTP concepts and practical usage is crucial for building modern web applications and APIs. Developers use HTTP message bodies to transmit data between clients and servers, HTTP request methods to interact with resources on the server, and HTTP response status codes to handle server responses effectively. HTTP cookies play a significant role in web application development, enabling features such as user authentication and session management. Additionally, cURL provides a convenient way to debug and test HTTP requests from the command line, facilitating development and troubleshooting tasks. In real-world projects, developers often leverage these concepts and tools to build robust and efficient web applications and services.
 
+# Python (Network) - Fetching and Manipulating Internet Resources
+
+## How to Fetch Internet Resources Using Python?
+
+Fetching internet resources in Python involves utilizing libraries or packages specifically designed for making HTTP requests and handling responses. Two primary methods for fetching internet resources in Python are using the `urllib` module and the `requests` library.
+
+### 1. Using urllib:
+
+The `urllib` module in Python provides methods for handling URLs, making requests, and retrieving data from the web.
+
+#### Steps for Fetching Internet Resources with urllib:
+
+1. **Import urllib**: First, import the necessary functions or modules from `urllib`.
+   
+   ```python
+   from urllib import request
+   ```
+
+2. **Make a Request**: Use the `urlopen()` function to make a request to a URL and retrieve the response.
+   
+   ```python
+   response = request.urlopen(url)
+   ```
+
+3. **Read Response Data**: Once the response is obtained, you can read the data from it.
+   
+   ```python
+   data = response.read()
+   ```
+
+### 2. Using requests:
+
+The `requests` library is a popular Python package for making HTTP requests.
+
+#### Advantages of requests over urllib:
+
+- **Simplicity**: Requests provides a simpler and more intuitive interface compared to urllib.
+- **Rich Functionality**: Requests offers a wide range of features for handling HTTP requests and responses.
+- **Automatic Content Decoding**: Requests automatically decodes content based on the response headers, making it easier to work with response data.
+
+#### Example of Fetching Internet Resources with requests:
+
+```python
+import requests
+
+# Make a GET request
+response = requests.get(url)
+
+# Access response data
+data = response.text
+```
+
+## How to Decode the Body Response Obtained Through urllib?
+
+When using `urllib` to fetch internet resources, you may need to decode the body response, especially if it contains text data.
+
+### Steps for Decoding Body Response using urllib:
+
+1. **Get Charset**: Determine the character encoding (charset) specified in the response headers.
+   
+   ```python
+   charset = response.headers.get_content_charset()
+   ```
+
+2. **Decode Response**: Use the `decode()` method to decode the response content using the detected charset.
+   
+   ```python
+   decoded_data = data.decode(charset)
+   ```
+
+## Real-World Application:
+
+Fetching and manipulating internet resources with Python is crucial in various real-world projects, such as:
+
+- **Web Scraping**: Extracting data from websites for analysis or integration into other applications.
+- **API Integration**: Communicating with web APIs to retrieve data for use in applications or services.
+- **Data Collection**: Gathering information from online sources for research or analysis purposes.
+- **Web Development**: Handling HTTP requests and responses in web applications to fetch resources or interact with external APIs.
+
+Understanding how to fetch and manipulate internet resources using Python empowers developers to build more dynamic and interactive applications that interact with the vast resources available on the internet.
+
+# Python (Network) - Performing HTTP Requests
+
+## How to Make an HTTP GET Request Using Python?
+
+To make an HTTP GET request in Python, you can utilize libraries like `urllib` or `requests`. Here are the steps involved using the `requests` library:
+
+### Steps for Making an HTTP GET Request:
+
+1. **Import requests**: Begin by importing the `requests` library.
+
+```python
+import requests
+```
+
+2. **Make the Request**: Use the `get()` method of the `requests` library to make the HTTP GET request.
+
+```python
+response = requests.get(url)
+```
+
+3. **Handle the Response**: You can now handle the response obtained from the server.
+
+```python
+if response.status_code == 200:
+    # Request was successful
+    print(response.text)
+else:
+    # Handle errors
+    print("Error:", response.status_code)
+```
+
+## How to Make HTTP POST/PUT/etc. Requests in Python?
+
+In addition to HTTP GET requests, Python allows you to make other types of HTTP requests like POST, PUT, DELETE, etc. The `requests` library simplifies this process.
+
+### Making Other HTTP Requests:
+
+- **POST Request**:
+
+```python
+response = requests.post(url, data=payload)
+```
+
+- **PUT Request**:
+
+```python
+response = requests.put(url, data=payload)
+```
+
+- **DELETE Request**:
+
+```python
+response = requests.delete(url)
+```
+
+Each of these methods has different purposes and is used to interact with web servers in specific ways.
+
+## How to Fetch JSON Resources Using Python?
+
+JSON (JavaScript Object Notation) is a popular format for exchanging data on the web. Python provides built-in support for handling JSON data, and libraries like `requests` make it easy to fetch JSON resources.
+
+### Fetching JSON Resources:
+
+1. **Make the Request**: Use `requests.get()` to fetch the JSON resource.
+
+```python
+response = requests.get(url)
+```
+
+2. **Access JSON Data**: If the response contains JSON data, you can access it directly.
+
+```python
+json_data = response.json()
+```
+
+## Real-World Application:
+
+Performing HTTP requests in Python is crucial for various real-world applications, including:
+
+- **Web Development**: Interacting with APIs to retrieve data for dynamic web applications.
+- **Data Analysis**: Fetching data from online sources for analysis and visualization.
+- **Automation**: Integrating with web services for automating tasks like sending emails, posting to social media, etc.
+- **Internet of Things (IoT)**: Communicating with IoT devices and services over the internet.
+
+Understanding how to perform HTTP requests in Python opens up a world of possibilities for developers to interact with web resources and build powerful applications that leverage the vast array of data and services available on the internet.
+
+# Python (Network) - Manipulating Data from External Services
+
+## What are the Steps Involved in Manipulating Data from an External Service Using Python?
+
+Manipulating data from external services in Python involves several steps, including making HTTP requests to the service, handling the response data, processing it according to your requirements, and integrating it into your Python workflow.
+
+### General Process of Interacting with an External Service in Python:
+
+1. **Make an HTTP Request**: Use libraries like `requests` to make requests to the external service's API endpoint.
+
+2. **Receive Response**: Receive the response from the service, typically in JSON or XML format.
+
+3. **Parse Response**: Parse the response data to extract the relevant information you need.
+
+4. **Process Data**: Process the extracted data according to your requirements, such as filtering, sorting, or transforming it.
+
+5. **Integrate Data**: Integrate the processed data into your Python application or workflow for further analysis or usage.
+
+## How to Handle and Process Data Retrieved from External Services?
+
+Handling and processing data retrieved from external services involve utilizing various techniques and libraries available in Python.
+
+### Techniques and Libraries for Data Manipulation in Python:
+
+- **JSON Parsing**: Use the `json` module to parse JSON data retrieved from external services.
+
+- **Data Structures and Algorithms**: Utilize Python's built-in data structures and algorithms to manipulate and process data efficiently.
+
+- **Pandas**: The Pandas library provides powerful data manipulation tools and data structures, especially for tabular data.
+
+- **List Comprehensions**: Employ list comprehensions for concise and efficient manipulation of lists and other iterable data structures.
+
+## Example of Fetching Data from an External Service and Manipulating it in Python
+
+Below is an example of fetching data from an external service (a hypothetical weather API) and manipulating it in Python:
+
+```python
+import requests
+
+# Make a request to the weather API
+response = requests.get("https://api.weather.com/data")
+
+# Parse JSON response
+weather_data = response.json()
+
+# Extract relevant information
+temperature = weather_data["current"]["temperature"]
+humidity = weather_data["current"]["humidity"]
+
+# Process data
+if temperature > 25:
+    print("It's hot outside!")
+else:
+    print("It's cool outside.")
+
+# Integrate data into Python workflow
+# (This could involve storing data in a database, displaying it in a UI, etc.)
+```
+
+## Real-World Application:
+
+Manipulating data from external services in Python is crucial for various real-world applications, including:
+
+- **Weather Forecasting**: Integrating weather data from external APIs to provide real-time forecasts in applications or websites.
+- **Financial Analysis**: Retrieving financial data from APIs to perform analysis for investment decisions.
+- **Social Media Integration**: Accessing social media APIs to retrieve and analyze user data for marketing purposes.
+- **E-commerce**: Integrating product data from external sources to populate e-commerce websites with up-to-date information.
+
+Understanding how to manipulate data from external services in Python enables developers to create dynamic and data-driven applications that leverage external data sources for enhanced functionality and user experience.
+
 © [2024] [Paschal Ugwu]
