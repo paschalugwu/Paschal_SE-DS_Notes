@@ -348,6 +348,273 @@ Understanding the difference between `root` and `alias` directives in Nginx conf
 
 By understanding the differences between `root` and `alias` directives, developers working on AirBnB clone projects can configure Nginx effectively to serve static files and ensure optimal performance and security.
 
+# AirBnB clone (Deploy static) - Prepare your web servers
+
+The task requires writing a Bash script that sets up web servers for the deployment of web_static. Here's an example of how you can do it:
+
+```bash
+#!/usr/bin/env bash
+# Install Nginx if it not already installed
+sudo apt-get -y update
+sudo apt-get -y install nginx
+# Create the folder /data/ if it doesn’t already exist
+mkdir -p /data/
+# Create the folder /data/web_static/ if it doesn’t already exist
+mkdir -p /data/web_static/
+# Create the folder /data/web_static/releases/ if it doesn’t already exist
+mkdir -p /data/web_static/releases/
+# Create the folder /data/web_static/shared/ if it doesn’t already exist
+mkdir -p /data/web_static/shared/
+# Create the folder /data/web_static/releases/test/ if it doesn’t already exist
+mkdir -p /data/web_static/releases/test/
+# Create a fake HTML file /data/web_static/releases/test/index.html
+echo "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" > /data/web_static/releases/test/index.html
+# Create a symbolic link /data/web_static/current linked to the /data/web_static/releases/test/ folder
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+# Give ownership of the /data/ folder to the ubuntu user AND group
+chown -R ubuntu:ubuntu /data/
+# Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static
+sudo sed -i "38i \\\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-available/default
+# Restart Nginx
+sudo service nginx restart
+```
+This script first checks if Nginx is installed, if not it installs it. It then creates the necessary directories and a test HTML file. It sets up a symbolic link to the test directory and changes the ownership of the `/data/` directory to the `ubuntu` user and group. Finally, it updates the Nginx configuration to serve the content of `/data/web_static/current/` to `hbnb_static` and restarts Nginx.
+
+You can run this script on your web servers using the command `sudo ./0-setup_web_static.sh`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `0-setup_web_static.sh` in the GitHub repository `AirBnB_clone_v2`. This script is essential for the deployment of the static web content in the project. It ensures that the web servers are correctly set up to serve the static content of the web application. This is a common task in web development and understanding how to automate this process is a valuable skill.
+
+# AirBnB clone (Deploy static) - Compress before sending
+
+The task requires writing a Fabric script that generates a .tgz archive from the contents of the web_static folder. Here's an example of how you can do it:
+
+```python
+from fabric.api import *
+from datetime import datetime
+
+def do_pack():
+    try:
+        local("mkdir -p versions")
+        created = datetime.now().strftime("%Y%m%d%H%M%S")
+        tgz_path = "versions/web_static_{}.tgz".format(created)
+        local("tar -cvzf {} web_static".format(tgz_path))
+        return tgz_path
+    except:
+        return None
+```
+This script first creates a directory named `versions` if it doesn't exist. It then creates a .tgz archive named `web_static_<year><month><day><hour><minute><second>.tgz` in the `versions` directory. The name of the archive is based on the current date and time. The `tar` command is used to create the archive. If the archive is created successfully, the path of the archive is returned. If there's an error during the process, the function returns `None`.
+
+You can run this script using the command `fab -f 1-pack_web_static.py do_pack`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `1-pack_web_static.py` in the GitHub repository `AirBnB_clone_v2`. This script is essential for the deployment of the static web content in the project. It ensures that the web servers are correctly set up to serve the static content of the web application. This is a common task in web development and understanding how to automate this process is a valuable skill.
+
+# AirBnB clone (Deploy static) - Deploy archive!
+
+The task requires writing a Fabric script that distributes an archive to web servers. Here's an example of how you can do it:
+
+```python
+from fabric.api import *
+from os.path import exists
+
+env.hosts = ['<IP web-01>', '<IP web-02>']
+
+def do_deploy(archive_path):
+    if not exists(archive_path):
+        return False
+
+    try:
+        archive_name = archive_path.split('/')[1]
+        release_folder = "/data/web_static/releases/" + archive_name[:-4]
+
+        put(archive_path, "/tmp/")
+        run("mkdir -p {}".format(release_folder))
+        run("tar -xzf /tmp/{} -C {}".format(archive_name, release_folder))
+        run("rm /tmp/{}".format(archive_name))
+        run("mv {}/web_static/* {}".format(release_folder, release_folder))
+        run("rm -rf {}/web_static".format(release_folder))
+        run("rm -rf /data/web_static/current")
+        run("ln -s {} /data/web_static/current".format(release_folder))
+        return True
+    except:
+        return False
+```
+This script first checks if the archive file exists. If it doesn't, the function returns `False`. It then uploads the archive to the `/tmp/` directory of the web server, uncompresses the archive to the folder `/data/web_static/releases/<archive filename without extension>` on the web server, deletes the archive from the web server, deletes the symbolic link `/data/web_static/current` from the web server, and creates a new symbolic link `/data/web_static/current` on the web server, linked to the new version of your code (`/data/web_static/releases/<archive filename without extension>`). All remote commands are executed on both web servers. If all operations are done correctly, the function returns `True`. Otherwise, it returns `False`.
+
+You can run this script using the command `fab -f 2-do_deploy_web_static.py do_deploy:archive_path=versions/web_static_20170315003959.tgz -i my_ssh_private_key -u ubuntu`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `2-do_deploy_web_static.py` in the GitHub repository `AirBnB_clone_v2`. This script is essential for the deployment of the static web content in the project. It ensures that the web servers are correctly set up to serve the static content of the web application. This is a common task in web development and understanding how to automate this process is a valuable skill.
+
+# AirBnB clone (Deploy static) - Full deployment
+
+The task requires writing a Fabric script that creates and distributes an archive to web servers. Here's an example of how you can do it:
+
+```python
+from fabric.api import *
+from os.path import exists
+
+env.hosts = ['<IP web-01>', '<IP web-02>']
+
+def do_pack():
+    local("mkdir -p versions")
+    timestr = time.strftime("%Y%m%d%H%M%S")
+    try:
+        local("tar -cvzf versions/web_static_{}.tgz web_static".format(timestr))
+        return ("versions/web_static_{}.tgz".format(timestr))
+    except:
+        return None
+
+def do_deploy(archive_path):
+    if not exists(archive_path):
+        return False
+
+    try:
+        archive_name = archive_path.split('/')[1]
+        release_folder = "/data/web_static/releases/" + archive_name[:-4]
+
+        put(archive_path, "/tmp/")
+        run("mkdir -p {}".format(release_folder))
+        run("tar -xzf /tmp/{} -C {}".format(archive_name, release_folder))
+        run("rm /tmp/{}".format(archive_name))
+        run("mv {}/web_static/* {}".format(release_folder, release_folder))
+        run("rm -rf {}/web_static".format(release_folder))
+        run("rm -rf /data/web_static/current")
+        run("ln -s {} /data/web_static/current".format(release_folder))
+        return True
+    except:
+        return False
+
+def deploy():
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
+```
+This script first calls the `do_pack()` function to create an archive and store the path of the created archive. If no archive has been created, the function returns `False`. It then calls the `do_deploy(archive_path)` function, using the new path of the new archive. If all operations are done correctly, the function returns `True`. Otherwise, it returns `False`.
+
+You can run this script using the command `fab -f 3-deploy_web_static.py deploy -i my_ssh_private_key -u ubuntu`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `3-deploy_web_static.py` in the GitHub repository `AirBnB_clone_v2`. This script is essential for the full deployment of the static web content in the project. It ensures that the web servers are correctly set up to serve the static content of the web application. This is a common task in web development and understanding how to automate this process is a valuable skill.
+
+# AirBnB clone (Deploy static) - Keep it clean!
+
+The task requires writing a Fabric script that deletes out-of-date archives, using the function `do_clean`. Here's an example of how you can do it:
+
+```python
+from fabric.api import *
+from os.path import exists
+
+env.hosts = ['<IP web-01>', '<IP web-02>']
+
+def do_clean(number=0):
+    number = int(number)
+
+    # keep only the most recent version of your archive if number is 0 or 1
+    if number == 0 or number == 1:
+        local('ls -t versions | tail -n +2 | xargs rm -f --')
+        run('ls -t /data/web_static/releases | tail -n +2 | xargs rm -rf --')
+    else:
+        # keep the most recent, and second most recent versions of your archive if number is 2
+        local('ls -t versions | tail -n +{} | xargs rm -f --'.format(number + 1))
+        run('ls -t /data/web_static/releases | tail -n +{} | xargs rm -rf --'.format(number + 1))
+```
+This script first converts the input `number` to an integer. If `number` is 0 or 1, it keeps only the most recent version of your archive. If `number` is 2, it keeps the most recent, and second most recent versions of your archive. It then deletes all unnecessary archives in the versions folder and the `/data/web_static/releases` folder of both of your web servers.
+
+You can run this script using the command `fab -f 100-clean_web_static.py do_clean:number=2 -i my_ssh_private_key -u ubuntu`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `100-clean_web_static.py` in the GitHub repository `AirBnB_clone_v2`. This script is essential for keeping the project clean by removing out-of-date archives. It ensures that the project does not become cluttered with unnecessary files. This is a common task in software development and understanding how to automate this process is a valuable skill.
+
+# AirBnB clone (Deploy static) - Puppet for setup
+
+Puppet is a powerful tool used for configuration management. It allows you to manage the state of your infrastructure, ensuring your systems are set up consistently and maintained in the desired state. Here's an example of how you can use Puppet to set up web static:
+
+```puppet
+file { '/data':
+  ensure => directory,
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
+}
+
+file { '/data/web_static':
+  ensure => directory,
+  owner  => 'root',
+  group  => 'root',
+}
+
+file { '/data/web_static/releases':
+  ensure => directory,
+  owner  => 'root',
+  group  => 'root',
+}
+
+file { '/data/web_static/shared':
+  ensure => directory,
+  owner  => 'root',
+  group  => 'root',
+}
+
+file { '/data/web_static/releases/test':
+  ensure => directory,
+  owner  => 'root',
+  group  => 'root',
+}
+
+file { '/data/web_static/current':
+  ensure => link,
+  target => '/data/web_static/releases/test',
+}
+
+file { '/data/web_static/releases/test/index.html':
+  ensure  => present,
+  content => '
+<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>',
+}
+
+file { '/etc/nginx/sites-available/default':
+  ensure  => present,
+  content => '
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $hostname;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location /hbnb_static {
+        alias /data/web_static/current;
+    }
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    error_page 404 /custom_404.html;
+    location = /custom_404.html {
+        root /var/www/html;
+        internal;
+    }
+}',
+}
+```
+This script ensures that the necessary directories are created with the correct permissions. It also creates a symbolic link `/data/web_static/current` that links to the `/data/web_static/releases/test/` directory. The `index.html` file is created with the specified HTML content. Finally, the Nginx configuration is set up to serve the static files from the `/data/web_static/current` directory when accessing the `/hbnb_static` location.
+
+You can apply this Puppet manifest using the command `puppet apply 101-setup_web_static.pp`. The output should be similar to the one provided in the task description. The script should always exit successfully. If it doesn't, you may need to debug your script to ensure all commands are correct and all paths exist.
+
+This script is part of the AirBnB clone project and the corresponding file is `101-setup_web_static.pp` in the GitHub repository `AirBnB_clone_v2`. This script is essential for setting up the web static environment. It ensures that the project is set up consistently and maintained in the desired state. This is a common task in software development and understanding how to automate this process is a valuable skill.
+
 © [2024] [Paschal Ugwu]
 
 ***AI Use Disclosure:*** *I utilized ChatGPT to assist in the generation and refinement of technical content for this note.*
