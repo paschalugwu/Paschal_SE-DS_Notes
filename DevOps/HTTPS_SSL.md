@@ -112,6 +112,79 @@ SSL termination is commonly employed in enterprise environments and web infrastr
 
 By understanding SSL termination, developers and system administrators can design and deploy scalable, secure, and high-performance network architectures capable of handling modern web traffic demands effectively. Implementing SSL termination in real-world projects enhances reliability, scalability, and security, contributing to a seamless and secure user experience across digital platforms.
 
+**Task 0: World Wide Web**
+
+1. Configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01). You can do this through your domain provider's dashboard.
+2. Similarly, add the subdomains lb-01, web-01, and web-02 to your domain, pointing them to their respective IPs.
+3. Write a Bash script that accepts two arguments: domain and subdomain. This script will display information about the subdomains.
+
+Here is a sample script for task 0:
+
+```bash
+#!/usr/bin/env bash
+# This script displays information about subdomains
+
+domain=$1
+subdomain=$2
+
+# Function to display information about a subdomain
+display_info() {
+    local subdomain=$1
+    local record_info=$(dig +short -t A "$subdomain.$domain" | awk '{print "is a A record and points to " $1}')
+    echo "The subdomain $subdomain $record_info"
+}
+
+# Check if a subdomain argument was provided
+if [[ -n $subdomain ]]; then
+    display_info $subdomain
+else
+    # Display information for default subdomains
+    for subdomain in www lb-01 web-01 web-02; do
+        display_info $subdomain
+    done
+fi
+```
+
+**Task 1: HAproxy SSL Termination**
+
+1. Install certbot and generate a certificate for your domain.
+2. Configure HAproxy to listen on port TCP 443 and accept SSL traffic. You can do this by editing the `/etc/haproxy/haproxy.cfg` file.
+
+Here is a sample configuration for task 1:
+
+```bash
+frontend www-https
+    bind *:443 ssl crt /etc/haproxy/certs/www.example.com.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend www-backend
+
+backend www-backend
+    server www-1 www.example.com:80 check
+```
+
+**Task 2: No Loophole in Your Website Traffic**
+
+1. Configure HAproxy to automatically redirect HTTP traffic to HTTPS. This can be done by adding redirect rules in your HAproxy configuration file.
+
+Here is a sample configuration for task 2:
+
+```bash
+frontend www-http
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend www-https
+    bind *:443 ssl crt /etc/haproxy/certs/www.example.com.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend www-backend
+
+backend www-backend
+    server www-1 www.example.com:80 check
+```
+
+Remember to follow the project requirements, such as making your Bash scripts executable and passing Shellcheck without any errors. Also, don't forget to add a README.md file at the root of your project folder explaining what the project is about.
+
 © [2024] [Paschal Ugwu]
 
 ***AI Use Disclosure:*** *I utilized ChatGPT to assist in the generation and refinement of technical content for this note.*
