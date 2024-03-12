@@ -918,9 +918,9 @@ Real-world application: Linear search in a skip list can be applied in scenarios
 
 The time complexity of a jump search in a singly linked list of size $$n$$, using a step size of $$m$$, can be analyzed as follows:
 
-1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size$$m$$, finding the block where the target element may reside takes$$O(\sqrt{n})$$time.
+1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size $$m$$, finding the block where the target element may reside takes $$O(\sqrt{n})$$ time.
 
-2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$time because the block size is $$m$$.
+2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$ time because the block size is $$m$$.
 
 Combining both steps, the time complexity of jump search in a singly linked list with a step size of $$m$$ is $$O(\sqrt{n})$$ in the average case.
 
