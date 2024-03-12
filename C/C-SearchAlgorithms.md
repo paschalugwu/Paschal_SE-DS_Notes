@@ -926,7 +926,7 @@ Combining both steps, the time complexity of jump search in a singly linked list
 
 This time complexity is derived from the fact that the jump search algorithm reduces the search space by a factor of $$m$$ with each iteration, resulting in a sublinear time complexity.
 
-Real-world application: Understanding the time complexity of algorithms, such as jump search in a singly linked list, is crucial for designing efficient search algorithms in various applications. For example, in large-scale data systems where search performance is critical, employing algorithms with sublinear time complexity can significantly improve search efficiency and overall system performance.
+**Real-world application:** Understanding the time complexity of algorithms, such as jump search in a singly linked list, is crucial for designing efficient search algorithms in various applications. For example, in large-scale data systems where search performance is critical, employing algorithms with sublinear time complexity can significantly improve search efficiency and overall system performance.
 
 # **C (Search Algorithms) - Big O #7**
 
@@ -940,7 +940,7 @@ Combining both steps, the time complexity of jump search in a skip list with an 
 
 This time complexity is derived from the fact that the express lane in the skip list allows for faster traversal through the list, reducing the search space by a factor of $$m$$ with each iteration.
 
-Real-world application: Skip lists are commonly used in data structures where efficient searching, insertion, and deletion operations are required, such as in databases and key-value stores. Understanding the time complexity of operations in skip lists, including jump search, is crucial for designing and optimizing data structures in real-world applications.
+**Real-world application:** Skip lists are commonly used in data structures where efficient searching, insertion, and deletion operations are required, such as in databases and key-value stores. Understanding the time complexity of operations in skip lists, including jump search, is crucial for designing and optimizing data structures in real-world applications.
 
 © [2024] [Paschal Ugwu]
 
