@@ -915,11 +915,12 @@ In the `linear_skip` function:
 Real-world application: Linear search in a skip list can be applied in scenarios where fast search operations are required on large datasets, such as database management systems. Skip lists are efficient data structures for maintaining sorted lists, and linear search in skip lists can enhance search performance compared to traditional singly linked lists. Understanding skip lists and their search algorithms is essential for designing efficient data structures and algorithms in various software applications.
 
 # **C (Search Algorithms) - Big O #6**
-The time complexity of a jump search in a singly linked list of size $$n$$, using a step size of $$m$$, can be analyzed as follows:
 
-1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size $$m$$, finding the block where the target element may reside takes $$O(\sqrt{n})$$ time.
+The time complexity of a jump search in a singly linked list of size$$n$$, using a step size of$$m$$, can be analyzed as follows:
 
-2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$ time because the block size is $$m$$.
+1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size$$m$$, finding the block where the target element may reside takes$$O(\sqrt{n})$$time.
+
+2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$time because the block size is $$m$$.
 
 Combining both steps, the time complexity of jump search in a singly linked list with a step size of $$m$$ is $$O(\sqrt{n})$$ in the average case.
 
