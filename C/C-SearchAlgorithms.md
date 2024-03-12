@@ -915,30 +915,29 @@ In the `linear_skip` function:
 Real-world application: Linear search in a skip list can be applied in scenarios where fast search operations are required on large datasets, such as database management systems. Skip lists are efficient data structures for maintaining sorted lists, and linear search in skip lists can enhance search performance compared to traditional singly linked lists. Understanding skip lists and their search algorithms is essential for designing efficient data structures and algorithms in various software applications.
 
 # **C (Search Algorithms) - Big O #6**
+The time complexity of a jump search in a singly linked list of size $$n$$, using a step size of $$m$$, can be analyzed as follows:
 
-The time complexity of a jump search in a singly linked list of size \( n \), using a step size of \( \sqrt{n} \), can be analyzed as follows:
+1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size $$m$$, finding the block where the target element may reside takes $$O(\sqrt{n})$$ time.
 
-1. **Finding the block:** Since the jump search algorithm divides the list into blocks of size \( \sqrt{n} \), finding the block where the target element may reside takes \( O(\sqrt{n}) \) time.
+2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$ time because the block size is $$m$$.
 
-2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes \( O(\sqrt{n}) \) time because the block size is \( \sqrt{n} \).
+Combining both steps, the time complexity of jump search in a singly linked list with a step size of $$m$$ is $$O(\sqrt{n})$$ in the average case.
 
-Combining both steps, the time complexity of jump search in a singly linked list with a step size of \( \sqrt{n} \) is \( O(\sqrt{n}) \) in the average case.
-
-This time complexity is derived from the fact that the jump search algorithm reduces the search space by a factor of \( \sqrt{n} \) with each iteration, resulting in a sublinear time complexity.
+This time complexity is derived from the fact that the jump search algorithm reduces the search space by a factor of $$m$$ with each iteration, resulting in a sublinear time complexity.
 
 Real-world application: Understanding the time complexity of algorithms, such as jump search in a singly linked list, is crucial for designing efficient search algorithms in various applications. For example, in large-scale data systems where search performance is critical, employing algorithms with sublinear time complexity can significantly improve search efficiency and overall system performance.
 
 # **C (Search Algorithms) - Big O #7**
 
-The time complexity of a jump search in a skip list of size \( n \), with an express lane using a step size of \( \sqrt{n} \), can be analyzed as follows:
+The time complexity of a jump search in a skip list of size $$n$$, with an express lane using a step size of $$m$$, can be analyzed as follows:
 
-1. **Finding the block:** Since the jump search algorithm in a skip list also divides the list into blocks of size \( \sqrt{n} \), finding the block where the target element may reside takes \( O(\sqrt{n}) \) time.
+1. **Finding the block:** Since the jump search algorithm in a skip list also divides the list into blocks of size $$m$$, finding the block where the target element may reside takes $$O(\sqrt{n})$$ time.
 
-2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes \( O(\sqrt{n}) \) time because the block size is \( \sqrt{n} \).
+2. **Linear search within the block:** Once the block is found, a linear search within that block is performed. In the worst case, this linear search takes $$O(m)$$ time because the block size is $$m$$.
 
-Combining both steps, the time complexity of jump search in a skip list with an express lane using a step size of \( \sqrt{n} \) is \( O(\sqrt{n}) \) in the average case.
+Combining both steps, the time complexity of jump search in a skip list with an express lane using a step size of $$m$$ is $$O(\sqrt{n})$$ in the average case.
 
-This time complexity is derived from the fact that the express lane in the skip list allows for faster traversal through the list, reducing the search space by a factor of \( \sqrt{n} \) with each iteration.
+This time complexity is derived from the fact that the express lane in the skip list allows for faster traversal through the list, reducing the search space by a factor of $$m$$ with each iteration.
 
 Real-world application: Skip lists are commonly used in data structures where efficient searching, insertion, and deletion operations are required, such as in databases and key-value stores. Understanding the time complexity of operations in skip lists, including jump search, is crucial for designing and optimizing data structures in real-world applications.
 
