@@ -169,7 +169,7 @@ HTTPS is an extension of HTTP that adds a layer of encryption to secure the data
 
 ### Flow of Request: Illustrated Diagram
 
-[Insert your schema image here]
+![Flow of Request](https://github.com/paschalugwu/My_SE-Guidebook/blob/main/DevOps/Google_Request_Flow_Diagram.drawio.png)
 
 In the diagram:
 - DNS resolution translates the domain name to an IP address.
