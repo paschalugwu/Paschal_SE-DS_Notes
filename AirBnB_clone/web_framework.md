@@ -677,6 +677,750 @@ Fetching data from a MySQL database and displaying it in HTML is a common task i
 
 By integrating Flask with MySQL and rendering data in HTML templates, developers can build powerful and dynamic web applications that interact with databases seamlessly.
 
+# AirBnB clone (RESTful API) - Improve storage
+
+In this task, we are required to update `DBStorage` and `FileStorage` classes in the `storage_get_count` branch, adding two new methods:
+
+1. A method to retrieve one object:
+   - Prototype: `def get(self, cls, id)`
+   - Parameters:
+     - `cls`: class representing the object type
+     - `id`: string representing the object ID
+   - Returns the object based on the class and its ID, or None if not found
+
+2. A method to count the number of objects in storage:
+   - Prototype: `def count(self, cls=None)`
+   - Parameters:
+     - `cls`: class representing the object type (optional)
+   - Returns the number of objects in storage matching the given class. If no class is passed, returns the count of all objects in storage.
+
+We need to add new tests for these two methods in each storage engine.
+
+Here's an example of how the test script `test_get_count.py` can be implemented:
+
+```python
+#!/usr/bin/python3
+"""Test .get() and .count() methods
+"""
+from models import storage
+from models.state import State
+
+print("All objects: {}".format(storage.count()))
+print("State objects: {}".format(storage.count(State)))
+
+first_state_id = list(storage.all(State).values())[0].id
+print("First state: {}".format(storage.get(State, first_state_id)))
+```
+
+And here's an example output of running the test script:
+
+```
+All objects: 1013
+State objects: 27
+First state: [State] (f8d21261-3e79-4f5c-829a-99d7452cd73c) {'name': 'Colorado', 'updated_at': datetime.datetime(2017, 3, 25, 2, 17, 6), 'created_at': datetime.datetime(2017, 3, 25, 2, 17, 6), '_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x7fc0103a8e80>, 'id': 'f8d21261-3e79-4f5c-829a-99d7452cd73c'}
+```
+
+Finally, remember to make a pull request on GitHub.com and ask at least one peer to review and merge it.
+
+# AirBnB clone (RESTful API) - Status of your API
+
+To start our API, we will create our first endpoint to return the status of the API.
+
+Here's how you can achieve this:
+
+1. **Setting up the project structure:**
+   - Create a folder named `api` at the root of the project with an empty file `__init__.py`.
+   - Inside the `api` folder, create a subfolder named `v1`.
+   - Inside the `v1` folder, create an empty file `__init__.py`.
+   - Create a file named `app.py` inside the `v1` folder.
+
+2. **Implementation of `app.py`:**
+   ```python
+   # v1/app.py
+   from flask import Flask
+   from models import storage
+   from api.v1.views import app_views
+
+   app = Flask(__name__)
+   app.register_blueprint(app_views)
+   
+   @app.teardown_appcontext
+   def teardown_db(exception):
+       """Close storage"""
+       storage.close()
+
+   if __name__ == "__main__":
+       host = os.getenv("HBNB_API_HOST", "0.0.0.0")
+       port = int(os.getenv("HBNB_API_PORT", 5000))
+       app.run(host=host, port=port, threaded=True)
+   ```
+
+3. **Setting up the views:**
+   - Inside the `v1` folder, create a subfolder named `views`.
+   - Inside the `views` folder, create an empty file `__init__.py`.
+   - Create a file named `index.py` inside the `views` folder.
+
+4. **Implementation of `index.py`:**
+   ```python
+   # v1/views/index.py
+   from api.v1.views import app_views
+   from flask import jsonify
+
+   @app_views.route('/status', methods=['GET'])
+   def api_status():
+       """API status"""
+       return jsonify({"status": "OK"})
+   ```
+
+With these implementations, we have set up our API with a `/status` endpoint that returns a JSON response with the status "OK".
+
+Remember to set up your environment variables `HBNB_API_HOST` and `HBNB_API_PORT` as needed before running the Flask server.
+
+# AirBnB clone (RESTful API) - Some stats?
+
+To retrieve the number of each object type, we will create an endpoint `/api/v1/stats`.
+
+Here's how you can implement it:
+
+1. **Implementation in `index.py`:**
+   
+   ```python
+   # v1/views/index.py
+   from api.v1.views import app_views
+   from flask import jsonify
+   from models import storage
+
+   @app_views.route('/stats', methods=['GET'])
+   def api_stats():
+       """Retrieves the number of each object by type"""
+       stats = {
+           "amenities": storage.count("Amenity"),
+           "cities": storage.count("City"),
+           "places": storage.count("Place"),
+           "reviews": storage.count("Review"),
+           "states": storage.count("State"),
+           "users": storage.count("User")
+       }
+       return jsonify(stats)
+   ```
+
+This implementation utilizes the `count()` method from the `storage` engine to retrieve the count of each object type. The counts are then returned as a JSON response.
+
+Now, when you make a GET request to `/api/v1/stats`, you will receive a JSON response containing the counts of amenities, cities, places, reviews, states, and users.
+
+# AirBnB clone (RESTful API) - Not found
+
+To handle 404 errors and return a JSON-formatted response with a "Not found" message, you can implement the following handler in `api/v1/app.py`:
+
+```python
+# api/v1/app.py
+from flask import jsonify
+from api.v1.views import app_views
+
+@app_views.app_errorhandler(404)
+def not_found(error):
+    """Handler for 404 errors"""
+    return jsonify({"error": "Not found"}), 404
+```
+
+This handler uses Flask's `app_errorhandler` decorator to handle 404 errors. When a 404 error occurs, it returns a JSON response with the message "Not found" and a 404 status code.
+
+Now, when you make a request to a non-existing endpoint, such as `/api/v1/nop`, you will receive a JSON response with the "Not found" error message and a 404 status code.
+
+# AirBnB clone (RESTful API) - State
+
+To handle State objects and perform CRUD operations, you can create a new view in `api/v1/views/states.py`. Make sure to import this new file in `api/v1/views/__init__.py`. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/states.py
+from flask import jsonify, abort, request
+from models import storage
+from models.state import State
+from api.v1.views import app_views
+
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
+def get_states():
+    """Retrieves the list of all State objects"""
+    states = [state.to_dict() for state in storage.all(State).values()]
+    return jsonify(states)
+
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+def get_state(state_id):
+    """Retrieves a State object by ID"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    return jsonify(state.to_dict())
+
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
+def create_state():
+    """Creates a new State object"""
+    if not request.json:
+        abort(400, description="Not a JSON")
+    if 'name' not in request.json:
+        abort(400, description="Missing name")
+    data = request.get_json()
+    state = State(**data)
+    state.save()
+    return jsonify(state.to_dict()), 201
+
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+def update_state(state_id):
+    """Updates a State object by ID"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'created_at', 'updated_at']:
+            setattr(state, key, value)
+    state.save()
+    return jsonify(state.to_dict())
+
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+def delete_state(state_id):
+    """Deletes a State object by ID"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    state.delete()
+    return jsonify({})
+```
+
+This code defines routes for retrieving all states, retrieving a specific state by ID, creating a new state, updating an existing state, and deleting a state. It handles JSON input for creating and updating states and returns JSON responses.
+
+Ensure to import `states.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - City
+
+To handle City objects and perform CRUD operations, you can create a new view in `api/v1/views/cities.py`. Make sure to import this new file in `api/v1/views/__init__.py`. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/cities.py
+from flask import jsonify, abort, request
+from models import storage
+from models.city import City
+from api.v1.views import app_views
+
+@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+def get_cities(state_id):
+    """Retrieves the list of all City objects of a State"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    cities = [city.to_dict() for city in state.cities]
+    return jsonify(cities)
+
+@app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
+def get_city(city_id):
+    """Retrieves a City object by ID"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    return jsonify(city.to_dict())
+
+@app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
+def delete_city(city_id):
+    """Deletes a City object by ID"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    city.delete()
+    return jsonify({})
+
+@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+def create_city(state_id):
+    """Creates a new City object"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    if 'name' not in request.json:
+        abort(400, description="Missing name")
+    data = request.get_json()
+    city = City(**data)
+    city.state_id = state_id
+    city.save()
+    return jsonify(city.to_dict()), 201
+
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
+def update_city(city_id):
+    """Updates a City object by ID"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'state_id', 'created_at', 'updated_at']:
+            setattr(city, key, value)
+    city.save()
+    return jsonify(city.to_dict())
+```
+
+This code defines routes for retrieving all cities of a state, retrieving a specific city by ID, creating a new city associated with a state, updating an existing city, and deleting a city. It handles JSON input for creating and updating cities and returns JSON responses.
+
+Ensure to import `cities.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - Amenity
+
+To handle Amenity objects and perform CRUD operations, create a new view in `api/v1/views/amenities.py`. Also, update `api/v1/views/__init__.py` to import this new file. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/amenities.py
+from flask import jsonify, abort, request
+from models import storage
+from models.amenity import Amenity
+from api.v1.views import app_views
+
+@app_views.route('/amenities', methods=['GET'], strict_slashes=False)
+def get_amenities():
+    """Retrieves the list of all Amenity objects"""
+    amenities = [amenity.to_dict() for amenity in storage.all(Amenity).values()]
+    return jsonify(amenities)
+
+@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+def get_amenity(amenity_id):
+    """Retrieves an Amenity object by ID"""
+    amenity = storage.get(Amenity, amenity_id)
+    if amenity is None:
+        abort(404)
+    return jsonify(amenity.to_dict())
+
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+def delete_amenity(amenity_id):
+    """Deletes an Amenity object by ID"""
+    amenity = storage.get(Amenity, amenity_id)
+    if amenity is None:
+        abort(404)
+    amenity.delete()
+    return jsonify({})
+
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
+def create_amenity():
+    """Creates a new Amenity object"""
+    if not request.json:
+        abort(400, description="Not a JSON")
+    if 'name' not in request.json:
+        abort(400, description="Missing name")
+    data = request.get_json()
+    amenity = Amenity(**data)
+    amenity.save()
+    return jsonify(amenity.to_dict()), 201
+
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+def update_amenity(amenity_id):
+    """Updates an Amenity object by ID"""
+    amenity = storage.get(Amenity, amenity_id)
+    if amenity is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'created_at', 'updated_at']:
+            setattr(amenity, key, value)
+    amenity.save()
+    return jsonify(amenity.to_dict())
+```
+
+This code defines routes for retrieving all amenities, retrieving a specific amenity by ID, creating a new amenity, updating an existing amenity, and deleting an amenity. It handles JSON input for creating and updating amenities and returns JSON responses.
+
+Ensure to import `amenities.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - User
+
+To manage User objects and perform CRUD operations, create a new view in `api/v1/views/users.py`. Also, update `api/v1/views/__init__.py` to import this new file. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/users.py
+from flask import jsonify, abort, request
+from models import storage
+from models.user import User
+from api.v1.views import app_views
+
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+def get_users():
+    """Retrieves the list of all User objects"""
+    users = [user.to_dict() for user in storage.all(User).values()]
+    return jsonify(users)
+
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id):
+    """Retrieves a User object by ID"""
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
+    return jsonify(user.to_dict())
+
+@app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
+def delete_user(user_id):
+    """Deletes a User object by ID"""
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
+    user.delete()
+    return jsonify({})
+
+@app_views.route('/users', methods=['POST'], strict_slashes=False)
+def create_user():
+    """Creates a new User object"""
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    if 'email' not in data:
+        abort(400, description="Missing email")
+    if 'password' not in data:
+        abort(400, description="Missing password")
+    user = User(**data)
+    user.save()
+    return jsonify(user.to_dict()), 201
+
+@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
+def update_user(user_id):
+    """Updates a User object by ID"""
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'email', 'created_at', 'updated_at']:
+            setattr(user, key, value)
+    user.save()
+    return jsonify(user.to_dict())
+```
+
+This code defines routes for retrieving all users, retrieving a specific user by ID, creating a new user, updating an existing user, and deleting a user. It handles JSON input for creating and updating users and returns JSON responses.
+
+Ensure to import `users.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - Place
+
+To manage Place objects and perform CRUD operations, create a new view in `api/v1/views/places.py`. Also, update `api/v1/views/__init__.py` to import this new file. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/places.py
+from flask import jsonify, abort, request
+from models import storage
+from models.place import Place
+from api.v1.views import app_views
+
+@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+def get_places(city_id):
+    """Retrieves the list of all Place objects of a City"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    places = [place.to_dict() for place in city.places]
+    return jsonify(places)
+
+@app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
+def get_place(place_id):
+    """Retrieves a Place object by ID"""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    return jsonify(place.to_dict())
+
+@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+def delete_place(place_id):
+    """Deletes a Place object by ID"""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    place.delete()
+    return jsonify({})
+
+@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+def create_place(city_id):
+    """Creates a new Place"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    if 'user_id' not in data:
+        abort(400, description="Missing user_id")
+    user_id = data['user_id']
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
+    if 'name' not in data:
+        abort(400, description="Missing name")
+    place = Place(city_id=city_id, user_id=user_id, **data)
+    place.save()
+    return jsonify(place.to_dict()), 201
+
+@app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
+def update_place(place_id):
+    """Updates a Place object by ID"""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
+            setattr(place, key, value)
+    place.save()
+    return jsonify(place.to_dict())
+```
+
+This code defines routes for retrieving all places of a city, retrieving a specific place by ID, creating a new place, updating an existing place, and deleting a place. It handles JSON input for creating and updating places and returns JSON responses.
+
+Ensure to import `places.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - Reviews
+
+To manage Review objects and perform CRUD operations, create a new view in `api/v1/views/places_reviews.py`. Also, update `api/v1/views/__init__.py` to import this new file. Here's how you can implement the required actions:
+
+```python
+# api/v1/views/places_reviews.py
+from flask import jsonify, abort, request
+from models import storage
+from models.review import Review
+from api.v1.views import app_views
+
+@app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
+def get_reviews(place_id):
+    """Retrieves the list of all Review objects of a Place"""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    reviews = [review.to_dict() for review in place.reviews]
+    return jsonify(reviews)
+
+@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
+def get_review(review_id):
+    """Retrieves a Review object by ID"""
+    review = storage.get(Review, review_id)
+    if review is None:
+        abort(404)
+    return jsonify(review.to_dict())
+
+@app_views.route('/reviews/<review_id>', methods=['DELETE'], strict_slashes=False)
+def delete_review(review_id):
+    """Deletes a Review object by ID"""
+    review = storage.get(Review, review_id)
+    if review is None:
+        abort(404)
+    review.delete()
+    return jsonify({})
+
+@app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
+def create_review(place_id):
+    """Creates a new Review"""
+    place = storage.get(Place, place_id)
+    if place is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    if 'user_id' not in data:
+        abort(400, description="Missing user_id")
+    user_id = data['user_id']
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
+    if 'text' not in data:
+        abort(400, description="Missing text")
+    review = Review(place_id=place_id, user_id=user_id, **data)
+    review.save()
+    return jsonify(review.to_dict()), 201
+
+@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+def update_review(review_id):
+    """Updates a Review object by ID"""
+    review = storage.get(Review, review_id)
+    if review is None:
+        abort(404)
+    if not request.json:
+        abort(400, description="Not a JSON")
+    data = request.get_json()
+    for key, value in data.items():
+        if key not in ['id', 'user_id', 'place_id', 'created_at', 'updated_at']:
+            setattr(review, key, value)
+    review.save()
+    return jsonify(review.to_dict())
+```
+
+This code defines routes for retrieving all reviews of a place, retrieving a specific review by ID, creating a new review, updating an existing review, and deleting a review. It handles JSON input for creating and updating reviews and returns JSON responses.
+
+Ensure to import `places_reviews.py` in `api/v1/views/__init__.py` to register these routes with the Flask application.
+
+# AirBnB clone (RESTful API) - HTTP Access Control (CORS)
+
+To enable Cross-Origin Resource Sharing (CORS) in your Flask API, you'll need to use the `CORS` class from the `flask_cors` module. Here's how you can do it:
+
+1. Install `flask_cors` using pip:
+
+```bash
+$ pip3 install flask_cors
+```
+
+2. Update `api/v1/app.py` to include CORS configuration:
+
+```python
+# api/v1/app.py
+from flask import Flask, jsonify
+from flask_cors import CORS
+from api.v1.views import app_views
+
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Not found"}), 404
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
+```
+
+In this code:
+- We import the `CORS` class from `flask_cors`.
+- We create a Flask app instance and pass it to the `CORS` constructor, along with the desired CORS settings.
+- The `resources` parameter specifies which resources are allowed to access the API. Here, we allow all resources (`/*`) from the origin `0.0.0.0`.
+
+By setting up CORS in this way, you ensure that your API responds with the appropriate CORS headers, allowing web clients from any origin to access your API's resources.
+
+Now, when you make HTTP requests to your API, you should see the `Access-Control-Allow-Origin` header in the response, indicating that CORS is properly configured.
+
+# AirBnB clone (RESTful API) - Place - Amenity
+
+To manage the relationship between Place objects and Amenity objects in your AirBnB clone RESTful API, you'll create a new view called `places_amenities.py`. This view will handle various RESTFul API actions related to linking amenities with places.
+
+Here's what you need to do:
+
+1. Create a new view file `places_amenities.py`:
+
+```python
+# api/v1/views/places_amenities.py
+from api.v1.views import app_views
+from flask import jsonify
+
+@app_views.route('/places/<place_id>/amenities', methods=['GET'], strict_slashes=False)
+def get_place_amenities(place_id):
+    """Retrieve the list of all Amenity objects of a Place"""
+    # Your implementation here
+
+@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+def delete_place_amenity(place_id, amenity_id):
+    """Delete an Amenity object from a Place"""
+    # Your implementation here
+
+@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'], strict_slashes=False)
+def link_place_amenity(place_id, amenity_id):
+    """Link an Amenity object to a Place"""
+    # Your implementation here
+```
+
+2. Update `api/v1/views/__init__.py` to import the new file:
+
+```python
+# api/v1/views/__init__.py
+from api.v1.views.places_amenities import *
+```
+
+3. Depending on the storage type (`DBStorage` or `FileStorage`), implement the logic to handle the CRUD operations for the link between Place and Amenity objects.
+
+   - If using `DBStorage`, you'll need to list, create, and delete Amenity objects from the `amenities` relationship.
+   - If using `FileStorage`, you'll need to list, add, and remove Amenity IDs in the list `amenity_ids` of a Place object.
+
+4. Implement the following API endpoints:
+
+   - **GET /api/v1/places/<place_id>/amenities**: Retrieves the list of all Amenity objects of a Place. If the place_id is not linked to any Place object, raise a 404 error.
+   - **DELETE /api/v1/places/<place_id>/amenities/<amenity_id>**: Deletes an Amenity object from a Place. Ensure to handle error cases as specified.
+   - **POST /api/v1/places/<place_id>/amenities/<amenity_id>**: Links an Amenity object to a Place. Ensure to handle error cases as specified.
+
+By implementing these endpoints, you'll be able to manage the relationship between Place and Amenity objects efficiently in your AirBnB clone RESTful API.
+
+# AirBnB clone (RESTful API) - Security Improvements!
+
+In the current implementation of the AirBnB clone RESTful API, the User object stores the user's password in plain text, which poses a significant security risk. To address this issue and enhance security, several improvements need to be made:
+
+1. Update the `to_dict()` method of the `BaseModel` class to remove the `password` key from the dictionary returned by the method, except when it's used by `FileStorage` to save data to disk. This can be achieved by setting a default parameter for the `to_dict()` method.
+
+2. Implement a mechanism to hash the password to an MD5 value each time a new User object is created or the password is updated. This ensures that passwords are stored securely and cannot be easily compromised.
+
+3. Modify the storage mechanism to store the hashed password instead of the plain text password:
+   - For `DBStorage`, ensure that the password stored in the database is hashed to an MD5 value before saving.
+   - For `FileStorage`, ensure that the password stored in the file is hashed to an MD5 value before saving.
+
+Here's how you can implement these improvements:
+
+1. Update the `to_dict()` method in `models/base_model.py`:
+   
+```python
+def to_dict(self, exclude_password=True):
+    """Return a dictionary representation of the instance."""
+    dictionary = self.__dict__.copy()
+    if exclude_password:
+        dictionary.pop('password', None)
+    # Add additional logic if needed
+    return dictionary
+```
+
+2. Implement password hashing in the `User` model in `models/user.py`:
+   
+```python
+import hashlib
+
+class User(BaseModel):
+    def __init__(self, *args, **kwargs):
+        """Initialize User object."""
+        super().__init__(*args, **kwargs)
+
+        # Hash the password if provided
+        if 'password' in kwargs:
+            self.password = hashlib.md5(kwargs['password'].encode()).hexdigest()
+
+    def update_password(self, new_password):
+        """Update user's password."""
+        self.password = hashlib.md5(new_password.encode()).hexdigest()
+```
+
+3. Modify the storage mechanisms (`DBStorage` and `FileStorage`) to handle password hashing accordingly.
+
+By implementing these security improvements, you enhance the security of the AirBnB clone API by ensuring that user passwords are stored securely and cannot be easily compromised even if the database or file storage is compromised.
+
+# AirBnB clone (RESTful API) - Search
+
+To enhance the functionality of the AirBnB clone RESTful API, a new endpoint `POST /api/v1/places_search` needs to be implemented in the `api/v1/views/places.py` file. This endpoint will retrieve all Place objects based on the JSON data provided in the body of the request.
+
+The JSON data can contain three optional keys:
+
+1. `states`: A list of State IDs.
+2. `cities`: A list of City IDs.
+3. `amenities`: A list of Amenity IDs.
+
+Here are the search rules:
+
+- If the HTTP request body is not valid JSON, raise a 400 error with the message "Not a JSON".
+- If the JSON body is empty or each list of all keys is empty, retrieve all Place objects.
+- If the `states` list is not empty, the results should include all Place objects for each State ID listed.
+- If the `cities` list is not empty, the results should include all Place objects for each City ID listed.
+- The `states` and `cities` keys are inclusive. Search results should include all Place objects in storage related to each City in every State listed in `states`, plus every City listed individually in `cities`, unless that City was already included by `states`.
+- If the `amenities` list is not empty, limit search results to only Place objects having all Amenity IDs listed. The `amenities` key is exclusive, acting as a filter on the results generated by `states` and `cities`, or on all Place if `states` and `cities` are both empty or missing.
+
+Here's an example of how to use the `POST /api/v1/places_search` endpoint:
+
+```bash
+curl -X POST http://0.0.0.0:5000/api/v1/places_search -H "Content-Type: application/json" -d '{"states": ["2b9a4627-8a9e-4f32-a752-9a84fa7f4efd", "459e021a-e794-447d-9dd2-e03b7963f7d2"], "cities": ["5976f0e7-5c5f-4949-aae0-90d68fd239c0"]}'
+```
+
+This request will retrieve Place objects based on the provided State IDs and City IDs.
+
+By implementing this search functionality, users can now search for Place objects based on specific criteria, such as State, City, and Amenities, providing a more comprehensive and flexible user experience.
+
 ## Conclusion:
 
 Mastering web frameworks opens a gateway to limitless possibilities in web development. By grasping the fundamentals of routing, database integration, authentication, and dynamic templating, developers can architect sophisticated web applications tailored to diverse needs. From e-commerce platforms to social media websites and beyond, the applications of web frameworks are ubiquitous in modern digital landscapes. With Flask as a guiding light, developers can embark on a journey to craft innovative and feature-rich web solutions that captivate users and drive digital transformation. As we navigate through the intricacies of web development, let us harness the power of web frameworks to shape the future of the internet.
