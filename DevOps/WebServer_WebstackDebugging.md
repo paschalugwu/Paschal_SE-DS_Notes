@@ -217,4 +217,39 @@ After executing these commands, querying the port should return the expected pag
 ### Conclusion
 Through this exercise, we've learned how to debug a web stack issue involving Apache running in a Docker container. By identifying the problem and applying the appropriate fixes, we were able to ensure that the container returns the desired page when queried. This debugging skill is crucial for maintaining and troubleshooting web applications in real-world projects.
 
+# Web stack debugging - Strace is your friend
+
+To troubleshoot a 500 Internal Server Error returned by Apache, we'll utilize the powerful tool called strace. Strace allows us to trace system calls and signals, which can help us pinpoint the issue causing the error.
+
+Here's how we can proceed:
+
+1. **Attach strace to the Apache process**: We'll use tmux to run strace in one window and curl in another. This way, we can observe the system calls made by Apache while simultaneously sending requests to it.
+
+2. **Identify the root cause**: By analyzing the strace output, we can look for any errors or abnormal behavior that might be causing Apache to return a 500 error.
+
+3. **Fix the issue**: Once we've identified the problem, we can implement a solution. In this case, we'll automate the fix using Puppet instead of Bash.
+
+4. **Automate with Puppet**: We'll write Puppet code to implement the fix, ensuring that the issue is resolved consistently across all relevant servers.
+
+Here's an example of how the process might look:
+
+```bash
+# Attach strace to Apache process
+tmux new-session -d -s strace_session
+tmux send-keys -t strace_session 'strace -p $(pidof apache2)' C-m
+
+# Send a request to Apache
+curl -sI 127.0.0.1
+
+# Analyze strace output for errors
+
+# Write Puppet code to fix the issue
+```
+
+In the Puppet code (0-strace_is_your_friend.pp), we'll define the necessary resources to implement the fix. This could involve modifying Apache configuration files, restarting Apache, or any other relevant tasks needed to resolve the issue.
+
+Once the Puppet code is written, we can apply it using the puppet apply command, as shown in the example provided. After applying the Puppet code, we can verify that the issue is resolved by sending another request to Apache and ensuring that it returns a 200 OK response.
+
+By leveraging strace and Puppet, we can effectively diagnose and fix issues with Apache, ensuring the smooth operation of our web server. This approach allows us to automate the troubleshooting and resolution process, saving time and ensuring consistency across our infrastructure.
+
 © [2024] [Paschal Ugwu]
