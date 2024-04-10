@@ -320,6 +320,270 @@ By sorting dictionaries by value, developers can effectively organize and proces
 
 In conclusion, sorting a dictionary by value is a valuable technique for software engineers to organize and manipulate data efficiently. By leveraging Python's `sorted()` function and specifying the appropriate sorting criteria, developers can arrange dictionary items based on their values, enabling a wide range of applications in real-world projects.
 
+# **API (advanced) - Querying Reddit API for Subreddit Subscribers**
+
+To begin our journey into advanced API usage, let's tackle a practical task: querying the Reddit API to retrieve the number of subscribers for a given subreddit. This exercise will not only demonstrate how to interact with the Reddit API but also provide insight into handling API responses and error checking.
+
+### Requirements:
+
+- Write a function `number_of_subscribers(subreddit)` that queries the Reddit API and returns the total number of subscribers for the specified subreddit.
+- If the subreddit is invalid or does not exist, the function should return 0.
+- No authentication is necessary for most features of the Reddit API. Ensure you set a custom User-Agent to avoid errors related to Too Many Requests.
+
+### Implementation:
+
+To achieve our objective, we'll follow these steps:
+
+1. **Query the Reddit API**: Use the `requests` library in Python to make a GET request to the appropriate endpoint of the Reddit API, specifying the subreddit.
+
+2. **Handle Response**: Check the response status code to ensure the request was successful. If successful (status code 200), parse the JSON response to extract the number of subscribers. If the subreddit is invalid, Reddit may return a redirect. Ensure not to follow redirects and handle such cases appropriately.
+
+3. **Return Subscribers Count**: Return the total number of subscribers if the subreddit is valid. Otherwise, return 0.
+
+### Example Usage:
+
+```python
+import requests
+
+def number_of_subscribers(subreddit):
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-Agent': 'Custom User Agent'}
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['subscribers']
+    else:
+        return 0
+
+# Example usage:
+print(number_of_subscribers('programming'))  # Output: 756024
+print(number_of_subscribers('this_is_a_fake_subreddit'))  # Output: 0
+```
+
+### Real-World Application:
+
+Understanding how to query the Reddit API for subreddit information is valuable for various applications, such as:
+
+- Analyzing subreddit trends and engagement levels for market research or social media analysis.
+- Monitoring community growth and activity for content creators or community managers.
+- Integrating subreddit statistics into dashboards or analytics tools for data-driven decision-making.
+
+By mastering this skill, developers can harness the wealth of information available on Reddit to enhance their projects and gain valuable insights into online communities.
+
+In conclusion, querying the Reddit API for subreddit subscriber counts is a practical exercise that demonstrates advanced API usage. By following the steps outlined above and leveraging the `requests` library in Python, developers can access valuable data from Reddit and incorporate it into their applications effectively.
+
+# **API (advanced) - Querying Reddit API for Top Ten Hot Posts**
+
+To delve deeper into advanced API usage, let's tackle another practical task: querying the Reddit API to retrieve the titles of the first 10 hot posts for a given subreddit. This exercise will not only demonstrate how to interact with the Reddit API but also showcase handling API responses and error checking.
+
+### Requirements:
+
+- Write a function `top_ten(subreddit)` that queries the Reddit API and prints the titles of the first 10 hot posts for the specified subreddit.
+- If the subreddit is invalid or does not exist, print None.
+- No authentication is necessary for most features of the Reddit API. Ensure you set a custom User-Agent to avoid errors related to Too Many Requests.
+
+### Implementation:
+
+To accomplish our goal, we'll follow these steps:
+
+1. **Query the Reddit API**: Utilize the `requests` library in Python to make a GET request to the appropriate endpoint of the Reddit API, specifying the subreddit and the hot posts sorting.
+
+2. **Handle Response**: Check the response status code to ensure the request was successful. If successful (status code 200), parse the JSON response to extract the titles of the first 10 hot posts. If the subreddit is invalid, Reddit may return a redirect. Ensure not to follow redirects and handle such cases appropriately.
+
+3. **Print Titles**: Print the titles of the first 10 hot posts. If less than 10 hot posts are available, print as many as are present.
+
+### Example Usage:
+
+```python
+import requests
+
+def top_ten(subreddit):
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    headers = {'User-Agent': 'Custom User Agent'}
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        posts = data['data']['children']
+        for post in posts:
+            print(post['data']['title'])
+    else:
+        print(None)
+
+# Example usage:
+top_ten('programming')
+top_ten('this_is_a_fake_subreddit')
+```
+
+### Real-World Application:
+
+Understanding how to retrieve the top hot posts from a subreddit on Reddit is useful for various applications, such as:
+
+- Aggregating trending topics or discussions for sentiment analysis or market research.
+- Monitoring community engagement and interests for content creators or social media managers.
+- Integrating real-time Reddit data into dashboards or analytics platforms for data-driven decision-making.
+
+By mastering this skill, developers can tap into the wealth of information and discussions happening on Reddit to enhance their projects and gain valuable insights into online communities.
+
+In conclusion, querying the Reddit API for the top ten hot posts in a subreddit is a practical exercise that showcases advanced API usage. By following the steps outlined above and leveraging the `requests` library in Python, developers can access valuable real-time data from Reddit and incorporate it into their applications effectively.
+
+# **API (advanced) - Querying Reddit API with Recursion**
+
+Let's embark on an advanced API exploration by writing a recursive function that retrieves the titles of all hot articles for a given subreddit from the Reddit API. This exercise will not only showcase recursive function implementation but also demonstrate handling paginated API responses.
+
+### Requirements:
+
+- Write a recursive function `recurse(subreddit, hot_list=[])` that queries the Reddit API and returns a list containing the titles of all hot articles for the specified subreddit.
+- If the subreddit is invalid or does not exist, return None.
+- No authentication is necessary for most features of the Reddit API. Ensure you set a custom User-Agent to avoid errors related to Too Many Requests.
+
+### Implementation:
+
+To achieve our goal recursively, we'll follow these steps:
+
+1. **Query the Reddit API**: Make a GET request to the appropriate endpoint of the Reddit API, specifying the subreddit and the hot posts sorting.
+
+2. **Handle Response**: Check the response status code to ensure the request was successful. If successful (status code 200), parse the JSON response to extract the titles of the hot posts on the current page.
+
+3. **Append Titles**: Append the titles of the hot posts from the current page to the `hot_list`.
+
+4. **Recursion**: If the API response indicates the presence of additional pages, recursively call the `recurse` function with updated parameters (subreddit and hot_list), passing along any necessary pagination parameters.
+
+5. **Return Results**: Once all pages have been processed, return the final `hot_list`.
+
+### Example Usage:
+
+```python
+import requests
+
+def recurse(subreddit, hot_list=[]):
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {'User-Agent': 'Custom User Agent'}
+    params = {'limit': 100, 'after': None}  # Limit per page and initial 'after' parameter
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        posts = data['data']['children']
+        for post in posts:
+            hot_list.append(post['data']['title'])
+
+        # Check if there are more pages
+        after = data['data']['after']
+        if after is not None:
+            params['after'] = after
+            recurse(subreddit, hot_list)
+
+    elif response.status_code == 404:
+        return None
+
+    return hot_list
+
+# Example usage:
+result = recurse('programming')
+if result is not None:
+    print(len(result))
+else:
+    print("None")
+```
+
+### Real-World Application:
+
+Understanding how to recursively retrieve all hot articles from a subreddit on Reddit is valuable for various applications, such as:
+
+- Aggregating comprehensive datasets for analysis or data mining purposes.
+- Extracting trending topics or discussions for sentiment analysis or market research.
+- Building recommendation systems or content discovery algorithms based on community interests.
+
+By mastering this skill, developers can leverage the vast amount of information and discussions available on Reddit to enhance their projects and gain valuable insights into online communities.
+
+In conclusion, querying the Reddit API recursively for all hot articles in a subreddit is an advanced API technique that showcases the power of recursion in handling paginated responses. By following the steps outlined above and leveraging the `requests` library in Python, developers can efficiently access and process real-time data from Reddit in their applications.
+
+# **API (advanced) - Analyzing Reddit Posts for Keywords**
+
+Let's delve into a more advanced API task by writing a recursive function that queries the Reddit API, parses the titles of all hot articles, and prints a sorted count of given keywords. This exercise will not only demonstrate recursive function implementation but also showcase text parsing and keyword counting techniques.
+
+### Requirements:
+
+- Write a recursive function `count_words(subreddit, word_list)` that queries the Reddit API and counts the occurrences of keywords in the titles of hot articles.
+- If the subreddit is invalid or no posts match, print nothing.
+- Ensure the final count is printed in descending order by count, and if the count is the same for separate keywords, they should then be sorted alphabetically (ascending, from A to Z). Words with no matches should be skipped and not printed. All words should be printed in lowercase.
+- Results are based on the number of times a keyword appears in the titles, not the number of titles it appears in.
+- Words with punctuation (e.g., java., java!, java_) should not be counted as the keyword.
+- The function must work recursively without using loops.
+
+### Implementation:
+
+To accomplish this task recursively, we'll follow these steps:
+
+1. **Query the Reddit API**: Make a GET request to the appropriate endpoint of the Reddit API, specifying the subreddit and the hot posts sorting.
+
+2. **Handle Response**: Check the response status code to ensure the request was successful. If successful (status code 200), parse the JSON response to extract the titles of the hot posts on the current page.
+
+3. **Count Keywords**: Iterate through the titles and count the occurrences of each keyword in the word list.
+
+4. **Update Counts**: Maintain a dictionary to store the counts of each keyword. If a keyword already exists in the dictionary, update its count. If it doesn't exist, add it to the dictionary.
+
+5. **Recursion**: If the API response indicates the presence of additional pages, recursively call the `count_words` function with updated parameters (subreddit, word_list), passing along any necessary pagination parameters.
+
+6. **Print Results**: Once all pages have been processed, print the final counts in the specified format.
+
+### Example Usage:
+
+```python
+import requests
+
+def count_words(subreddit, word_list, counts=None):
+    if counts is None:
+        counts = {}
+    
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {'User-Agent': 'Custom User Agent'}
+    params = {'limit': 100, 'after': None}  # Limit per page and initial 'after' parameter
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        posts = data['data']['children']
+        for post in posts:
+            title = post['data']['title'].lower()
+            for word in word_list:
+                if f" {word} " in f" {title} ":
+                    counts[word] = counts.get(word, 0) + 1
+
+        # Check if there are more pages
+        after = data['data']['after']
+        if after is not None:
+            params['after'] = after
+            count_words(subreddit, word_list, counts)
+        else:
+            print_results(counts)
+
+    elif response.status_code == 404:
+        return None
+
+def print_results(counts):
+    sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    for word, count in sorted_counts:
+        print(f"{word}: {count}")
+
+# Example usage:
+count_words('programming', ['react', 'python', 'java', 'javascript', 'scala', 'no_results_for_this_one'])
+```
+
+### Real-World Application:
+
+Understanding how to recursively analyze Reddit posts for keywords is valuable for various applications, such as:
+
+- Monitoring community discussions and trends on specific topics or technologies.
+- Conducting sentiment analysis or opinion mining to gauge public sentiment on certain issues or products.
+- Generating insights for market research or competitive analysis in various industries.
+
+By mastering this skill, developers can gain valuable insights from the vast amount of user-generated content on Reddit and apply them to real-world projects effectively.
+
+In conclusion, analyzing Reddit posts for keywords using recursive techniques demonstrates the power of recursion in handling API responses and text parsing. By following the steps outlined above and leveraging the `requests` library in Python, developers can extract valuable information from Reddit and gain insights into online discussions and trends.
+
 ## Conclusion
 
 In the realm of software engineering, the ability to navigate API documentation with finesse is a hallmark of proficiency. Armed with the knowledge gained from this exploration, developers can confidently traverse the labyrinth of API documentation, unlocking the full potential of external services and systems. With each endpoint discovered, a world of possibilities unfolds, paving the way for innovation and excellence in the development journey.
