@@ -1,6 +1,6 @@
 # A Comprehensive Guide to JavaScript and JQuery
 
-Welcome to "Mastering Front-End Development: A Comprehensive Guide to JavaScript and JQuery." In this document, we delve into the intricacies of front-end web development, focusing on two fundamental technologies: JavaScript and JQuery. As an ALX Africa Software Engineering Lecturer, I've curated this detailed note to equip you with the essential skills needed to excel in front-end programming. From DOM manipulation to Ajax requests, each topic is covered comprehensively, accompanied by clear examples and real-world applications. Let's embark on this journey to unravel the power of JavaScript and JQuery in building dynamic and interactive web experiences.
+Welcome to "Mastering Front-End Development: A Comprehensive Guide to JavaScript and JQuery." In this document, we delve into the intricacies of front-end web development, focusing on two fundamental technologies: JavaScript and JQuery. I've curated this detailed note to equip you with the essential skills needed to excel in front-end programming. From DOM manipulation to Ajax requests, each topic is covered comprehensively, accompanied by clear examples and real-world applications. Let's embark on this journey to unravel the power of JavaScript and JQuery in building dynamic and interactive web experiences.
 
 ## 1. Why JQuery makes front-end programming so easy
 
