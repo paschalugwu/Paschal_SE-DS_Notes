@@ -174,6 +174,50 @@ fetchData().then((data) => {
 });
 ```
 
+Alright, let's break this code down step by step!
+
+1. **Defining the Function**: 
+    ```javascript
+    const fetchData = () => {
+    ```
+    Here, we're creating a function called `fetchData`. This function doesn't take any inputs (that's what the empty parentheses mean).
+
+2. **Creating a Promise**: 
+    ```javascript
+    return new Promise((resolve, reject) => {
+    ```
+    Inside the `fetchData` function, we're creating a new promise. Think of a promise like a guarantee that something will happen in the future. The promise has two important parts: `resolve` and `reject`. If everything goes well, we use `resolve` to say that the promise is fulfilled, and if something goes wrong, we use `reject` to say that the promise couldn't be fulfilled.
+
+3. **Setting a Timeout**: 
+    ```javascript
+    setTimeout(() => {
+        resolve("Data fetched");
+    }, 2000);
+    ```
+    Inside the promise, we're using `setTimeout` to simulate waiting for something to happen. In this case, we're waiting for 2000 milliseconds (or 2 seconds). After that time, we're saying that everything went well (`resolve`) and sending back a message saying "Data fetched".
+
+4. **Calling the fetchData Function**: 
+    ```javascript
+    fetchData().then((data) => {
+    ```
+    Now, we're calling the `fetchData` function we created earlier. This starts the process of fetching data, and we're using `.then` to say "After the data is fetched, do something with it".
+
+5. **Handling the Data**: 
+    ```javascript
+    console.log(data); // Data fetched
+    ```
+    Inside the `.then` part, we're logging the data to the console. In our case, the data is just a message saying "Data fetched".
+
+6. **Handling Errors**: 
+    ```javascript
+    }).catch((error) => {
+        console.error(error);
+    });
+    ```
+    If something goes wrong while fetching the data, we use `.catch` to handle errors. Here, we're logging any errors to the console.
+
+So, in simple terms, this code is like making a promise to fetch some data in the future. Once the data is fetched successfully, we're logging it to the console. If something goes wrong during the fetching process, we're logging the error instead.
+
 ### Enhanced Object Literals
 
 Enhanced object literals make it easier to define object properties and methods.
