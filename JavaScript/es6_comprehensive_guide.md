@@ -975,6 +975,22 @@ const p = new Person();
 // p.age increases every second because `this` inside the arrow function refers to the Person instance
 ```
 
+Alright, let's break it down in simple terms!
+
+1. **Traditional Function vs. Arrow Function**:  
+   In JavaScript, there are different types of functions. One type is called a traditional function, and the other type is called an arrow function.
+
+2. **How 'this' Works**:  
+   Now, let's talk about `this`. In JavaScript, `this` is like a placeholder that refers to the object that the function is a part of. But here's the tricky part: the value of `this` can change depending on how the function is called.
+
+3. **Traditional Function Example**:  
+   Imagine we have a function called `growUp` inside a `Person` function. In this traditional function, when we use `this.age++` to increase the age, `this` refers to the global object, not the `Person` instance. So, if we create a `Person` object and call the `growUp` function, it won't increase the age of that person because `this` refers to something else.
+
+4. **Arrow Function Example**:  
+   Now, let's look at the same scenario but with an arrow function. Arrow functions work a bit differently with `this`. Instead of having their own `this` value, they inherit `this` from the surrounding scope at the time they are defined. So, when we use an arrow function inside the `Person` function to increase the age, `this` refers to the `Person` instance. This means that when we create a `Person` object and call the arrow function to increase the age, it actually works, and the age increases every second.
+
+In simple terms, traditional functions and arrow functions handle `this` differently. Traditional functions have their own `this` value, which can sometimes cause confusion, while arrow functions inherit `this` from the surrounding scope, making them easier to use in certain situations.
+
 ### Default Function Parameters
 
 Default function parameters allow you to initialize parameters with default values if no value is provided when the function is called.
