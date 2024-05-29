@@ -94,6 +94,37 @@ This code will output:
 [1, 4, 6, 4, 1]
 ```
 
+Let's break down each line of code in relation to Pascal's Triangle:
+
+1. `def generate_pascals_triangle(n):`
+   - This line defines a function called `generate_pascals_triangle` that takes one input, `n`, which represents the number of rows we want in Pascal's Triangle.
+
+2. `triangle = [[1]]`
+   - Here, we initialize a list called `triangle` with one row, which contains only the number 1. This represents the first row of Pascal's Triangle.
+
+3. `for i in range(1, n):`
+   - This line starts a loop that will run from the second row (index 1) up to the `n`th row (exclusive). It iterates through each row of Pascal's Triangle starting from the second row.
+
+4. `row = [1] + [triangle[i-1][j-1] + triangle[i-1][j] for j in range(1, i)] + [1]`
+   - Here, we create a new row (`row`) for Pascal's Triangle. It starts and ends with the number 1, representing the edges of the triangle. The middle elements of the row are calculated using the values from the previous row (`triangle[i-1]`). We add up pairs of adjacent numbers from the previous row to get the numbers in the current row.
+
+5. `triangle.append(row)`
+   - This line adds the newly generated row (`row`) to the `triangle` list, extending Pascal's Triangle by one row.
+
+6. `return triangle`
+   - After generating all the rows, the function returns the complete Pascal's Triangle stored in the `triangle` list.
+
+7. `pascals_triangle = generate_pascals_triangle(5)`
+   - This line calls the `generate_pascals_triangle` function with an argument of `5`, which means we want to generate Pascal's Triangle with 5 rows.
+
+8. `for row in pascals_triangle:`
+   - This line starts a loop that iterates through each row in the Pascal's Triangle generated earlier.
+
+9. `print(row)`
+   - Inside the loop, we print each row of Pascal's Triangle one by one.
+
+So, in simple terms, this code defines a function to generate Pascal's Triangle, creates the triangle row by row, and then prints out the resulting triangle with a specified number of rows. Each number in the triangle is the sum of the two numbers directly above it, with the edges of the triangle always being 1.
+
 ### Real-World Applications
 
 1. **Data Analysis:** Lists are fundamental in handling data sets, allowing you to store and manipulate large amounts of data efficiently.
