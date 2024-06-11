@@ -193,6 +193,8 @@ console.log(averageScore); // 75
 
 JavaScript Typed Arrays provide a way to handle binary data directly. This is particularly useful when dealing with raw binary data, such as that coming from network protocols, binary file formats, or WebGL. Typed Arrays allow you to work with arrays of binary data with a specific data type and size.
 
+![JavaSript Array Methods](https://github.com/paschalugwu/My_SE-Guidebook/raw/main/JavaScript/Images/373b3bfc-47b8-45a9-8848-178e11217099.jfif)
+
 ### Basic Concepts
 
 #### ArrayBuffer
