@@ -615,9 +615,9 @@ Recursion is a programming technique where a function calls itself to solve a pr
 2. **Recursive Case**: The part of the function where it calls itself to work on a smaller problem.
 
 ### Example: Factorial
-The factorial of a number \( n \) (denoted as \( n! \)) is the product of all positive integers less than or equal to \( n \). The factorial function can be defined recursively:
-\[ n! = n \times (n-1)! \]
-\[ 0! = 1 \]
+The factorial of a number $\( n \)$ (denoted as $\( n! \))$ is the product of all positive integers less than or equal to $\( n \)$. The factorial function can be defined recursively:
+$\[ n! = n \times (n-1)! \]$
+$\[ 0! = 1 \]$
 
 #### Recursive Implementation of Factorial
 ```python
@@ -634,8 +634,8 @@ print(factorial(5))  # Output: 120
 ### Example: Fibonacci Sequence
 The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones, usually starting with 0 and 1.
 
-\[ F(n) = F(n-1) + F(n-2) \]
-\[ F(0) = 0, F(1) = 1 \]
+$\[ F(n) = F(n-1) + F(n-2) \]$
+$\[ F(0) = 0, F(1) = 1 \]$
 
 #### Recursive Implementation of Fibonacci
 ```python
