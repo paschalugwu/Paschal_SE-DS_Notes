@@ -839,9 +839,7 @@ d. It limits flexibility by restricting object types
 
 ## Answers
 
-1. **c. An approach where the suitability of an object is
-
- determined by its methods and properties**
+1. **c. An approach where the suitability of an object is determined by its methods and properties**
 2. **a. Only `Duck`**
 3. **b. If `file_obj` has a `read` method**
 4. **b. By allowing objects with similar methods to be used interchangeably**
