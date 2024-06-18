@@ -179,6 +179,95 @@ grid = [
 print(min_cost(grid))  # Output: 7
 ```
 
+The idea is to use a 2D list (array) `dp` where `dp[i][j]` represents the minimum cost to reach cell `(i, j)`.
+
+1. **Initialize the DP Array**:
+    - Create a 2D list `dp` of the same size as the grid, filled with zeros.
+    - Set `dp[0][0]` to the value of `grid[0][0]` because that’s the starting point.
+
+2. **Fill the First Row and First Column**:
+    - The cost to reach any cell in the first row is the sum of the costs from the cells to its left.
+    - The cost to reach any cell in the first column is the sum of the costs from the cells above it.
+
+3. **Fill the Rest of the DP Array**:
+    - For each cell `(i, j)`, the cost to reach it is the value of `grid[i][j]` plus the minimum cost to reach either from the top `(i-1, j)` or from the left `(i, j-1)`.
+
+4. **Return the Result**:
+    - The minimum cost to reach the bottom-right corner is found in `dp[rows-1][cols-1]`.
+
+### Step-by-Step Explanation
+
+1. **Initialize the DP Array**:
+    ```python
+    rows = len(grid)  # Number of rows in the grid
+    cols = len(grid[0])  # Number of columns in the grid
+    dp = [[0] * cols for _ in range(rows)]  # Create a 2D list filled with 0
+    dp[0][0] = grid[0][0]  # Set the starting point cost
+    ```
+
+2. **Fill the First Column**:
+    ```python
+    for i in range(1, rows):
+        dp[i][0] = dp[i-1][0] + grid[i][0]
+    ```
+    - This loop updates the cost for each cell in the first column by adding the cost of the current cell in the grid to the cost of the cell above it.
+
+3. **Fill the First Row**:
+    ```python
+    for j in range(1, cols):
+        dp[0][j] = dp[0][j-1] + grid[0][j]
+    ```
+    - This loop updates the cost for each cell in the first row by adding the cost of the current cell in the grid to the cost of the cell to its left.
+
+4. **Fill the Rest of the DP Array**:
+    ```python
+    for i in range(1, rows):
+        for j in range(1, cols):
+            dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+    ```
+    - This double loop goes through the remaining cells in the grid.
+    - For each cell `(i, j)`, it takes the minimum cost from the top `(dp[i-1][j])` or from the left `(dp[i][j-1])` and adds the current cell’s cost from the grid `grid[i][j]`.
+
+5. **Return the Result**:
+    ```python
+    return dp[rows-1][cols-1]
+    ```
+    - The minimum cost to reach the bottom-right corner is stored in `dp[rows-1][cols-1]`.
+
+### Example Walkthrough
+
+For the given grid:
+```
+1  3  1
+1  5  1
+4  2  1
+```
+
+- The `dp` array initialization and updates will be:
+    ```
+    Initial dp:
+    1  0  0
+    0  0  0
+    0  0  0
+
+    After filling the first column:
+    1  0  0
+    2  0  0
+    6  0  0
+
+    After filling the first row:
+    1  4  5
+    2  0  0
+    6  0  0
+
+    After filling the rest of the dp array:
+    1  4  5
+    2  7  6
+    6  8  7
+    ```
+
+The minimum cost path is: `1 -> 1 -> 1 -> 1 -> 1 -> 2 -> 1`, with a total cost of 7.
+
 ### Common Problems Solved Using Dynamic Programming
 
 1. **Knapsack Problem**
