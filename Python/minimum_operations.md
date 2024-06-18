@@ -40,6 +40,105 @@ def fib_dp(n):
     return fib[n]
 ```
 
+### Explanation of `fib_dp(n)` Function
+
+The `fib_dp(n)` function calculates the nth Fibonacci number using dynamic programming. Here’s a step-by-step breakdown to understand the function:
+
+#### What is a Fibonacci Number?
+
+The Fibonacci sequence is a series of numbers where:
+- The first number is 0.
+- The second number is 1.
+- Each subsequent number is the sum of the previous two numbers.
+
+For example, the beginning of the Fibonacci sequence looks like this: 0, 1, 1, 2, 3, 5, 8, 13, ...
+
+#### Function Breakdown
+
+1. **Function Definition and Base Case**:
+    ```python
+    def fib_dp(n):
+        if n <= 1:
+            return n
+    ```
+    - The function `fib_dp(n)` starts by checking if `n` is 0 or 1.
+    - If `n` is 0 or 1, the function returns `n` because the 0th Fibonacci number is 0 and the 1st Fibonacci number is 1.
+
+2. **Initialize the Fibonacci Array**:
+    ```python
+    fib = [0] * (n + 1)
+    fib[1] = 1
+    ```
+    - We create an array `fib` of size `n + 1` initialized with zeros. This array will store the Fibonacci numbers up to the nth number.
+    - We set `fib[1]` to 1 because we know the 1st Fibonacci number is 1.
+
+3. **Fill the Fibonacci Array Using a Loop**:
+    ```python
+    for i in range(2, n + 1):
+        fib[i] = fib[i - 1] + fib[i - 2]
+    ```
+    - We use a `for` loop to iterate from 2 to `n`.
+    - In each iteration, we calculate the ith Fibonacci number by adding the previous two Fibonacci numbers (`fib[i - 1]` and `fib[i - 2]`).
+    - We store the result in `fib[i]`.
+
+4. **Return the nth Fibonacci Number**:
+    ```python
+    return fib[n]
+    ```
+    - After the loop completes, the nth Fibonacci number is stored in `fib[n]`.
+    - The function returns `fib[n]`.
+
+#### Example
+
+Let's see how the function works step-by-step for `n = 5`:
+
+1. **Initial State**:
+    ```python
+    n = 5
+    fib = [0, 1, 0, 0, 0, 0]
+    ```
+
+2. **Loop Iterations**:
+    - **Iteration 1 (i = 2)**:
+        ```python
+        fib[2] = fib[1] + fib[0]
+        fib[2] = 1 + 0
+        fib = [0, 1, 1, 0, 0, 0]
+        ```
+    - **Iteration 2 (i = 3)**:
+        ```python
+        fib[3] = fib[2] + fib[1]
+        fib[3] = 1 + 1
+        fib = [0, 1, 1, 2, 0, 0]
+        ```
+    - **Iteration 3 (i = 4)**:
+        ```python
+        fib[4] = fib[3] + fib[2]
+        fib[4] = 2 + 1
+        fib = [0, 1, 1, 2, 3, 0]
+        ```
+    - **Iteration 4 (i = 5)**:
+        ```python
+        fib[5] = fib[4] + fib[3]
+        fib[5] = 3 + 2
+        fib = [0, 1, 1, 2, 3, 5]
+        ```
+
+3. **Return the Result**:
+    ```python
+    return fib[5]  # Output is 5
+    ```
+
+So, `fib_dp(5)` returns `5`, which is the 5th Fibonacci number.
+
+### Key Points
+
+- **Dynamic Programming**: This approach saves previous results to avoid recalculating them, making it efficient.
+- **Array Storage**: We use an array to store Fibonacci numbers up to `n`.
+- **Time Complexity**: The function runs in O(n) time, which is efficient compared to the exponential time complexity of the naive recursive approach.
+
+This function efficiently calculates Fibonacci numbers by building up from the base cases using previously computed values.
+
 ### Real-World Application: Shortest Path in a Grid
 
 Consider a robot on a grid that can only move right or down. The robot starts at the top-left corner and wants to reach the bottom-right corner. Each cell contains a cost, and the robot wants to minimize the total cost.
