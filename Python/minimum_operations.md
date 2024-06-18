@@ -297,7 +297,7 @@ The minimum cost path is: `1 -> 1 -> 1 -> 1 -> 1 -> 2 -> 1`, with a total cost o
     - D. None of the above
 
 4. **What is the time complexity of the dynamic programming approach to the Fibonacci sequence?**
-    - A. O(n^2)
+    - A. $O(n^2)$
     - B. O(log n)
     - C. O(n)
     - D. O(2^n)
@@ -375,7 +375,7 @@ Prime factorization is the process of breaking down a number into its prime numb
 3. 15 ÷ 3 = 5 (3 is no longer a divisor)
 4. 5 ÷ 5 = 1
 
-So, the prime factorization of 60 is \(2^2 \times 3 \times 5\).
+So, the prime factorization of 60 is $\(2^2 \times 3 \times 5\)$.
 
 ### Code Example
 
@@ -406,11 +406,11 @@ Prime factorization plays a crucial role in cryptography, particularly in RSA en
 
 ### Example: RSA Key Generation
 
-1. Choose two distinct large prime numbers \(p\) and \(q\).
-2. Compute \(n = p \times q\).
-3. Compute the totient function \(\phi(n) = (p-1) \times (q-1)\).
-4. Choose an integer \(e\) such that \(1 < e < \phi(n)\) and \(e\) is coprime with \(\phi(n)\).
-5. Compute \(d\) such that \(d \times e \equiv 1 \mod \phi(n)\).
+1. Choose two distinct large prime numbers $\(p\)$ and $\(q\)$.
+2. Compute $\(n = p \times q\)$.
+3. Compute the totient function $\(\phi(n) = (p-1) \times (q-1)\)$.
+4. Choose an integer $\(e\)$ such that $\(1 < e < \phi(n)\)$ and $\(e\)$ is coprime with $\(\phi(n)\)$.
+5. Compute $\(d\)$ such that $\(d \times e \equiv 1 \mod \phi(n)\)$.
 
 ### Multiple Choice Questions (MCQ)
 
