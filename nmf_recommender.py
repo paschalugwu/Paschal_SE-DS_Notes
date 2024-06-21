@@ -15,15 +15,23 @@ logging.basicConfig(level=logging.INFO)
 
 # Custom NMF Recommender Class
 class NMFRecommender(BaseEstimator, RegressorMixin):
-    def __init__(self, n_components=10, alpha_W=0.1, alpha_H=0.1, init='random', random_state=None):
+    def __init__(self, n_components=10, alpha_W=0.1, alpha_H=0.1, init='random', random_state=None, l1_ratio=0.0):
         self.n_components = n_components
         self.alpha_W = alpha_W
         self.alpha_H = alpha_H
         self.init = init
         self.random_state = random_state
+        self.l1_ratio = l1_ratio  # Add l1_ratio
 
     def fit(self, X, y=None):
-        self.nmf_ = NMF(n_components=self.n_components, alpha_W=self.alpha_W, alpha_H=self.alpha_H, init=self.init, random_state=self.random_state)
+        self.nmf_ = NMF(
+            n_components=self.n_components,
+            alpha_W=self.alpha_W,
+            alpha_H=self.alpha_H,
+            init=self.init,
+            random_state=self.random_state,
+            l1_ratio=self.l1_ratio  # Pass l1_ratio to NMF
+        )
         self.W_ = self.nmf_.fit_transform(X)
         self.H_ = self.nmf_.components_
         return self
@@ -75,8 +83,8 @@ param_grid = {
     'n_components': [20, 50, 100],
     'alpha_W': [0.1, 0.5, 1.0],
     'alpha_H': [0.1, 0.5, 1.0],
-    'init': ['random', 'nndsvd'],  # Adding initialization method to the grid search
-    'l1_ratio': [0.0, 0.5, 1.0]  # Adding L1 ratio parameter
+    'init': ['random', 'nndsvd'],
+    'l1_ratio': [0.0, 0.5, 1.0]
 }
 
 # Perform grid search to find the best hyperparameters
@@ -109,8 +117,8 @@ joblib.dump(best_model, final_model_filename)
 
 # Optionally, log final training metrics
 logging.info(f"Best Model Parameters: {grid_search.best_params_}")
-y_pred_val = best_model.transform(X_val_processed)  # Change this line
-y_pred_val_full = np.dot(y_pred_val, best_model.H_)  # Generate full prediction matrix
+y_pred_val = best_model.transform(X_val_processed)
+y_pred_val_full = np.dot(y_pred_val, best_model.H_)
 
 val_rmse = mean_squared_error(y_val, y_pred_val_full, squared=False)
 logging.info(f"Validation RMSE: {val_rmse}")
