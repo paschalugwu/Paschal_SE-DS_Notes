@@ -94,8 +94,7 @@ def main():
         'n_components': [20, 50, 100],
         'alpha_W': [0.1, 0.5, 1.0],
         'alpha_H': [0.1, 0.5, 1.0],
-        'init': ['random', 'nndsvd'],  # Adding initialization method to the grid search
-        'l1_ratio': [0.0, 0.5, 1.0]  # Adding L1 ratio parameter
+        'init': ['random', 'nndsvd']  # Adding initialization method to the grid search
     }
 
     # Perform or resume grid search
@@ -112,7 +111,7 @@ def main():
     joblib.dump(best_model, final_model_filename)
 
     # Optionally, log final training metrics
-    logging.info(f"Best Model Parameters: {grid_search.best_params_}")
+    logging.info(f"Best Model Parameters: {grid_search.best_params_()}")
     y_pred_val = best_model.transform(X_val_processed)  # Change this line
     y_pred_val_full = np.dot(y_pred_val, best_model.H_)  # Generate full prediction matrix
 
