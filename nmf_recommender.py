@@ -32,10 +32,6 @@ class NMFRecommender(BaseEstimator, RegressorMixin):
         check_is_fitted(self, ['W_', 'H_'])
         return np.dot(self.W_, self.H_)
 
-    def transform(self, X):
-        check_is_fitted(self, ['W_', 'H_'])
-        return self.nmf_.transform(X)
-
 # Custom scoring function for RMSE
 def nmf_rmse_scorer(estimator, X, y_true):
     y_pred = estimator.predict(X)
@@ -48,18 +44,13 @@ def load_or_run_grid_search(X_train_processed, y_train, param_grid, checkpoint_f
     model = NMFRecommender()
     grid_search = GridSearchCV(model, param_grid, cv=3, scoring=nmf_scorer)
 
-    try:
+    if os.path.exists(checkpoint_filename):
         logging.info("Loading checkpoint...")
         grid_search = joblib.load(checkpoint_filename)
-    except FileNotFoundError:
+    else:
         logging.info("Starting new grid search...")
-    
-    # Continue or start grid search
-    if not os.path.exists(checkpoint_filename):
         grid_search.fit(X_train_processed, y_train)
         joblib.dump(grid_search, checkpoint_filename)
-    else:
-        logging.info("Checkpoint found. Resuming grid search...")
 
     return grid_search
 
@@ -72,9 +63,6 @@ def preprocess_data(X_train, X_val):
 
     X_val_imputed = imputer.transform(X_val)
     X_val_processed = scaler.transform(X_val_imputed)
-
-    X_train_processed = np.maximum(X_train_processed, 0)
-    X_val_processed = np.maximum(X_val_processed, 0)
 
     return X_train_processed, X_val_processed
 
@@ -94,7 +82,7 @@ def main():
         'n_components': [20, 50, 100],
         'alpha_W': [0.1, 0.5, 1.0],
         'alpha_H': [0.1, 0.5, 1.0],
-        'init': ['random', 'nndsvd']  # Adding initialization method to the grid search
+        'init': ['random', 'nndsvd']
     }
 
     # Perform or resume grid search
@@ -111,9 +99,9 @@ def main():
     joblib.dump(best_model, final_model_filename)
 
     # Optionally, log final training metrics
-    logging.info(f"Best Model Parameters: {grid_search.best_params_()}")
-    y_pred_val = best_model.transform(X_val_processed)  # Change this line
-    y_pred_val_full = np.dot(y_pred_val, best_model.H_)  # Generate full prediction matrix
+    logging.info(f"Best Model Parameters: {grid_search.best_params_}")
+    y_pred_val = best_model.transform(X_val_processed)
+    y_pred_val_full = np.dot(y_pred_val, best_model.H_)
 
     val_rmse = mean_squared_error(y_val, y_pred_val_full, squared=False)
     logging.info(f"Validation RMSE: {val_rmse}")
