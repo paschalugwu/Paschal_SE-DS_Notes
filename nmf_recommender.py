@@ -100,7 +100,7 @@ def main():
 
     # Optionally, log final training metrics
     logging.info(f"Best Model Parameters: {grid_search.best_params_}")
-    y_pred_val = best_model.predict(X_val_processed)  # Changed from transform to predict
+    y_pred_val = best_model.predict(X_val_processed)  # Use predict instead of transform
     y_pred_val_full = np.dot(y_pred_val, best_model.H_)
 
     val_rmse = mean_squared_error(y_val, y_pred_val_full, squared=False)
