@@ -32,6 +32,10 @@ class NMFRecommender(BaseEstimator, RegressorMixin):
         check_is_fitted(self, ['W_', 'H_'])
         return np.dot(self.W_, self.H_)
 
+    def transform(self, X):
+        check_is_fitted(self, ['W_', 'H_'])
+        return self.nmf_.transform(X)
+
 # Custom scoring function for RMSE
 def nmf_rmse_scorer(estimator, X, y_true):
     y_pred = estimator.predict(X)
@@ -40,73 +44,75 @@ def nmf_rmse_scorer(estimator, X, y_true):
 # Create a custom scorer
 nmf_scorer = make_scorer(nmf_rmse_scorer, greater_is_better=False)
 
-def load_or_run_grid_search(X_train_processed, y_train, param_grid, checkpoint_filename='nmf_grid_search_checkpoint.pkl'):
-    model = NMFRecommender()
-    grid_search = GridSearchCV(model, param_grid, cv=3, scoring=nmf_scorer)
+# Example data (replace with your actual data)
+np.random.seed(0)
+X_train = np.random.rand(100, 50)
+X_val = np.random.rand(20, 50)
+y_train = X_train.copy()  # Assuming reconstruction task
+y_val = X_val.copy()  # Assuming reconstruction task
 
-    if os.path.exists(checkpoint_filename):
-        logging.info("Loading checkpoint...")
-        grid_search = joblib.load(checkpoint_filename)
-    else:
-        logging.info("Starting new grid search...")
-        grid_search.fit(X_train_processed, y_train)
-        joblib.dump(grid_search, checkpoint_filename)
+# Preprocessing
+imputer = SimpleImputer(strategy='mean')
+scaler = MinMaxScaler()
 
-    return grid_search
+# Impute and scale the training data
+X_train_imputed = imputer.fit_transform(X_train)
+X_train_processed = scaler.fit_transform(X_train_imputed)
 
-def preprocess_data(X_train, X_val):
-    imputer = SimpleImputer(strategy='mean')
-    scaler = MinMaxScaler()
+# Impute and scale the validation data
+X_val_imputed = imputer.transform(X_val)
+X_val_processed = scaler.transform(X_val_imputed)
 
-    X_train_imputed = imputer.fit_transform(X_train)
-    X_train_processed = scaler.fit_transform(X_train_imputed)
+# Ensure all values are non-negative
+X_train_processed = np.maximum(X_train_processed, 0)
+X_val_processed = np.maximum(X_val_processed, 0)
 
-    X_val_imputed = imputer.transform(X_val)
-    X_val_processed = scaler.transform(X_val_imputed)
+# Define the model
+model = NMFRecommender()
 
-    return X_train_processed, X_val_processed
+# Define hyperparameters for grid search
+param_grid = {
+    'n_components': [20, 50, 100],
+    'alpha_W': [0.1, 0.5, 1.0],
+    'alpha_H': [0.1, 0.5, 1.0],
+    'init': ['random', 'nndsvd'],  # Adding initialization method to the grid search
+    'l1_ratio': [0.0, 0.5, 1.0]  # Adding L1 ratio parameter
+}
 
-def main():
-    # Example data (replace with your actual data)
-    np.random.seed(0)
-    X_train = np.random.rand(100, 50)
-    X_val = np.random.rand(20, 50)
-    y_train = X_train.copy()  # Assuming reconstruction task
-    y_val = X_val.copy()  # Assuming reconstruction task
+# Perform grid search to find the best hyperparameters
+grid_search = GridSearchCV(model, param_grid, cv=3, scoring=nmf_scorer)
 
-    # Preprocessing
-    X_train_processed, X_val_processed = preprocess_data(X_train, X_val)
+# Check if there's a previous checkpoint to resume training
+checkpoint_filename = 'nmf_grid_search_checkpoint.pkl'
+try:
+    logging.info("Loading checkpoint...")
+    grid_search = joblib.load(checkpoint_filename)
+except FileNotFoundError:
+    logging.info("Starting new grid search...")
 
-    # Define hyperparameters for grid search
-    param_grid = {
-        'n_components': [20, 50, 100],
-        'alpha_W': [0.1, 0.5, 1.0],
-        'alpha_H': [0.1, 0.5, 1.0],
-        'init': ['random', 'nndsvd']
-    }
+# Continue or start grid search
+if not os.path.exists(checkpoint_filename):
+    grid_search.fit(X_train_processed, y_train)
+    joblib.dump(grid_search, checkpoint_filename)
+else:
+    logging.info("Checkpoint found. Resuming grid search...")
 
-    # Perform or resume grid search
-    grid_search = load_or_run_grid_search(X_train_processed, y_train, param_grid)
+# Get the best model based on grid search results
+best_model = grid_search.best_estimator_
 
-    # Get the best model based on grid search results
-    best_model = grid_search.best_estimator_
+# Train the best model on the entire training set
+best_model.fit(X_train_processed, y_train)
 
-    # Train the best model on the entire training set
-    best_model.fit(X_train_processed, y_train)
+# Save the final model
+final_model_filename = 'nmf_best_model.pkl'
+joblib.dump(best_model, final_model_filename)
 
-    # Save the final model
-    final_model_filename = 'nmf_best_model.pkl'
-    joblib.dump(best_model, final_model_filename)
+# Optionally, log final training metrics
+logging.info(f"Best Model Parameters: {grid_search.best_params_}")
+y_pred_val = best_model.transform(X_val_processed)  # Change this line
+y_pred_val_full = np.dot(y_pred_val, best_model.H_)  # Generate full prediction matrix
 
-    # Optionally, log final training metrics
-    logging.info(f"Best Model Parameters: {grid_search.best_params_}")
-    y_pred_val = best_model.predict(X_val_processed)  # Use predict instead of transform
-    y_pred_val_full = np.dot(y_pred_val, best_model.H_)
+val_rmse = mean_squared_error(y_val, y_pred_val_full, squared=False)
+logging.info(f"Validation RMSE: {val_rmse}")
 
-    val_rmse = mean_squared_error(y_val, y_pred_val_full, squared=False)
-    logging.info(f"Validation RMSE: {val_rmse}")
-
-    print("Model training and hyperparameter tuning completed successfully.")
-
-if __name__ == "__main__":
-    main()
+print("Model training and hyperparameter tuning completed successfully.")
