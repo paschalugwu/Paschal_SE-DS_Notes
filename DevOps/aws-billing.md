@@ -15,10 +15,10 @@ AWS charges for computing resources through several models, primarily based on t
 
 #### Example
 For an On-Demand Linux instance running for 24 hours at a rate of $0.10 per hour:
-\[ \text{Cost} = 24 \, \text{hours} \times 0.10 \, \text{\$/hour} = 2.40 \, \text{\$} \]
+$\[ \text{Cost} = 24 \, \text{hours} \times 0.10 \, \text{\$/hour} = 2.40 \, \text{\$} \]$
 
 For a Spot Instance that you bid $0.05 per hour and it runs for 10 hours:
-\[ \text{Cost} = 10 \, \text{hours} \times 0.05 \, \text{\$/hour} = 0.50 \, \text{\$} \]
+$\[ \text{Cost} = 10 \, \text{hours} \times 0.05 \, \text{\$/hour} = 0.50 \, \text{\$} \]$
 
 ### Storage
 
@@ -35,10 +35,10 @@ AWS provides several storage services, each with its own pricing mechanism.
 
 #### Example
 For storing 100 GB of data in S3 Standard Storage:
-\[ \text{Cost} = 100 \, \text{GB} \times 0.023 \, \text{\$/GB} = 2.30 \, \text{\$} \]
+$\[ \text{Cost} = 100 \, \text{GB} \times 0.023 \, \text{\$/GB} = 2.30 \, \text{\$} \]$
 
 For storing 200 GB in Amazon Glacier:
-\[ \text{Cost} = 200 \, \text{GB} \times 0.004 \, \text{\$/GB} = 0.80 \, \text{\$} \]
+$\[ \text{Cost} = 200 \, \text{GB} \times 0.004 \, \text{\$/GB} = 0.80 \, \text{\$} \]$
 
 ### Data Transfer
 
@@ -57,8 +57,8 @@ Data transfer costs depend on the direction (inbound or outbound) and the amount
 
 #### Example
 For transferring 5 GB of data out of AWS:
-\[ \text{First 1 GB: Free} \]
-\[ \text{Remaining 4 GB:} 4 \, \text{GB} \times 0.09 \, \text{\$/GB} = 0.36 \, \text{\$} \]
+$\[ \text{First 1 GB: Free} \]$
+$\[ \text{Remaining 4 GB:} 4 \, \text{GB} \times 0.09 \, \text{\$/GB} = 0.36 \, \text{\$} \]$
 
 ### Real-World Application
 
@@ -66,16 +66,16 @@ Consider a web application hosted on AWS that uses EC2 instances for computation
 
 1. **Compute Cost**:
    - Running a t2.micro Linux instance (On-Demand) for 30 days:
-   \[ 30 \, \text{days} \times 24 \, \text{hours/day} \times 0.0116 \, \text{\$/hour} = 8.35 \, \text{\$} \]
+   $\[ 30 \, \text{days} \times 24 \, \text{hours/day} \times 0.0116 \, \text{\$/hour} = 8.35 \, \text{\$} \]$
 
 2. **Storage Cost**:
    - Storing 50 GB of user uploads in S3 Standard:
-   \[ 50 \, \text{GB} \times 0.023 \, \text{\$/GB} = 1.15 \, \text{\$} \]
+   $\[ 50 \, \text{GB} \times 0.023 \, \text{\$/GB} = 1.15 \, \text{\$} \]$
 
 3. **Data Transfer Cost**:
    - Transferring 100 GB of data to users:
-   \[ \text{First 1 GB: Free} \]
-   \[ \text{Remaining 99 GB:} 99 \, \text{GB} \times 0.09 \, \text{\$/GB} = 8.91 \, \text{\$} \]
+   $\[ \text{First 1 GB: Free} \]$
+   $\[ \text{Remaining 99 GB:} 99 \, \text{GB} \times 0.09 \, \text{\$/GB} = 8.91 \, \text{\$} \]$
 
 ### Example Code Snippets
 
@@ -206,7 +206,7 @@ Reserved Instances (RIs) offer significant cost savings compared to On-Demand pr
 
 #### Example
 For a Standard Reserved Instance with a one-year term and a monthly cost of $10:
-\[ \text{Total Cost for One Year} = 12 \times 10 = 120 \, \text{\$} \]
+$\[ \text{Total Cost for One Year} = 12 \times 10 = 120 \, \text{\$} \]$
 
 ### Volume Discounts
 
@@ -219,10 +219,10 @@ For Amazon S3 Standard Storage:
 - **Over 500 TB per month**: $0.021 per GB
 
 For storing 100 TB in a month:
-\[ \text{Cost} = 50 \, \text{TB} \times 0.023 \, \text{\$/GB} + 50 \, \text{TB} \times 0.022 \, \text{\$/GB} \]
-\[ = 50,000 \, \text{GB} \times 0.023 \, \text{\$/GB} + 50,000 \, \text{GB} \times 0.022 \, \text{\$/GB} \]
-\[ = 1150 \, \text{\$} + 1100 \, \text{\$} \]
-\[ = 2250 \, \text{\$} \]
+$\[ \text{Cost} = 50 \, \text{TB} \times 0.023 \, \text{\$/GB} + 50 \, \text{TB} \times 0.022 \, \text{\$/GB} \]$
+$\[ = 50,000 \, \text{GB} \times 0.023 \, \text{\$/GB} + 50,000 \, \text{GB} \times 0.022 \, \text{\$/GB} \]$
+$\[ = 1150 \, \text{\$} + 1100 \, \text{\$} \]$
+$\[ = 2250 \, \text{\$} \]$
 
 ### Real-World Application
 
@@ -350,14 +350,14 @@ The Total Cost of Ownership (TCO) is a financial estimate intended to help buyer
 Consider an on-premises data center requiring $100,000 in initial setup costs and $20,000 annually for maintenance over five years versus an equivalent AWS setup costing $2,000 monthly.
 
 **On-Premises TCO over 5 years**:
-\[ \text{Initial Setup Cost} = \$100,000 \]
-\[ \text{Maintenance Costs} = 5 \times \$20,000 = \$100,000 \]
-\[ \text{Total TCO} = \$100,000 + \$100,000 = \$200,000 \]
+$\[ \text{Initial Setup Cost} = \$100,000 \]$
+$\[ \text{Maintenance Costs} = 5 \times \$20,000 = \$100,000 \]$
+$\[ \text{Total TCO} = \$100,000 + \$100,000 = \$200,000 \]$
 
 **AWS TCO over 5 years**:
-\[ \text{Monthly Cost} = \$2,000 \]
-\[ \text{Annual Cost} = 12 \times \$2,000 = \$24,000 \]
-\[ \text{Total TCO} = 5 \times \$24,000 = \$120,000 \]
+$\[ \text{Monthly Cost} = \$2,000 \]$
+$\[ \text{Annual Cost} = 12 \times \$2,000 = \$24,000 \]$
+$\[ \text{Total TCO} = 5 \times \$24,000 = \$120,000 \]$
 
 ### Cost Categories
 
