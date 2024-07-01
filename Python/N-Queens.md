@@ -227,9 +227,7 @@ solve_sudoku(sudoku_board)
    - a) If the path leads to the goal
    - b) If the current position is within the maze and not an obstacle
    - c) If the maze is solvable
-   - d) If
-
- the maze has a unique solution
+   - d) If the maze has a unique solution
 
 8. How does the backtracking algorithm handle reaching a dead end?
    - a) Restarts the algorithm
