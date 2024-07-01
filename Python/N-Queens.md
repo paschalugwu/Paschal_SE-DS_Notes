@@ -276,17 +276,17 @@ Recursion is a technique where a function calls itself to solve smaller instance
 
 ### How Recursion Works
 
-Recursion works by solving the problem in terms of itself. Consider a problem \( P \):
-1. Define a base case \( B \) where \( P \) can be solved directly.
-2. Define a recursive case \( R \) that breaks \( P \) into a smaller instance \( P' \) and solves it by calling the function recursively.
+Recursion works by solving the problem in terms of itself. Consider a problem $\( P \)$:
+1. Define a base case $\( B \)$ where $\( P \)$ can be solved directly.
+2. Define a recursive case $\( R \)$ that breaks $\( P \)$ into a smaller instance $\( P' \)$ and solves it by calling the function recursively.
 
 ### Example: Factorial of a Number
 
-The factorial of a number \( n \) is the product of all positive integers less than or equal to \( n \). It's represented as \( n! \).
+The factorial of a number $\( n \)$ is the product of all positive integers less than or equal to $\( n \)$. It's represented as $\( n! \)$.
 
 #### Mathematical Definition:
-\[ n! = n \times (n-1)! \]
-\[ 0! = 1 \] (Base Case)
+$\[ n! = n \times (n-1)! \]$
+$\[ 0! = 1 \]$ (Base Case)
 
 #### Recursive Implementation in Python:
 
@@ -302,8 +302,8 @@ print(factorial(5))  # Output: 120
 
 ### Explanation
 
-- **Base Case**: When \( n \) is 0, the function returns 1.
-- **Recursive Case**: The function calls itself with \( n-1 \) and multiplies the result by \( n \).
+- **Base Case**: When $\( n \)$ is 0, the function returns 1.
+- **Recursive Case**: The function calls itself with $\( n-1 \)$ and multiplies the result by $\( n \)$.
 
 ## Using Recursion in Backtracking
 
@@ -311,13 +311,13 @@ Recursion is essential in backtracking algorithms because it naturally handles t
 
 ### Example: N-Queens Problem
 
-The N-Queens problem involves placing \( N \) queens on an \( N \times N \) chessboard so that no two queens threaten each other.
+The N-Queens problem involves placing $\( N \)$ queens on an $\( N \times N \)$ chessboard so that no two queens threaten each other.
 
 #### Approach
 
 1. **Start**: Place a queen in the first row.
 2. **Recursive Case**: Place queens in subsequent rows ensuring no two queens threaten each other.
-3. **Base Case**: When all \( N \) queens are placed, a solution is found.
+3. **Base Case**: When all $\( N \)$ queens are placed, a solution is found.
 
 #### Python Code for N-Queens
 
@@ -363,7 +363,7 @@ solve_n_queens(4)
 
 ### Explanation
 
-- **Base Case**: When `row` equals \( N \), all queens are placed successfully.
+- **Base Case**: When `row` equals $\( N \)$, all queens are placed successfully.
 - **Recursive Case**: The function places a queen in each column and checks if it's safe. If placing the queen leads to a solution, it returns `True`. If not, it removes the queen (backtracks) and tries the next column.
 - **is_safe**: Ensures no queen threatens the current position by checking columns and diagonals.
 
