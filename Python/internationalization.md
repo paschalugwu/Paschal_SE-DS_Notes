@@ -1525,9 +1525,7 @@ $ pybabel compile -d translations
    - c) `select_locale`
    - d) `detect_locale`
 
-10. **
-
-How can you mock a user login for testing?**
+10. **How can you mock a user login for testing?**
     - a) Using a testing framework
     - b) By passing `login_as` parameter in URL
     - c) By setting a session variable
