@@ -1011,18 +1011,6 @@ Basic authentication involves sending a Base64-encoded username and password wit
 10. **What is the return type of `extract_user_credentials` method?**
     - A tuple containing the user email and password.
 
-## Answers to MCQs
-1. `API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app`
-2. `401`
-3. `{"error": "Forbidden"}`
-4. To retrieve the `Authorization` header from the request.
-5. If the request path requires authentication.
-6. `curl "http://0.0.0.0:5000/api/v1/status"`
-7. `Auth`
-8. The Base64 part of the `Authorization` header.
-9. `base64`
-10. A tuple containing the user email and password.
-
 ## Basic Authentication with Special Characters in Passwords
 
 In this section, we will focus on improving a basic authentication method to handle passwords containing special characters, specifically the colon (`:`). This is a common requirement for secure password handling in web applications. We'll also explore how this can be applied in real-world projects.
