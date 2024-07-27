@@ -1562,9 +1562,7 @@ You can create nested routes to further organize your route handling.
 
     app.use('/users', userRouter);
 
-    app.listen(port, ()
-
- => {
+    app.listen(port, () => {
       console.log(`Server running at http://localhost:${port}/`);
     });
     ```
