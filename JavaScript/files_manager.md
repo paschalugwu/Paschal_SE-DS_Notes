@@ -243,11 +243,13 @@ app.post('/api/tasks', async (req, res) => {
    - C. A front-end JavaScript library.
    - D. A programming language.
 
+
 2. **Which command initializes a new Node.js project?**
    - A. `npm install express`
    - B. `node init -y`
    - C. `npm init -y`
    - D. `express new project`
+
 
 3. **What does `app.get('/', (req, res) => { res.send('Hello, World!'); });` do?**
    - A. Handles POST requests to the root URL.
@@ -255,11 +257,13 @@ app.post('/api/tasks', async (req, res) => {
    - C. Logs requests to the console.
    - D. Connects to a MongoDB database.
 
+
 4. **What middleware function is used to parse JSON request bodies?**
    - A. `express.urlencoded()`
    - B. `express.static()`
    - C. `express.json()`
    - D. `express.logger()`
+
 
 5. **How do you start an Express server on port 3000?**
    - A. `node app.js`
@@ -267,11 +271,13 @@ app.post('/api/tasks', async (req, res) => {
    - C. `node server.js`
    - D. `express start`
 
+
 6. **Which method is used to define a schema in Mongoose?**
    - A. `mongoose.model()`
    - B. `mongoose.connect()`
    - C. `mongoose.Schema()`
    - D. `mongoose.create()`
+
 
 7. **What is the purpose of middleware in Express?**
    - A. To connect to databases.
@@ -279,11 +285,13 @@ app.post('/api/tasks', async (req, res) => {
    - C. To process requests and responses.
    - D. To render HTML pages.
 
+
 8. **Which HTTP method is typically used to update a resource?**
    - A. GET
    - B. POST
    - C. PUT
    - D. DELETE
+
 
 9. **What is the default port number used in the example server?**
    - A. 8080
@@ -291,19 +299,19 @@ app.post('/api/tasks', async (req, res) => {
    - C. 3000
    - D. 5000
 
+
 10. **How do you deploy an Express application to Heroku?**
     - A. `heroku deploy`
     - B. `git push heroku main`
     - C. `heroku push origin main`
     - D. `git deploy heroku main`
 
+
 ## Answers to Technical End-of-Chapter Questions
 
 1. **A. A web application framework for Node.js.**
 2. **C. `npm init -y`**
-3. **B. Sends
-
- 'Hello, World!' when a GET request is made to the root URL.**
+3. **B. Sends 'Hello, World!' when a GET request is made to the root URL.**
 4. **C. `express.json()`**
 5. **C. `node server.js`**
 6. **C. `mongoose.Schema()`**
