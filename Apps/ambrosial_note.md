@@ -66,7 +66,7 @@
 
 The Ambrosial app uses these components to create a functional and user-friendly application. Users interact with the application through web forms and routes, while Flask handles the backend logic for user management and data storage. Images and email functionality are integrated to enhance user experience and ensure security.
 
-## Introduction building and running a Flask application
+## Introduction to building and running a Flask application
 
 Understanding how to build and run a Flask application is essential for developing web applications. This note will guide you through the entry point of a Flask application, using the Ambrosial recipe-sharing app as an example. By the end of this note, you will be able to explain the components of the provided code snippet and their roles in the application's architecture.
 
