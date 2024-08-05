@@ -422,9 +422,7 @@ Understanding these models helps you grasp the structure and relationships withi
     - A) It deletes a post
     - B) It updates a post
     - C) It provides a string representation of the post object
-    - D)
-
- It creates a new post
+    - D) It creates a new post
 
 ## Answers
 
