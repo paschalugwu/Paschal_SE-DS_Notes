@@ -2,7 +2,7 @@
 
 ### Understanding Prime Numbers
 
-Prime numbers are natural numbers greater than 1 that have no divisors other than 1 and themselves. This means a prime number \( p \) can only be evenly divided by 1 and \( p \).
+Prime numbers are natural numbers greater than 1 that have no divisors other than 1 and themselves. This means a prime number $\( p \)$ can only be evenly divided by 1 and $\( p \)$.
 
 **Examples:**
 - 2 (divisors: 1, 2)
@@ -26,12 +26,12 @@ To find prime numbers efficiently, we can use various algorithms. Here are two c
 
 #### 1. Trial Division
 
-Trial division tests if a number \( n \) is prime by dividing it by all numbers less than \( n \). If \( n \) is divisible by any of these numbers, it's not prime.
+Trial division tests if a number $\( n \)$ is prime by dividing it by all numbers less than $\( n \)$. If $\( n \)$ is divisible by any of these numbers, it's not prime.
 
 **Steps:**
-1. Start with a number \( n \).
-2. Check divisibility from 2 to \( \sqrt{n} \).
-3. If \( n \) is divisible by any of these numbers, it's not prime.
+1. Start with a number $\( n \)$.
+2. Check divisibility from 2 to $\( \sqrt{n} \)$.
+3. If $\( n \)$ is divisible by any of these numbers, it's not prime.
 
 **Example in Python:**
 ```python
@@ -50,13 +50,13 @@ print(is_prime(15))  # False
 
 #### 2. Sieve of Eratosthenes
 
-The Sieve of Eratosthenes is an efficient algorithm for finding all prime numbers up to a specified integer \( n \).
+The Sieve of Eratosthenes is an efficient algorithm for finding all prime numbers up to a specified integer $\( n \)$.
 
 **Steps:**
-1. Create a list of integers from 2 to \( n \).
+1. Create a list of integers from 2 to $\( n \)$.
 2. Start with the first prime number (2).
 3. Mark all multiples of this prime number as non-prime.
-4. Move to the next number and repeat step 3 until you have processed numbers up to \( \sqrt{n} \).
+4. Move to the next number and repeat step 3 until you have processed numbers up to $\( \sqrt{n} \)$.
 
 **Example in Python:**
 ```python
@@ -82,10 +82,10 @@ In the Ambrosial app, suppose we want to add a feature that allows users to gene
 **Implementation:**
 
 1. **User Interface:**
-   Add a form where users can input a number \( n \).
+   Add a form where users can input a number $\( n \)$.
 
 2. **Backend Processing:**
-   Use the `sieve_of_eratosthenes` function to generate the list of prime numbers up to \( n \).
+   Use the `sieve_of_eratosthenes` function to generate the list of prime numbers up to $\( n \)$.
 
 3. **Display Results:**
    Show the generated list to the user on the results page.
@@ -133,19 +133,19 @@ if __name__ == '__main__':
    - C) 8
    - D) 7
 
-3. What is the first step in the trial division method to check if a number \( n \) is prime?
-   - A) Divide \( n \) by all numbers less than \( n \)
-   - B) Divide \( n \) by 2
-   - C) Check divisibility from 2 to \( \sqrt{n} \)
-   - D) Check divisibility from 2 to \( n \)
+3. What is the first step in the trial division method to check if a number $\( n \)$ is prime?
+   - A) Divide $\( n \)$ by all numbers less than $\( n \)$
+   - B) Divide $\( n \)$ by 2
+   - C) Check divisibility from 2 to $\( \sqrt{n} \)$
+   - D) Check divisibility from 2 to $\( n \)$
 
-4. In the Sieve of Eratosthenes algorithm, what is the initial value of \( p \)?
+4. In the Sieve of Eratosthenes algorithm, what is the initial value of $\( p \)$?
    - A) 1
    - B) 2
    - C) 3
    - D) 4
 
-5. Which algorithm is more efficient for finding all prime numbers up to a large number \( n \)?
+5. Which algorithm is more efficient for finding all prime numbers up to a large number $\( n \)$?
    - A) Trial Division
    - B) Sieve of Eratosthenes
    - C) Bubble Sort
@@ -158,22 +158,22 @@ if __name__ == '__main__':
    - D) Mark the number itself as non-prime
 
 7. What is the purpose of `int(n**0.5) + 1` in the trial division method?
-   - A) To include all numbers up to \( n \)
+   - A) To include all numbers up to $\( n \)$
    - B) To reduce the number of checks needed
    - C) To increase the number of checks needed
    - D) To simplify the code
 
 8. How do you initiate the Sieve of Eratosthenes?
    - A) Start marking multiples of 1
-   - B) Start with a list of True values for all numbers from 2 to \( n \)
-   - C) Start marking multiples of \( n \)
-   - D) Start with a list of False values for all numbers from 2 to \( n \)
+   - B) Start with a list of True values for all numbers from 2 to $\( n \)$
+   - C) Start marking multiples of $\( n \)$
+   - D) Start with a list of False values for all numbers from 2 to $\( n \)$
 
 9. What does the function `sieve_of_eratosthenes(n)` return?
-   - A) A list of non-prime numbers up to \( n \)
-   - B) A list of numbers divisible by 2 up to \( n \)
-   - C) A list of prime numbers up to \( n \)
-   - D) A list of numbers greater than \( n \)
+   - A) A list of non-prime numbers up to $\( n \)$
+   - B) A list of numbers divisible by 2 up to $\( n \)$
+   - C) A list of prime numbers up to $\( n \)$
+   - D) A list of numbers greater than $\( n \)$
 
 10. In the Ambrosial app, what is the purpose of adding a feature to generate prime numbers?
     - A) For data storage
@@ -198,22 +198,22 @@ if __name__ == '__main__':
 
 ### Understanding the Sieve of Eratosthenes
 
-The Sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to a specified integer \( n \). It is highly efficient and works by iteratively marking the multiples of each prime number starting from 2.
+The Sieve of Eratosthenes is an ancient algorithm for finding all prime numbers up to a specified integer $\( n \)$. It is highly efficient and works by iteratively marking the multiples of each prime number starting from 2.
 
 ### How the Algorithm Works
 
 1. **Initialization:**
-   - Create a list of boolean values, `primes`, indexed from 0 to \( n \), initially all set to `True`. A value in `primes[i]` will be `True` if \( i \) is a prime number.
+   - Create a list of boolean values, `primes`, indexed from 0 to $\( n \)$, initially all set to `True`. A value in `primes[i]` will be `True` if $\( i \)$ is a prime number.
    - Set `primes[0]` and `primes[1]` to `False` because 0 and 1 are not prime numbers.
 
 2. **Marking Multiples:**
-   - Start with the first prime number, \( p = 2 \).
-   - Mark all multiples of \( p \) (i.e., \( 2p, 3p, 4p, \ldots \)) as `False` since they are not prime.
+   - Start with the first prime number, $\( p = 2 \)$.
+   - Mark all multiples of $\( p \)$ (i.e., $\( 2p, 3p, 4p, \ldots \)$) as `False` since they are not prime.
    - Find the next number in the list that is `True` and repeat the process.
-   - Continue this process until \( p^2 \) is greater than \( n \).
+   - Continue this process until $\( p^2 \)$ is greater than $\( n \)$.
 
 3. **Collecting Primes:**
-   - The numbers which remain `True` in the `primes` list are the prime numbers up to \( n \).
+   - The numbers which remain `True` in the `primes` list are the prime numbers up to $\( n \)$.
 
 ### Example in Python
 Here is a Python implementation of the Sieve of Eratosthenes:
@@ -241,10 +241,10 @@ In the Ambrosial app, a feature to generate prime numbers up to a given number c
 **Steps to Implement:**
 
 1. **User Interface:**
-   - Add a form on the frontend where users can input a number \( n \).
+   - Add a form on the frontend where users can input a number $\( n \)$.
 
 2. **Backend Processing:**
-   - Use the `sieve_of_eratosthenes` function to compute prime numbers up to \( n \).
+   - Use the `sieve_of_eratosthenes` function to compute prime numbers up to $\( n \)$.
 
 3. **Displaying Results:**
    - Show the list of prime numbers on the results page.
@@ -295,7 +295,7 @@ if __name__ == '__main__':
    - C) 2 and 3
    - D) 3 and 4
 
-3. What is the significance of \( p^2 \) in the Sieve of Eratosthenes algorithm?
+3. What is the significance of $\( p^2 \)$ in the Sieve of Eratosthenes algorithm?
    - A) It is the smallest number to start marking multiples
    - B) It is the highest number to check for primality
    - C) It is the threshold beyond which marking multiples is unnecessary
@@ -308,10 +308,10 @@ if __name__ == '__main__':
    - D) By deleting them from the list
 
 5. What is the time complexity of the Sieve of Eratosthenes algorithm?
-   - A) \( O(n) \)
-   - B) \( O(\sqrt{n}) \)
-   - C) \( O(n \log \log n) \)
-   - D) \( O(n^2) \)
+   - A) $\( O(n) \)$
+   - B) $\( O(\sqrt{n}) \)$
+   - C) $\( O(n \log \log n) \)$
+   - D) $\( O(n^2) \)$
 
 6. Which of the following is a prime number identified by the Sieve of Eratosthenes up to 30?
    - A) 9
@@ -321,7 +321,7 @@ if __name__ == '__main__':
 
 7. How does the Sieve of Eratosthenes improve efficiency over trial division?
    - A) By only checking even numbers
-   - B) By marking multiples of each prime starting from \( p^2 \)
+   - B) By marking multiples of each prime starting from $\( p^2 \)$
    - C) By using recursion
    - D) By using logarithmic checks
 
@@ -333,7 +333,7 @@ if __name__ == '__main__':
 
 9. In the Ambrosial app, what input is required from the user to generate a list of prime numbers?
    - A) A range of numbers
-   - B) A single integer \( n \)
+   - B) A single integer $\( n \)$
    - C) A list of numbers
    - D) A string input
 
@@ -574,7 +574,7 @@ def fibonacci(n):
 print(fibonacci(10))  # Output: 55
 ```
 
-This approach is inefficient for large \( n \) because it recalculates the same values multiple times.
+This approach is inefficient for large $\( n \)$ because it recalculates the same values multiple times.
 
 **Optimized Solution With Memoization:**
 
@@ -665,10 +665,10 @@ print(max_recipe_score(ingredients, max_quantity))  # Output: 6
    - D) The difference between Fibonacci numbers
 
 5. What is the time complexity of the optimized Fibonacci function using memoization?
-   - A) \(O(n^2)\)
-   - B) \(O(n \log n)\)
-   - C) \(O(n)\)
-   - D) \(O(\log n)\)
+   - A) $\(O(n^2)\)$
+   - B) $\(O(n \log n)\)$
+   - C) $\(O(n)\)$
+   - D) $\(O(\log n)\)$
 
 6. In the recipe score optimization example, what does the function `max_recipe_score` calculate?
    - A) The minimum recipe score
