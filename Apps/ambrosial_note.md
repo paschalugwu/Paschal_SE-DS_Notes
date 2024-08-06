@@ -4740,7 +4740,7 @@ def create_app(config_class=Config):
 Create these functions in new Python modules (e.g., `weather.py` and `calendar.py`) to fetch data from the respective APIs.
 
 ### Templates
-Add new HTML files as needed (e.g., `weather.html`, `maps.html`, `calendar.html`) and update existing ones to incorporate new features.
+Integrating the new features into the existing `layout.html` is a great way to keep your application streamlined and avoid redundancy.
 
 ### Comprehensive Testing
 Create a test suite using `pytest` to cover new and existing features, ensuring robustness and reliability.
