@@ -1703,9 +1703,7 @@ a.article-title:hover {
    - A) Aligns the SVG icon vertically in the middle of its container
    - B) Sets the width of the SVG icon
    - C) Sets the height of the SVG icon
-   - D) Adds margin
-
- around the SVG icon
+   - D) Adds margin around the SVG icon
 
 10. What happens to the navigation link text color on hover?
     - A) It changes to white
