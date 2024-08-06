@@ -4576,65 +4576,177 @@ If you did not make this request then simply ignore this email and no changes wi
 
 ### Implementation Details for New Features
 
-#### 1. Internationalization (i18n)
-- **New Files/Modules:**
-  - **`i18n.py`:** Initialize Babel and configure it.
-  - **`translations/`:** Directory for translation files.
-  - **`templates/` (HTML files):** Wrap translatable strings with Babel's `gettext` function.
-  - **`config.py`:** Add Babel settings like default language.
-  
-#### 2. Comment and Reply Features
-- **New Files/Modules:**
-  - **`models/comment.py`:** Define `Comment` model with fields like `post_id`, `user_id`, `content`, `parent_id`.
-  - **`routes/comments.py`:** Add routes for adding and displaying comments and replies.
-  - **`templates/comments/`:** Update `post.html` and `user_posts.html` to include comment and reply forms.
+### 1. **Internationalization (i18n)**
+**Adjust existing files:**
+- **`__init__.py` (app factory):** Initialize Flask-Babel and configure it.
+- **`templates` (HTML files):** Wrap translatable strings with Babel's `gettext` function.
+- **`config.py` (configuration):** Add Babel settings like default language.
 
-#### 3. Private Chat Feature
-- **New Files/Modules:**
-  - **`chat.py`:** Initialize Flask-SocketIO.
-  - **`routes/chat.py`:** Add routes for chat functionality.
-  - **`templates/chat/`:** Create chat UI components.
+### 2. **Comment and Reply Features**
+**Adjust existing files:**
+- **`models.py`:** Add a `Comment` model with fields like `post_id`, `user_id`, `content`, `parent_id` for replies.
+- **`views.py` (users routes):** Add routes for adding and displaying comments and replies.
+- **`templates` (`post.html` and `user_posts.html`):** Update templates to include comment and reply forms.
 
-#### 4. Embedding Weather App
-- **New Files/Modules:**
-  - **`weather.py`:** Add functions to fetch weather data.
-  - **`routes/weather.py`:** Add routes to fetch weather data and pass it to templates.
-  - **`templates/weather.html`:** Embed weather information on pages like the home page.
+### 3. **Private Chat Feature**
+**Adjust existing files:**
+- **`__init__.py`:** Initialize Flask-SocketIO.
+- **`views.py` (users routes):** Add routes for chat functionality.
+- **`templates`:** Create chat UI components within existing templates.
 
-#### 5. Google Maps Integration
-- **New Files/Modules:**
-  - **`templates/maps.html`:** Add a map view to relevant templates (e.g., user profile or recipe locations).
+### 4. **Embedding Weather App**
+**Adjust existing files:**
+- **`api_routes.py`:** Add logic to fetch weather data within the existing `get_organizer_data` function.
+- **`templates/weather.html`:** Embed weather information on pages like the home page.
 
-#### 6. Embedding Google Calendar
-- **New Files/Modules:**
-  - **`calendar.py`:** Handle Google Calendar API integration, including authentication and event management.
-  - **`routes/calendar.py`:** Add routes for interacting with Google Calendar, such as adding, viewing, and deleting events.
-  - **`templates/calendar.html`:** Embed Google Calendar views and forms for event management.
+### 5. **Google Maps Integration**
+**Adjust existing files:**
+- **`templates/maps.html`:** Add a map view to relevant templates (e.g., user profile or recipe locations).
 
-### Additional Features to Consider
+### 6. **Embedding Google Calendar**
+**Adjust existing files:**
+- **`api_routes.py`:** Add logic to integrate Google Calendar within the existing `get_organizer_data` function.
+- **`templates/calendar.html`:** Embed Google Calendar views and forms for event management.
 
-#### 1. User Profiles and Social Integration
-- **New Files/Modules:**
-  - **`models/profile.py`:** Add fields for social media links and additional details.
-  - **`routes/profile.py`:** Manage user profiles.
-  - **`templates/profile.html`:** Display enhanced user profiles.
+### 7. **Database Integration**
+**Adjust existing files:**
+- **`models.py`:** Add new models for comments, private messages, and calendar events.
+- **`config.py`:** Ensure database URI and other settings are configured properly.
 
-#### 2. Recipe Ratings and Reviews
-- **New Files/Modules:**
-  - **`models/rating.py`:** Define `Rating` and `Review` models.
-  - **`routes/ratings.py`:** Handle ratings and reviews.
-  - **`templates/ratings.html`:** Display ratings and reviews.
+### 8. **Testing**
+**Adjust existing files:**
+- **`tests`:** Create comprehensive test cases for existing and new features using `pytest`.
 
-#### 3. Notifications System
-- **New Files/Modules:**
-  - **`models/notification.py`:** Define `Notification` model.
-  - **`routes/notifications.py`:** Handle notifications.
-  - **`templates/notifications.html`:** Display notifications.
+### Adjusted `api_routes.py`
+```python
+#!/usr/bin/env python3
 
-### Final Tips and Suggestions
-- **Modularize Code:** Keep related functionalities in separate blueprints or modules to maintain clarity.
-- **Document Changes:** Keep documentation up-to-date with all new features and changes.
-- **Optimize Performance:** Regularly profile and optimize the application for better performance.
-- **User Feedback:** Gather user feedback on new features to ensure they meet user needs and improve usability.
+from flask import Blueprint, jsonify
+from flask_ambrosial.weather import fetch_weather_data
+from flask_ambrosial.calendar import fetch_calendar_events
 
-Incorporating these features in a modular way will make the Ambrosial app more interactive, user-friendly, and feature-rich while maintaining a clean and maintainable codebase.
+# Create a Blueprint for API routes
+api_bp = Blueprint('api', __name__)
+
+@api_bp.route('/api/organizer', methods=['GET'])
+def get_organizer_data():
+    """Fetches and organizes data from the API.
+
+    Returns:
+        jsonify: JSON response containing the fetched and organized data.
+    """
+    weather_data = fetch_weather_data()  # Fetch weather data
+    calendar_events = fetch_calendar_events()  # Fetch calendar events
+
+    data = {
+        'event_calendar': calendar_events,
+        'weather_forecast': weather_data,
+        'location_services': ''
+    }
+    return jsonify(data)
+```
+
+### Updated `models.py`
+```python
+# Add the Comment, PrivateMessage, and CalendarEvent models
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=True)
+    replies = db.relationship('Comment', backref=db.backref('parent', remote_side=[id]), lazy=True)
+
+class PrivateMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+class CalendarEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+```
+
+### Updated `config.py`
+```python
+#!/usr/bin/env python3
+
+import os
+
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get('EMAIL_USER')
+    MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_SUPPORTED_LOCALES = ['en', 'es', 'fr']  # Example supported languages
+```
+
+### Updated `__init__.py`
+```python
+#!/usr/bin/env python3
+"""Initialization of the Flask application and its extensions."""
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from flask_mail import Mail
+from flask_babel import Babel
+from flask_socketio import SocketIO
+from flask_ambrosial.config import Config
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
+login_manager.login_message_category = 'info'
+mail = Mail()
+babel = Babel()
+socketio = SocketIO()
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+
+    db.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
+    babel.init_app(app)
+    socketio.init_app(app)
+
+    from flask_ambrosial.users.routes import users
+    from flask_ambrosial.posts.routes import posts
+    from flask_ambrosial.main.routes import main
+    from flask_ambrosial.errors.handlers import errors
+    from flask_ambrosial.apis.api_routes import api_bp
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
+    app.register_blueprint(main)
+    app.register_blueprint(errors)
+    app.register_blueprint(api_bp)
+
+    return app
+```
+
+### `fetch_weather_data` and `fetch_calendar_events` functions
+Create these functions in new Python modules (e.g., `weather.py` and `calendar.py`) to fetch data from the respective APIs.
+
+### Templates
+Add new HTML files as needed (e.g., `weather.html`, `maps.html`, `calendar.html`) and update existing ones to incorporate new features.
+
+### Comprehensive Testing
+Create a test suite using `pytest` to cover new and existing features, ensuring robustness and reliability.
+
+With these adjustments and new integrations, you can enhance the Ambrosial app without creating excessive new files, maintaining a clean and modular structure.
