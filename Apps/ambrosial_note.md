@@ -1426,9 +1426,7 @@ In the Ambrosial application:
 
 3. What file extensions are allowed by the `FileAllowed` validator in the `PostForm` class?
    - A) 'jpg' and 'jpeg'
-   - B) 'png' and '
-
-gif'
+   - B) 'png' and 'gif'
    - C) 'jpg', 'png', and 'jpeg'
    - D) 'jpg', 'gif', and 'bmp'
 
